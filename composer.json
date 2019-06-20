@@ -1,0 +1,16 @@
+{
+    "name": "mmerlijn/msg",
+    "authors": [
+        {
+            "name": "M. Merlijn",
+            "email": "menno@mmerlijn.nl"
+        }
+    ],
+    "require": {},
+    "autoload": {
+
+        "psr-4": {
+            "mmerlijn\\msg\\src\\": "src/"
+        }
+    }
+}

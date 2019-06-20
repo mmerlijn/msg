@@ -1,0 +1,24 @@
+<?php
+
+
+namespace mmerlijn\msg\src\repo;
+
+
+
+class OrderComment
+{
+    public $id = '';
+    public $type_of_value = '';
+    public $identifier_code = '';
+    public $identifier_label = '';
+    public $identifier_source = '';//99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
+    //Code is dependent of field 2
+    public $value = '';
+    public $value_code = '';
+    public $value_source = '';
+    public $units = '';
+    public $references_range = '';
+    public $result_status = 'F'; //F/C
+    public $repeated=false;
+    public $notes=[]; //become NTE segments
+}
