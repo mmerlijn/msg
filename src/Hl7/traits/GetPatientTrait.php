@@ -44,6 +44,9 @@ trait GetPatientTrait
         $Patient->uzovi = $insurance['uzovi'];
         $Patient->insurance_company_name = $insurance['insurance_company_name'];
         $Patient->insurance_company_resource = $insurance['insurance_company_resource'];
+        foreach ($this->getPatientIds() as $id){
+            $Patient->setIdentity($id['identifier'], $id['assigningAuthority'], $id['typeCode']);
+        }
         $Patient->identities = $this->getPatientIds(); //set BSN and other id's
         $Patient->identity_unknown_indicator = $this->getIdentityUnknownIndicator();
         $Patient->identity_reliability_code = $this->getIdentityReliability();
