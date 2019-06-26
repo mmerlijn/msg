@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/repo/Patient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Patient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repo/Orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Orders.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,24 +22,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
               <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/composer.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Hl7/segments/ORC.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="47" selection-start-line="47" selection-end-line="47" selection-end-column="116" />
             </state>
           </provider>
         </entry>
@@ -81,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/repo/Patient.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="867">
@@ -93,17 +77,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/repo/Orders.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+            <state relative-caret-position="901">
+              <caret line="77" selection-start-line="77" selection-end-line="77" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="56" column="26" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="26" />
+            <state relative-caret-position="431">
+              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+              <folding>
+                <element signature="e#49#84#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,6 +127,7 @@
       <find>$fieldNr</find>
       <find>ST</find>
       <find>requester</find>
+      <find>action_co</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -138,7 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Edifact/fields/Materiaalvolume.php" />
         <option value="$PROJECT_DIR$/src/Edifact/segments/IDE.php" />
         <option value="$PROJECT_DIR$/src/Edifact/segments/OPB.php" />
         <option value="$PROJECT_DIR$/src/Edifact/segments/GGA.php" />
@@ -168,7 +173,6 @@
         <option value="$PROJECT_DIR$/src/Edifact/fields/Geboortedatum.php" />
         <option value="$PROJECT_DIR$/src/Edifact/traits/getPatientTrait.php" />
         <option value="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" />
-        <option value="$PROJECT_DIR$/src/repo/Order.php" />
         <option value="$PROJECT_DIR$/src/repo/OrderComment.php" />
         <option value="$PROJECT_DIR$/src/Hl7/tables/Table0364.php" />
         <option value="$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php" />
@@ -178,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/Hl7/fields/MSG.php" />
         <option value="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" />
         <option value="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" />
-        <option value="$PROJECT_DIR$/src/repo/Orders.php" />
         <option value="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" />
         <option value="$PROJECT_DIR$/edifactTest.php" />
         <option value="$PROJECT_DIR$/src/Edifact/Edifact.php" />
@@ -189,6 +192,9 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" />
         <option value="$PROJECT_DIR$/src/repo/Patient.php" />
+        <option value="$PROJECT_DIR$/src/repo/Orders.php" />
+        <option value="$PROJECT_DIR$/src/repo/Order.php" />
+        <option value="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" />
       </list>
     </option>
   </component>
@@ -205,8 +211,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2098" />
-    <option name="y" value="1010" />
+    <option name="x" value="1973" />
+    <option name="y" value="27" />
     <option name="width" value="1934" />
     <option name="height" value="2127" />
   </component>
@@ -317,18 +323,18 @@
       <workItem from="1561487816791" duration="1842000" />
       <workItem from="1561496816871" duration="3000" />
       <workItem from="1561543087350" duration="15000" />
-      <workItem from="1561558805400" duration="2645000" />
+      <workItem from="1561558805400" duration="3475000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88938000" />
+    <option name="totallyTimeSpent" value="89768000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1999" y="812" width="1934" height="2127" extended-state="0" />
+    <frame x="1973" y="27" width="1934" height="2127" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17342582" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17342582" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -341,7 +347,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28585756" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28585756" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -613,27 +619,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/repo/Header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8007">
-          <caret line="482" selection-start-line="482" selection-end-line="482" />
-          <folding>
-            <element signature="e#49#84#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -740,20 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/repo/Orders.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="56" column="26" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -765,6 +740,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
           <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="e#49#84#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/repo/Orders.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="77" selection-start-line="77" selection-end-line="77" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
         </state>
       </provider>
     </entry>

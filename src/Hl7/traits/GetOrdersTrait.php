@@ -20,8 +20,8 @@ trait GetOrdersTrait
         $Orders = new Orders();
         $nrsORC = $this->getSegmentNrs('ORC');
         $nrsOBR = $this->getSegmentNrs('OBR');
-        if(!is_array($nrsOBR)){
-            $nrsOBR=[];
+        if (!is_array($nrsOBR)) {
+            $nrsOBR = [];
         }
         $nr = $nrsORC[0];
 
@@ -30,10 +30,10 @@ trait GetOrdersTrait
 
         //Requestnr
         $value = $this->getValue($nr, 4, 1);
-        if(!$value){
+        if (!$value) {
             $value = $this->getValue($nr, 2, 1);
         }
-        if($value){
+        if ($value) {
             $Orders->requestnr = $value;
         }
 
@@ -47,7 +47,7 @@ trait GetOrdersTrait
 
 
         $created_at = $this->getValue($nr, 9, 1);
-        $Orders->created_at = $this->setDatetimeFormat($created_at,'ORC',9);
+        $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
         $Orders->entered_by = [
             'agbcode' => $this->getValue($nr, 10, 1),
             'name' => $this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3),
@@ -60,13 +60,13 @@ trait GetOrdersTrait
             'source' => $this->getValue($nr, 12, 9, 1)
         ];
         $Orders->entering_location = [
-            'agbcode' => $this->getValue($nr, 13, 4,2),
+            'agbcode' => $this->getValue($nr, 13, 4, 2),
             'name' => $this->getValue($nr, 13, 4, 1),
             'location' => $this->getValue($nr, 13, 9)
         ];
         $value = $this->getValue($nr, 13, 1);
         $Orders->pointOfCare = $value ? $value : '';
-        if(isset(static::$tree[$nr][14])) {
+        if (isset(static::$tree[$nr][14])) {
             foreach (static::$tree[$nr][14] as $order) {
                 if (($order[3] ?? null) == 'PH') {
 
@@ -97,22 +97,22 @@ trait GetOrdersTrait
             'name' => $this->getValue($nr, 21, 1),
             'source' => $this->getValue($nr, 21, 6, 1),
         ];
-        if($Orders->control != "NW") {
+        if ($Orders->control != "NW") {
             $effDatetime = $this->getValue($nr, 15);
 
             $Orders->order_effective_datetime = $this->setDatetimeFormat($effDatetime, 'ORC', 15);
         }
-        $nrPV1 = $this->getSegmentNrs('PV1',true);
-        if($nrPV1!==false) {
+        $nrPV1 = $this->getSegmentNrs('PV1', true);
+        if ($nrPV1 !== false) {
             $Orders->patient_visit_set_id = $this->getValue($nrPV1, 1);
             $Orders->patient_visit_class = $this->getValue($nrPV1, 2);
             $Orders->patient_visit_indicator = $this->getValue($nrPV1, 51);
         }
-        $nrPV2 = $this->getSegmentNrs('PV2',true);
-        if($nrPV2!==false){
-            $Orders->admit_reason_code = $this->getValue($nrPV2, 3,1);
-            $Orders->admit_reason_name = $this->getValue($nrPV2, 3,2);
-            $Orders->admit_reason_source = $this->getValue($nrPV2, 3,3);
+        $nrPV2 = $this->getSegmentNrs('PV2', true);
+        if ($nrPV2 !== false) {
+            $Orders->admit_reason_code = $this->getValue($nrPV2, 3, 1);
+            $Orders->admit_reason_name = $this->getValue($nrPV2, 3, 2);
+            $Orders->admit_reason_source = $this->getValue($nrPV2, 3, 3);
         }
         foreach ($nrsOBR as $nr) {
             $Order = new Order();
@@ -126,7 +126,7 @@ trait GetOrdersTrait
             $Order->diagnostic_test_name = $this->getValue($nr, 4, 2);
             $Order->diagnostic_test_source = $this->getValue($nr, 4, 3); //99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
 
-            if(!$Orders->priority){
+            if (!$Orders->priority) {
                 $Orders->priority = $this->getValue($nr, 5);
             }
             $startTime = $this->getValue($nr, 7, 1);
@@ -136,10 +136,14 @@ trait GetOrdersTrait
             $Order->observation_end_time = $this->setDatetimeFormat($endTime, 'OBR', 8);
 
             $Order->action_code = $this->getValue($nr, 11); //at home => L, else O
+            if (!in_array($Orders->action_code, ['L', "O"])) {
+                $Orders->action_code = $Order->action_code;
+            }
+
             $Order->clinical_information = $this->getValue($nr, 13);
 
             $requestDate = $this->getValue($nr, 27, 4, 1);
-            $Order->request_date = $this->setDatetimeFormat($requestDate,'OBR',27);
+            $Order->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 27);
 
 
             $Orders->copy_to = [
@@ -148,28 +152,28 @@ trait GetOrdersTrait
                 'source' => $this->getValue($nr, 28, 9, 1)
             ];
             $Orders->collector_identifier = [
-                'id' =>$this->getValue($nr, 10,1),
-                'last_name' =>$this->getValue($nr, 10,2,1),
-                'first_name'=>$this->getValue($nr, 10,3)
-                 ];
+                'id' => $this->getValue($nr, 10, 1),
+                'last_name' => $this->getValue($nr, 10, 2, 1),
+                'first_name' => $this->getValue($nr, 10, 3)
+            ];
             $i = $nr;
             while ($this->ifNextSegmentIs($i, 'OBX')) {
                 $i++;
                 $OrderComment = new OrderComment();
-                $value=[];
-                if(count(static::$tree[$i][5])>1){
-                    $OrderComment->repeated=true;
+                $value = [];
+                if (count(static::$tree[$i][5]) > 1) {
+                    $OrderComment->repeated = true;
                 }
                 // TODO repeatable
                 switch ($this->getValue($i, 2)) {
                     case "CE":
-                        if($OrderComment->repeated){
-                            foreach (static::$tree[$i][5] as $item){
+                        if ($OrderComment->repeated) {
+                            foreach (static::$tree[$i][5] as $item) {
                                 $value['value_code'][] = $item[1];
                                 $value['value'][] = $item[2];
                                 $value['value_source'][] = $item[3];
                             }
-                        }else{
+                        } else {
                             $value = [
                                 'value_code' => $this->getValue($i, 5, 1),
                                 'value' => $this->getValue($i, 5, 2),
@@ -184,8 +188,8 @@ trait GetOrdersTrait
                     case "NM":
                     case "TX":
                     case "TM":
-                        if($OrderComment->repeated){
-                            foreach (static::$tree[$i][5] as $item){
+                        if ($OrderComment->repeated) {
+                            foreach (static::$tree[$i][5] as $item) {
                                 $value['value_code'][] = '';
                                 $value['value'][] = $item;
                                 $value['value_source'][] = '';
