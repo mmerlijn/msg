@@ -4,7 +4,6 @@
 namespace mmerlijn\msg\src\repo;
 
 
-
 class Orders
 {
     public $update_time_request = '';
@@ -13,11 +12,11 @@ class Orders
     public $control = 'NW'; //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
     public $requestnr = ''; //zdnr / parnassia nr (placer ordernr / placer groupnr)
     public $labnr = '';
-    public $complete="Y"; //Wordt nog niets mee gedaan wel uitgelezen uit edifact
+    public $complete = "Y"; //Wordt nog niets mee gedaan wel uitgelezen uit edifact
     public $request_date = '';
     public $priority = "R"; //S=faxed, R=regular (else)
     public $created_at = '';
-    public $pointOfCare='';
+    public $pointOfCare = '';
     public $entered_by = [
         'agbcode' => '',
         'name' => '',
@@ -71,9 +70,9 @@ class Orders
     ];
 
     public $responsible_observer_name = "";
-    public $organisation_name="";
-    public $organisation_address=['street'=>'','buildingnr'=>'','city'=>'','postcode'=>''];
-    public $organisation_phone="";
+    public $organisation_name = "";
+    public $organisation_address = ['street' => '', 'buildingnr' => '', 'city' => '', 'postcode' => ''];
+    public $organisation_phone = "";
 
     public $action_code = ""; //at home => L, else O
     public $orders = [];
@@ -118,14 +117,52 @@ class Orders
             }
         }
     }
+
     public function deleteOrderByTestCode($testcode)
     {
-        foreach ($this->orders as $i=>$order)
-        {
-            if($order->diagnostic_test_code==$testcode)
-            {
-                array_splice($this->orders, $i,1);
+        foreach ($this->orders as $i => $order) {
+            if ($order->diagnostic_test_code == $testcode) {
+                array_splice($this->orders, $i, 1);
             }
         }
+    }
+
+    public function unsetRequester()
+    {
+        $this->entered_by = [
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
+        $this->requester = [ //ordering provider orc12
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
+        $this->entering_organisation = [ //orc17
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
+        $this->entering_location = [ //orc13
+            'agbcode' => '',
+            'name' => '',
+            'location' => ''
+        ];
+        $this->action_by = [ //orc19
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
+        $this->ordering_facility = [ //orc21
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
+        $this->copy_to = [
+            'agbcode' => '',
+            'name' => '',
+            'source' => ''
+        ];
     }
 }

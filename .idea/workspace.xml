@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repo/Orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Orders.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Hl7/segments/OBR.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="54" selection-start-line="54" selection-end-line="54" selection-end-column="115" />
+            <state relative-caret-position="306">
+              <caret line="45" column="111" selection-start-line="45" selection-start-column="111" selection-end-line="45" selection-end-column="111" />
             </state>
           </provider>
         </entry>
@@ -74,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/repo/Orders.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
-              <caret line="77" selection-start-line="77" selection-end-line="77" selection-end-column="52" />
+            <state relative-caret-position="1172">
+              <caret line="161" column="15" selection-start-line="161" selection-start-column="15" selection-end-line="161" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -86,17 +85,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="52" />
+            <state relative-caret-position="340">
+              <caret line="20" column="63" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="754">
+              <caret line="155" column="62" lean-forward="true" selection-start-line="155" selection-start-column="62" selection-end-line="155" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -104,8 +103,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            <state relative-caret-position="660">
+              <caret line="59" column="78" selection-start-line="59" selection-start-column="78" selection-end-line="59" selection-end-column="78" />
               <folding>
                 <element signature="e#49#84#0#PHP" expanded="true" />
               </folding>
@@ -128,6 +127,7 @@
       <find>ST</find>
       <find>requester</find>
       <find>action_co</find>
+      <find>enter</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -180,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/Hl7/exceptions/CodeException.php" />
         <option value="$PROJECT_DIR$/src/Hl7/tables/Table0125.php" />
         <option value="$PROJECT_DIR$/src/Hl7/fields/MSG.php" />
-        <option value="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" />
         <option value="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" />
         <option value="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" />
         <option value="$PROJECT_DIR$/edifactTest.php" />
@@ -192,9 +191,10 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" />
         <option value="$PROJECT_DIR$/src/repo/Patient.php" />
-        <option value="$PROJECT_DIR$/src/repo/Orders.php" />
         <option value="$PROJECT_DIR$/src/repo/Order.php" />
         <option value="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" />
+        <option value="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" />
+        <option value="$PROJECT_DIR$/src/repo/Orders.php" />
       </list>
     </option>
   </component>
@@ -211,8 +211,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1973" />
-    <option name="y" value="27" />
+    <option name="x" value="146" />
+    <option name="y" value="518" />
     <option name="width" value="1934" />
     <option name="height" value="2127" />
   </component>
@@ -323,15 +323,15 @@
       <workItem from="1561487816791" duration="1842000" />
       <workItem from="1561496816871" duration="3000" />
       <workItem from="1561543087350" duration="15000" />
-      <workItem from="1561558805400" duration="3475000" />
+      <workItem from="1561558805400" duration="6446000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89768000" />
+    <option name="totallyTimeSpent" value="92739000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1973" y="27" width="1934" height="2127" extended-state="0" />
+    <frame x="146" y="518" width="1934" height="2127" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17342582" />
@@ -705,13 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/segments/OBR.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="54" selection-start-line="54" selection-end-line="54" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -743,34 +736,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="155" column="62" lean-forward="true" selection-start-line="155" selection-start-column="62" selection-end-line="155" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/segments/OBR.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="45" column="111" selection-start-line="45" selection-start-column="111" selection-end-line="45" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="63" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        <state relative-caret-position="660">
+          <caret line="59" column="78" selection-start-line="59" selection-start-column="78" selection-end-line="59" selection-end-column="78" />
           <folding>
             <element signature="e#49#84#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/repo/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/repo/Orders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="77" selection-start-line="77" selection-end-line="77" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="1172">
+          <caret line="161" column="15" selection-start-line="161" selection-start-column="15" selection-end-line="161" selection-end-column="15" />
         </state>
       </provider>
     </entry>

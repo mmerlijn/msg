@@ -48,7 +48,7 @@ trait SetOrdersTrait
         $this->setOrderRequestDate($Orders->request_date);
         $this->setPointOfCare($Orders->pointOfCare);
         $this->setOrderCreatedAt($Orders->created_at);
-        $this->setOrderEnteredBy($Orders->entered_by['name'], $Orders->entered_by['agbcode'], $Orders->entered_by['source']);
+        $this->setOrderEnteredBy($Orders->entered_by['name']??null, $Orders->entered_by['agbcode']??null, $Orders->entered_by['source']??null);
         $this->setOrderOrganisation($Orders->entering_organisation['name'], $Orders->entering_organisation['agbcode'], $Orders->entering_organisation['source']);
         $this->setOrderLocation($Orders->entering_location['location'], $Orders->entering_location['name'], $Orders->entering_location['agbcode']);
         $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']);
