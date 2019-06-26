@@ -49,7 +49,7 @@ class Patient
     {
         $exist = false;
         foreach ($this->identities as $identity){
-            if($assigningAuthority == $identifier['assigningAuthority']){
+            if($assigningAuthority == $identity['assigningAuthority']){
                 $exist=true;
             }
         }
