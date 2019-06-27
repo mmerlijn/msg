@@ -22,6 +22,7 @@ trait SetOrdersTrait
 
     public function setOrders(Orders $Orders, $repeatOrc = true)
     {
+        $this->deleteCurrentOrders();
         //pv2
         if ($Orders->admit_reason_name) {
             $this->setOrderAdmitReason($Orders->admit_reason_code, $Orders->admit_reason_name, $Orders->admit_reason_source);
@@ -65,6 +66,35 @@ trait SetOrdersTrait
 
         $this->setObservingOrganisation($Orders);
 
+    }
+    private function deleteCurrentOrders()
+    {
+        $nr = $this->getSegmentNrs('PV1', true);
+        if($nr!==false) {
+            unset(static::$tree[$nr]);
+        }
+        $nr = $this->getSegmentNrs('PV2',true);
+        if($nr!==false) {
+            unset(static::$tree[$nr]);
+        }
+        $nrs = $this->getSegmentNrs('OBX',false);
+        if($nrs!==false) {
+            foreach (array_reverse($nrs) as $nr) {
+                unset(static::$tree[$nr]);
+            }
+        }
+        $nrs = $this->getSegmentNrs('OBR',false);
+        if($nrs!==false) {
+            foreach (array_reverse($nrs) as $nr) {
+                unset(static::$tree[$nr]);
+            }
+        }
+        $nrs = $this->getSegmentNrs('ORC',false);
+        if($nrs!==false) {
+            foreach (array_reverse($nrs) as $nr) {
+                unset(static::$tree[$nr]);
+            }
+        }
     }
 
     private function setOrderResponsibleObserver($Orders)
