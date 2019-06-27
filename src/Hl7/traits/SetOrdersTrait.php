@@ -26,8 +26,9 @@ trait SetOrdersTrait
         if ($Orders->admit_reason_name) {
             $this->setOrderAdmitReason($Orders->admit_reason_code, $Orders->admit_reason_name, $Orders->admit_reason_source);
         }
-        $this->setOrderPatientVisit();
-
+        if($Orders->pv1) {
+            $this->setOrderPatientVisit();
+        }
         $orcIsSet = false;
         foreach ($Orders->orders as $teller => $order) {
             if ($repeatOrc or !$orcIsSet) {

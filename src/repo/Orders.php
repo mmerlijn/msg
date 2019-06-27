@@ -54,6 +54,7 @@ class Orders
     ];
     public $order_effective_datetime = ""; //Alleen bij CA, RO en XO (zie $control)
     //PV1
+    public $pv1=false; //pv1 present and shown
     public $patient_visit_set_id = 1;
     public $patient_visit_class = "O";
     public $patient_visit_indicator = "V";

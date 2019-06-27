@@ -107,6 +107,7 @@ trait GetOrdersTrait
             $Orders->patient_visit_set_id = $this->getValue($nrPV1, 1);
             $Orders->patient_visit_class = $this->getValue($nrPV1, 2);
             $Orders->patient_visit_indicator = $this->getValue($nrPV1, 51);
+            $Orders->pv1 = true;
         }
         $nrPV2 = $this->getSegmentNrs('PV2', true);
         if ($nrPV2 !== false) {
