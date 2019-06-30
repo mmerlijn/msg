@@ -143,6 +143,9 @@ trait GetPatientTrait
             $names['name'] = $this->getValue($nr, 5, 1, 1);
             $names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 2),0,1) . $this->getValue($nr, 5, 3));
             $names['type_code'] = $this->getValue($nr, 5, 7);    //L = legal
+            if(!strlen($names['surname'])){
+                $names['surname'] = $names['name'];
+            }
         }
         return $names;
     }
