@@ -524,6 +524,13 @@ trait SetOrdersTrait
 
     private function setOrderComments(OrderComment $OrderComment, $nr)
     {
+        if(!$OrderComment->type_of_value){
+            if($OrderComment->value_code){
+                $OrderComment->type_of_value="CE";
+            }else{
+                $OrderComment->type_of_value="ST";
+            }
+        }
         $this->setValue($OrderComment->id, $nr, 1);
         $this->setValue($OrderComment->type_of_value, $nr, 2);
         $this->setValue($OrderComment->identifier_code, $nr, 3, 1);
