@@ -13,6 +13,7 @@ use mmerlijn\msg\src\Hl7\fields\NM;
 use mmerlijn\msg\src\Hl7\fields\ST;
 use mmerlijn\msg\src\Hl7\fields\TM;
 use mmerlijn\msg\src\Hl7\fields\TX;
+use mmerlijn\msg\src\Hl7\tables\Table0125;
 use mmerlijn\msg\src\repo\Order;
 use mmerlijn\msg\src\repo\OrderComment;
 use mmerlijn\msg\src\repo\Orders;
@@ -531,8 +532,10 @@ trait SetOrdersTrait
                 $OrderComment->type_of_value="ST";
             }
         }
+        static::$tree[$nr][5][0] = Table0125::getClass($OrderComment->type_of_value)::setEmpty();
         $this->setValue($OrderComment->id, $nr, 1);
         $this->setValue($OrderComment->type_of_value, $nr, 2);
+
         $this->setValue($OrderComment->identifier_code, $nr, 3, 1);
         $this->setValue($OrderComment->identifier_label, $nr, 3, 2);
         $this->setValue($OrderComment->identifier_source, $nr, 3, 3);
