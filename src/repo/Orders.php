@@ -75,6 +75,8 @@ class Orders
     public $organisation_address = ['street' => '', 'buildingnr' => '', 'city' => '', 'postcode' => ''];
     public $organisation_phone = "";
 
+    public $collectors_comment='';
+
     public $action_code = ""; //at home => L, else O
     public $orders = [];
 

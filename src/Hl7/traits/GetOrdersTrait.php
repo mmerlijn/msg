@@ -146,6 +146,7 @@ trait GetOrdersTrait
             $requestDate = $this->getValue($nr, 27, 4, 1);
             $Order->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 27);
 
+            $Orders->collectors_comment = $this->getValue($nr, 39,2);
 
             $Orders->copy_to = [
                 'agbcode' => $this->getValue($nr, 28, 1),

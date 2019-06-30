@@ -65,6 +65,7 @@ trait SetOrdersTrait
         $this->setOrderResponsibleObserver($Orders);
 
         $this->setObservingOrganisation($Orders);
+        $this->setCollectorsComment($Orders->collectors_comment);
 
     }
     private function deleteCurrentOrders()
@@ -122,6 +123,15 @@ trait SetOrdersTrait
                 $this->setValue($Orders->organisation_address['postcode'], $nr, 24, 5);
                 $this->setValue('NLD', $nr, 24, 6);
 
+            }
+        }
+    }
+    private function setCollectorsComment($comment)
+    {
+        if ($comment) {
+            $nrs = $this->getSegmentNrs('OBR');
+            foreach ($nrs as $nr) {
+                $this->setValue($comment, $nr, 39, 2);
             }
         }
     }
