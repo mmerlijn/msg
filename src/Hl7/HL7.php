@@ -53,6 +53,8 @@ class HL7
      */
     public function read(string $hl7string, bool $validate = false): void
     {
+        $this->reset();
+
         //split message in segment strings, and drop it into static::$segments
         $this->buildSegments($hl7string);
 
