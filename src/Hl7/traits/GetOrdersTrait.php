@@ -27,6 +27,7 @@ trait GetOrdersTrait
 
         $value = $this->getValue($nr, 1); //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
         $Orders->control = $value ? $value : "NW";
+        $Orders->phone = $this->getValue($nr, 23,1);
 
         //Requestnr
         $value = $this->getValue($nr, 4, 1);
