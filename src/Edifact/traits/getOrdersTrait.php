@@ -83,7 +83,8 @@ trait getOrdersTrait
         {
             $c = new OrderComment();
             $c->type_of_value = "ST";
-            $c->identifier_code = $this->getValue($SegNr, 1);
+            $c->identifier_label = $this->getValue($SegNr, 1);
+            $c->identifier_code = "";
             $c->identifier_source = "L";
             $c->result_status = "I";
             $Order->addComment($c);
