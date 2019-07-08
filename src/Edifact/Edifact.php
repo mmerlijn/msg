@@ -94,6 +94,8 @@ class Edifact
 
     public function read(string $edifact, bool $validate = false): void
     {
+        $this->reset();
+
         //split message in segment strings, and drop it into static::$segments
         $this->buildSegments($edifact);
 
@@ -112,7 +114,10 @@ class Edifact
             static::$tree[] = $SEG::setFilled($segment);
         }
     }
-
+    public function reset()
+    {
+        static::$tree = [];
+    }
     protected function buildSegments(string $msg): void
     {
         static::$segments = preg_split("/(?<!\\\\)'/", trim($msg));

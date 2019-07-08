@@ -30,7 +30,7 @@ trait GetPatientTrait
         $Patient->address = $address['address'];
         $Patient->street = $address['street'];
         $Patient->city = $address['city'];
-        $Patient->postcode = $address['postcode'];
+        $Patient->postcode = str_replace(" ","",$address['postcode']);
         $Patient->building_nr = $address['building_nr'];
         $Patient->building_nr_additive = $address['building_nr_additive'];
         $Patient->building_nr_full = $address['building_nr_full'];
