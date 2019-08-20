@@ -204,6 +204,7 @@ class Edifact
         if (is_array($segmentNrs) and count($segmentNrs)) {
             return $segmentNrs;
         } else {
+            return [];
             //if ($createIfNotExist) {
             //    return $this->createSegment($segment);
             //} else {
