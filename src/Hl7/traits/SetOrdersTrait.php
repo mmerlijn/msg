@@ -62,6 +62,7 @@ trait SetOrdersTrait
         $this->setOrderCopyTo($Orders->copy_to['name'], $Orders->copy_to['agbcode'], $Orders->copy_to['source']);
         $this->setOrderCollectorIdentifier($Orders->collector_identifier['id'], $Orders->collector_identifier['last_name'], $Orders->collector_identifier['first_name']);
         $this->setOrderPriority($Orders->priority);
+        $this->setOrderActionCode($Orders->action_code);
         $this->setOrderRequester($Orders->requester['name'], $Orders->requester['agbcode'], $Orders->requester['source']);
         $this->setOrderResponsibleObserver($Orders);
 
@@ -273,6 +274,16 @@ trait SetOrdersTrait
         }
         foreach ($nrs as $nr) {
             $this->setValue($value, $nr, 5);
+        }
+    }
+    private function setOrderActionCode(string $value): void
+    {
+        $nrs = $this->getSegmentNrs('OBR', false);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 11);
         }
     }
 
