@@ -209,6 +209,11 @@ trait GetOrdersTrait
                 $OrderComment->identifier_code = $this->getValue($i, 3, 1);
                 $OrderComment->identifier_label = $this->getValue($i, 3, 2);
                 $OrderComment->identifier_source = $this->getValue($i, 3, 3);//99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
+
+                $OrderComment->identifier_alternate_code = $this->getValue($i, 3, 4);
+                $OrderComment->identifier_alternate_label = $this->getValue($i, 3, 5);
+                $OrderComment->identifier_alternate_source = $this->getValue($i, 3, 6);
+
                 $OrderComment->value = $value['value'];
                 $OrderComment->value_code = $value['value_code'];
                 $OrderComment->value_source = $value['value_source'];

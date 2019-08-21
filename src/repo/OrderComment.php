@@ -12,6 +12,12 @@ class OrderComment
     public $identifier_code = '';
     public $identifier_label = '';
     public $identifier_source = '';//99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
+
+    //external codes
+    public $identifier_alternate_code = ''; //wordt in principe niet gebruikt
+    public $identifier_alternate_label = ''; //wordt in principe niet gebruikt
+    public $identifier_alternate_source = ''; //wordt in principe niet gebruikt
+
     //Code is dependent of field 2
     public $value = '';
     public $value_code = '';

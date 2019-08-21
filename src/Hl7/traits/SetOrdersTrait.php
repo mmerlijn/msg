@@ -550,6 +550,16 @@ trait SetOrdersTrait
         $this->setValue($OrderComment->identifier_code, $nr, 3, 1);
         $this->setValue($OrderComment->identifier_label, $nr, 3, 2);
         $this->setValue($OrderComment->identifier_source, $nr, 3, 3);
+        if($OrderComment->identifier_alternate_code){
+            $this->setValue($OrderComment->identifier_alternate_code, $nr, 3, 4);
+        }
+        if($OrderComment->identifier_alternate_label){
+            $this->setValue($OrderComment->identifier_alternate_label, $nr, 3, 5);
+        }
+        if($OrderComment->identifier_alternate_source){
+            $this->setValue($OrderComment->identifier_alternate_source, $nr, 3, 6);
+        }
+
         if ($OrderComment->repeated) {
             foreach ($OrderComment->value as $t => $v) {
                 if (!isset(static::$tree[$nr[5][$t]])) {
