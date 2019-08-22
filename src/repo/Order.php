@@ -20,6 +20,7 @@ class Order
     public $clinical_information = '';
     //16 = ordering provider this is the same as ordering provider from ORC => see requester
     //17 same as phonenumbers from ORC
+    public $result_status='';
     public $request_date = '';
 
     public $order_comments=[];

@@ -64,6 +64,7 @@ trait SetOrdersTrait
         $this->setOrderCollectorIdentifier($Orders->collector_identifier['id'], $Orders->collector_identifier['last_name'], $Orders->collector_identifier['first_name']);
         $this->setOrderPriority($Orders->priority);
         $this->setOrderActionCode($Orders->action_code);
+        $this->setOrderResultStatus($Orders->result_status);
         $this->setOrderRequester($Orders->requester['name'], $Orders->requester['agbcode'], $Orders->requester['source']);
         $this->setOrderResponsibleObserver($Orders);
 
@@ -299,6 +300,16 @@ trait SetOrdersTrait
         }
         foreach ($nrs as $nr) {
             $this->setValue($value, $nr, 11);
+        }
+    }
+    private function setOrderResultStatus(string $value): void
+    {
+        $nrs = $this->getSegmentNrs('OBR', false);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 25);
         }
     }
 
