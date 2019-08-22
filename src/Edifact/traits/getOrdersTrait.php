@@ -15,14 +15,17 @@ trait getOrdersTrait
         $Order = new Orders();
         $Order->control="RE";
         $SegNr = $this->getSegmentNrs('ART',true);
-        $Order->requester['agbcode'] = $this->getValue($SegNr, 2);
-        $Order->requester['name']= trim(trim($this->getValue($SegNr, 3, 2)." ".$this->getValue($SegNr, 3, 1)).", ".$this->getValue($SegNr, 3,3),", ");
-        $Order->requester['source'] = "VEKTIS";
+        if($SegNr) {
+            $Order->requester['agbcode'] = $this->getValue($SegNr, 2);
+            $Order->requester['name'] = trim(trim($this->getValue($SegNr, 3, 2) . " " . $this->getValue($SegNr, 3, 1)) . ", " . $this->getValue($SegNr, 3, 3), ", ");
+            $Order->requester['source'] = "VEKTIS";
+        }
         $SegNr = $this->getSegmentNrs('AFD',true);
-        $Order->collector_identifier['name'] = $this->getValue($SegNr, 1);
-        $Order->entering_location['name'] = $Order->requester['name'];
-        $Order->entering_location['location'] = $this->getValue($SegNr, 4,1)." ".$this->getValue($SegNr, 4,2)." " .$this->getValue($SegNr, 4,4);
-
+        if($SegNr) {
+            $Order->collector_identifier['name'] = $this->getValue($SegNr, 1);
+            $Order->entering_location['name'] = $Order->requester['name'];
+            $Order->entering_location['location'] = $this->getValue($SegNr, 4, 1) . " " . $this->getValue($SegNr, 4, 2) . " " . $this->getValue($SegNr, 4, 4);
+        }
 
         //Even kijken of dit er wel in moet
         //$SegNr = $this->getSegmentNrs('ARA',true);
@@ -79,15 +82,16 @@ trait getOrdersTrait
             }
         }
         $segNrs = $this->getSegmentNrs('NUB');
-        foreach ($segNrs as $SegNr)
-        {
-            $c = new OrderComment();
-            $c->type_of_value = "ST";
-            $c->identifier_label = $this->getValue($SegNr, 1);
-            $c->identifier_code = "";
-            $c->identifier_source = "L";
-            $c->result_status = "I";
-            $Order->addComment($c);
+        if($segNrs) {
+            foreach ($segNrs as $SegNr) {
+                $c = new OrderComment();
+                $c->type_of_value = "ST";
+                $c->identifier_label = $this->getValue($SegNr, 1);
+                $c->identifier_code = "";
+                $c->identifier_source = "L";
+                $c->result_status = "I";
+                $Order->addComment($c);
+            }
         }
         return $Order;
     }

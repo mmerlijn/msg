@@ -120,14 +120,14 @@ class Edifact
     }
     protected function buildSegments(string $msg): void
     {
-        static::$segments = preg_split("/(?<!\\\\)'/", trim($msg));
+        static::$segments = preg_split("/(?<!\?)'/", trim($msg));
         foreach (static::$segments as $k => $segment) {
             static::$segments[$k] = trim($segment);
             if (!strlen(trim(static::$segments[$k]))) {
                 unset(static::$segments[$k]);
             }
         }
-        //static::dumpSegments();
+        static::dumpSegments();
     }
 
     protected function readHeader(string $string): void
@@ -204,7 +204,7 @@ class Edifact
         if (is_array($segmentNrs) and count($segmentNrs)) {
             return $segmentNrs;
         } else {
-            return [];
+            return false;
             //if ($createIfNotExist) {
             //    return $this->createSegment($segment);
             //} else {
