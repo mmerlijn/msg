@@ -72,8 +72,10 @@ trait getOrdersTrait
                 $c->value = $this->getValue($SegNr, 3);
                 $c->units = $this->getValue($SegNr, 5);
                 $c->references_range = trim($this->getValue($SegNr, 7) . "-" . $this->getValue($SegNr, 8),"-");
-                if($c->value) {
+                if($this->getValue($SegNr, 4)){
                     $c->result_status = "C";
+                }else{
+                    $c->result_status = "F";
                 }
                 if($this->ifNextSegmentIs($SegNr, 'OPB')){
                     $c->notes[] = $this->getOPB($SegNr);

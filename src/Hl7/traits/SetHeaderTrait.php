@@ -77,7 +77,7 @@ trait SetHeaderTrait
             case "ORU":
                 $this->setValue("ORU", 0, 9, 1);
                 $this->setValue("R01", 0, 9, 2);
-                $this->setValue("", 0, 9, 3);
+                $this->setValue("R01", 0, 9, 3);
                 break;
         }
     }

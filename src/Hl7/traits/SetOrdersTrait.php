@@ -52,6 +52,7 @@ trait SetOrdersTrait
         $this->setPointOfCare($Orders->pointOfCare);
         $this->setOrderCreatedAt($Orders->created_at);
         $this->setOrderEnteredBy($Orders->entered_by['name']??null, $Orders->entered_by['agbcode']??null, $Orders->entered_by['source']??null);
+        $this->setOrderVerifiedBy($Orders->verified_by['name']??null, $Orders->verified_by['agbcode']??null, $Orders->verified_by['source']??null);
         $this->setOrderOrganisation($Orders->entering_organisation['name'], $Orders->entering_organisation['agbcode'], $Orders->entering_organisation['source']);
         $this->setOrderLocation($Orders->entering_location['location'], $Orders->entering_location['name'], $Orders->entering_location['agbcode']);
         $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']);
@@ -317,6 +318,28 @@ trait SetOrdersTrait
                 }
                 $this->setValue($name, $nr, 10, 2, 1);
                 $this->setValue($initials, $nr, 10, 3);
+            }
+        }
+    }
+    private function setOrderVerifiedBy(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
+    {
+        if ($name) {
+            $namePiece = explode(",", $name);
+            $name = trim($namePiece[0]);
+            $initials = trim($namePiece[1] ?? "");
+            $nrs = $this->getSegmentNrs('ORC', false, true);
+            if (!is_array($nrs)) {
+                $nrs = [$nrs];
+            }
+            foreach ($nrs as $nr) {
+                if ($agbcode) {
+                    $this->setValue($agbcode, $nr, 11, 1);
+                    if (is_numeric($agbcode)) {
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 11, 9, 1);
+                    }
+                }
+                $this->setValue($name, $nr, 11, 2, 1);
+                $this->setValue($initials, $nr, 11, 3);
             }
         }
     }

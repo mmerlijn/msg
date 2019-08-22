@@ -51,13 +51,17 @@ trait GetOrdersTrait
         $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
         $Orders->entered_by = [
             'agbcode' => $this->getValue($nr, 10, 1),
-            'name' => $this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3),
+            'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3),", "),
             'source' => $this->getValue($nr, 10, 9, 1),
         ];
-
+        $Orders->verified_by = [
+            'agbcode' => $this->getValue($nr, 11, 1),
+            'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3),", "),
+            'source' => $this->getValue($nr, 11, 9, 1),
+        ];
         $Orders->requester = [
             'agbcode' => $this->getValue($nr, 12, 1),
-            'name' => $this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3),
+            'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3),", "),
             'source' => $this->getValue($nr, 12, 9, 1)
         ];
         $Orders->entering_location = [

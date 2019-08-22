@@ -17,7 +17,12 @@ class Orders
     public $priority = "R"; //S=faxed, R=regular (else)
     public $created_at = '';
     public $pointOfCare = '';
-    public $entered_by = [
+    public $entered_by = [ //ORC 10
+        'agbcode' => '',
+        'name' => '',
+        'source' => ''
+    ];
+    public $verified_by = [ //ORC 11
         'agbcode' => '',
         'name' => '',
         'source' => ''
