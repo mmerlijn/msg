@@ -234,11 +234,25 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 2, 1);
             $this->setValue($value, $nr, 4, 1);
         }
+        $nrs = $this->getSegmentNrs('OBR', false, true);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 2, 1);
+        }
     }
 
     private function setOrderLabnr(string $value): void
     {
         $nrs = $this->getSegmentNrs('ORC', false, true);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 3, 1);
+        }
+        $nrs = $this->getSegmentNrs('OBR', false, true);
         if (!is_array($nrs)) {
             $nrs = [$nrs];
         }
@@ -301,7 +315,8 @@ trait SetOrdersTrait
 
     private function setOrderEnteredBy(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+
+        if ($name or $agbcode) {
             $namePiece = explode(",", $name);
             $name = trim($namePiece[0]);
             $initials = trim($namePiece[1] ?? "");
@@ -316,14 +331,16 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 10, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 10, 2, 1);
-                $this->setValue($initials, $nr, 10, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 10, 2, 1);
+                    $this->setValue($initials, $nr, 10, 3);
+                }
             }
         }
     }
     private function setOrderVerifiedBy(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+        if ($name or $agbcode) {
             $namePiece = explode(",", $name);
             $name = trim($namePiece[0]);
             $initials = trim($namePiece[1] ?? "");
@@ -338,8 +355,10 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 11, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 11, 2, 1);
-                $this->setValue($initials, $nr, 11, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 11, 2, 1);
+                    $this->setValue($initials, $nr, 11, 3);
+                }
             }
         }
     }
@@ -372,7 +391,7 @@ trait SetOrdersTrait
 
     private function setOrderRequester(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+        if ($name or $agbcode) {
             $namePiece = explode(",", $name);
             $name = trim($namePiece[0]);
             $initials = trim($namePiece[1] ?? "");
@@ -388,8 +407,10 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 12, 2, 1);
-                $this->setValue($initials, $nr, 12, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 12, 2, 1);
+                    $this->setValue($initials, $nr, 12, 3);
+                }
             }
             //Add to OBR
             $nrs = $this->getSegmentNrs('OBR', false, true);
@@ -403,8 +424,10 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 16, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 16, 2, 1);
-                $this->setValue($initials, $nr, 16, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 16, 2, 1);
+                    $this->setValue($initials, $nr, 16, 3);
+                }
             }
         }
     }
@@ -412,7 +435,7 @@ trait SetOrdersTrait
     private function setOrderOrganisation(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
 
-        if ($name) {
+        if ($name or $agbcode) {
             $nrs = $this->getSegmentNrs('ORC', false, true);
             if (!is_array($nrs)) {
                 $nrs = [$nrs];
@@ -424,14 +447,16 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 17, 1);
                     }
                 }
-                $this->setValue($name, $nr, 17, 2);
+                if($name) {
+                    $this->setValue($name, $nr, 17, 2);
+                }
             }
         }
     }
 
     private function setOrderActionBy(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+        if ($name or $agbcode) {
             $namePiece = explode(",", $name);
             $name = trim($namePiece[0]);
             $initials = trim($namePiece[1] ?? "");
@@ -446,15 +471,17 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 19, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 19, 2, 1);
-                $this->setValue($initials, $nr, 19, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 19, 2, 1);
+                    $this->setValue($initials, $nr, 19, 3);
+                }
             }
         }
     }
 
     private function setOrderFacility(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+        if ($name or $agbcode) {
             $nrs = $this->getSegmentNrs('ORC', false, true);
             if (!is_array($nrs)) {
                 $nrs = [$nrs];
@@ -466,14 +493,16 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 21, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 21, 1);
+                if($name) {
+                    $this->setValue($name, $nr, 21, 1);
+                }
             }
         }
     }
 
     private function setOrderCopyTo(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
-        if ($name) {
+        if ($name or $agbcode) {
             $namePiece = explode(",", $name);
             $name = trim($namePiece[0]);
             $initials = trim($namePiece[1] ?? "");
@@ -488,8 +517,10 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
                     }
                 }
-                $this->setValue($name, $nr, 12, 2, 1);
-                $this->setValue($initials, $nr, 12, 3);
+                if($name) {
+                    $this->setValue($name, $nr, 12, 2, 1);
+                    $this->setValue($initials, $nr, 12, 3);
+                }
             }
         }
     }

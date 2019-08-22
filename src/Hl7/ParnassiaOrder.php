@@ -30,4 +30,5 @@ class ParnassiaOrder extends HL7
         'OBR' => OBR::class,
         'OBX' => OBX::class,
     ];
+    public $dateTimeFormatOut="YmdHis";
 }
