@@ -17,7 +17,7 @@ trait GetPatientTrait
         $Patient = new Patient();
         $Patient->sex = $this->getPatientSex();
         $Patient->dob = $this->getPatientDob();
-        $name = $this->getPatientName($Patient->sex);
+        $name = $this->getPatientName();
         $Patient->last_name = $name['last_name'];
         $Patient->surname = $name['surname'];
         $Patient->last_name_prefix = $name['last_name_prefix'];
@@ -131,28 +131,17 @@ trait GetPatientTrait
         return $this->getPatientId('ZorgDomein', 'VN');
     }
 
-    public function getPatientName($sex)
+    public function getPatientName()
     {
         $names = [];
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            switch (strtolower($sex)){
-                case "v":
-                case "f":
-                $names['last_name'] = $this->getValue($nr, 5, 1, 1);
-                $names['surname'] = $this->getValue($nr, 5, 1, 3);
-                $names['last_name_prefix'] = $this->getValue($nr, 5, 1, 2);
-                $names['surname_prefix'] = $this->getValue($nr, 5, 1, 4);
-                $names['name'] = $this->getValue($nr, 5, 1, 5);
-                break;
-                case "m":
-                    $names['last_name'] = '';
-                    $names['surname'] = $this->getValue($nr, 5, 1, 1);
-                    $names['last_name_prefix'] = '';
-                    $names['surname_prefix'] = $this->getValue($nr, 5, 1, 2);
-                    $names['name'] = $this->getValue($nr, 5, 1, 5);
-            }
-            $names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 1,5),0,1) . $this->getValue($nr, 5, 1,6));
+            $names['last_name'] = $this->getValue($nr, 5, 1, 5);
+            $names['surname'] = $this->getValue($nr, 5, 1, 3);
+            $names['last_name_prefix'] = $this->getValue($nr, 5, 1, 4);
+            $names['surname_prefix'] = $this->getValue($nr, 5, 1, 2);
+            $names['name'] = $this->getValue($nr, 5, 1, 1);
+            $names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 2),0,1) . $this->getValue($nr, 5, 3));
             $names['type_code'] = $this->getValue($nr, 5, 7);    //L = legal
             if(!strlen($names['surname'])){
                 $names['surname'] = $names['name'];

@@ -14,15 +14,33 @@ trait getPatientTrait
         $nr = $this->getSegmentnrs('PID',true);
         $Patient->dob = $this->getValue($nr,1,1)."-".$this->getValue($nr,1,2,1)."-".$this->getValue($nr,1,3,1);
         $Patient->sex = $this->sex(strtoupper($this->getValue($nr, 2)));
-        $Patient->last_name = $this->getValue($nr, 3,1); //mansnaam
-        $Patient->last_name_prefix = $this->getValue($nr, 3, 2);
-        $Patient->surname = $this->getValue($nr, 3, 3);
-        $Patient->surname_prefix = $this->getValue($nr, 3, 4);
-        $Patient->initials = $this->getValue($nr, 3, 6);
-        if($Patient->last_name){
-            $Patient->name = trim($Patient->last_name." ".$Patient->surname);
-        }else{
-            $Patient->name = $Patient->surname;
+        switch (strtolower($Patient->sex))
+        {
+            case "f":
+            case "v":
+            $Patient->last_name = $this->getValue($nr, 3,1); //mansnaam
+            $Patient->last_name_prefix = $this->getValue($nr, 3, 2);
+            $Patient->surname = $this->getValue($nr, 3, 3);
+            $Patient->surname_prefix = $this->getValue($nr, 3, 4);
+            $Patient->initials = str_replace([" ","."],"",$this->getValue($nr, 3, 6));
+            if($Patient->last_name){
+                $Patient->name = trim($Patient->last_name." ".$Patient->surname);
+            }else{
+                $Patient->name = $Patient->surname;
+            }
+                break;
+            case "m":
+                $Patient->last_name = '';
+                $Patient->last_name_prefix = '';
+                $Patient->surname = $this->getValue($nr, 3, 1);
+                $Patient->surname_prefix = $this->getValue($nr, 3, 2);
+                $Patient->initials = str_replace([" ","."],"",$this->getValue($nr, 3, 6));
+                if($Patient->last_name){
+                    $Patient->name = trim($Patient->last_name." ".$Patient->surname);
+                }else{
+                    $Patient->name = $Patient->surname;
+                }
+
         }
         $bsn = trim($this->getValue($nr, 5),"BSN");
         if($bsn) {
