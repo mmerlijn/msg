@@ -284,6 +284,9 @@ class HL7
                 case 14:
                     $format = "YmdHis";
                     break;
+                case 12:
+                    $format = "YmdHi";
+                    break;
                 case 19:
                     $format = "YmdHisO";
                     break;

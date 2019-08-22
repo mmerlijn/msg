@@ -143,6 +143,8 @@ trait GetOrdersTrait
 
             $Order->action_code = $this->getValue($nr, 11); //at home => L, else O
             $Orders->result_status = $this->getValue($nr, 25);//F=final, C=correction
+            $Orders->timing_quantity['priority'] = $this->getValue($nr,27, 6);
+
             if (!in_array($Orders->action_code, ['L', "O"])) {
                 $Orders->action_code = $Order->action_code;
             }

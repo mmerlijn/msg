@@ -65,6 +65,7 @@ trait SetOrdersTrait
         $this->setOrderPriority($Orders->priority);
         $this->setOrderActionCode($Orders->action_code);
         $this->setOrderResultStatus($Orders->result_status);
+        $this->setOrderTimingQuantity($Orders->timing_quantity);
         $this->setOrderRequester($Orders->requester['name'], $Orders->requester['agbcode'], $Orders->requester['source']);
         $this->setOrderResponsibleObserver($Orders);
 
@@ -312,6 +313,16 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 25);
         }
     }
+    private function setOrderTimingQuantity(array $value): void
+    {
+        $nrs = $this->getSegmentNrs('OBR', false);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value['priority'], $nr, 27,6);
+        }
+    }
 
     private function setOrderCreatedAt(string $value): void
     {
@@ -339,7 +350,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 10, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 10, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 10, 9, 3);
                     }
                 }
                 if($name) {
@@ -363,7 +374,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 11, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 11, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 11, 9, 3);
                     }
                 }
                 if($name) {
@@ -415,7 +426,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 12, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 3);
                     }
                 }
                 if($name) {
@@ -432,7 +443,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 16, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 16, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 16, 9, 3);
                     }
                 }
                 if($name) {
@@ -455,7 +466,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 17, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 17, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 17, 3);
                     }
                 }
                 if($name) {
@@ -479,7 +490,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 19, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 19, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 19, 9, 3);
                     }
                 }
                 if($name) {
@@ -501,7 +512,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 21, 3);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 21, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 21, 6, 1);
                     }
                 }
                 if($name) {
@@ -525,7 +536,7 @@ trait SetOrdersTrait
                 if ($agbcode) {
                     $this->setValue($agbcode, $nr, 12, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 3);
                     }
                 }
                 if($name) {

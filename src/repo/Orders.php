@@ -84,6 +84,7 @@ class Orders
 
     public $action_code = "O"; //at home => L, else O
     public $result_status=''; //F=final, C=correction
+    public $timing_quantity=['priority'=>''];
     public $orders = [];
 
 

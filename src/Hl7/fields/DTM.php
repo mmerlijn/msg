@@ -17,9 +17,11 @@ class DTM extends Field
     {
         if ($data) {
             if (!($dt = \DateTime::createFromFormat('YmdHisO', $data) !== false)) {
-                if (!($dt = \DateTime::createFromFormat('YmdHis', $data) !== false)) {
-                    if (!($dt = \DateTime::createFromFormat('Ymd', $data) !== false)) {
-                        throw new \Exception('Data in ' . $seg . ' (DTM) error: TIME expected YYYYMMDD(his) got ' . $data);
+                if (!($dt = \DateTime::createFromFormat('YmdHi', $data) !== false)) {
+                    if (!($dt = \DateTime::createFromFormat('YmdHis', $data) !== false)) {
+                        if (!($dt = \DateTime::createFromFormat('Ymd', $data) !== false)) {
+                            throw new \Exception('Data in ' . $seg . ' (DTM) error: TIME expected YYYYMMDD(his) got ' . $data);
+                        }
                     }
                 }
             }
