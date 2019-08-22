@@ -127,7 +127,7 @@ class Edifact
                 unset(static::$segments[$k]);
             }
         }
-        static::dumpSegments();
+        //static::dumpSegments();
     }
 
     protected function readHeader(string $string): void
