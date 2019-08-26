@@ -103,7 +103,7 @@ trait GetOrdersTrait
             'source' => $this->getValue($nr, 21, 6, 1),
         ];
         if ($Orders->control != "NW") {
-            $effDatetime = $this->getValue($nr, 15);
+            $effDatetime = $this->getValue($nr, 15,1);
 
             $Orders->order_effective_datetime = $this->setDatetimeFormat($effDatetime, 'ORC', 15);
         }
@@ -143,6 +143,8 @@ trait GetOrdersTrait
 
             $Order->action_code = $this->getValue($nr, 11); //at home => L, else O
             $Orders->result_status = $this->getValue($nr, 25);//F=final, C=correction
+            $Orders->diagnostic_serv = $this->getValue($nr, 24);//bv LAB
+            $Orders->resultDateTime = $this->setDatetimeFormat($this->getValue($nr,22,1),$nr,22);
             $Orders->timing_quantity['priority'] = $this->getValue($nr,27, 6);
 
             if (!in_array($Orders->action_code, ['L', "O"])) {
@@ -151,9 +153,12 @@ trait GetOrdersTrait
 
             $Order->clinical_information = $this->getValue($nr, 13);
 
-            $requestDate = $this->getValue($nr, 27, 4, 1);
-            $Order->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 27);
-
+            //$requestDate = $this->getValue($nr, 27, 4, 1);
+            //$Order->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 27);
+            if(!$Orders->request_date){
+                $requestDate = $this->getValue($nr,20);
+                $Orders->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 20);
+            }
             $Orders->collectors_comment = $this->getValue($nr, 39,2);
 
             $Orders->copy_to = [

@@ -82,8 +82,11 @@ class Orders
 
     public $collectors_comment='';
 
+
+    public $diagnostic_serv=""; //OBR 24 bv. LAB (L)
     public $action_code = "O"; //at home => L, else O
     public $result_status=''; //F=final, C=correction
+    public $resultDateTime=''; //OBR22
     public $timing_quantity=['priority'=>''];
     public $orders = [];
 

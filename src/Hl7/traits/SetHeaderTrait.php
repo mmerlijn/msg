@@ -66,7 +66,7 @@ trait SetHeaderTrait
             $this->setValue(date($this->dateTimeFormatOut), 0, 7,1);
         }
     }
-    public function setMesaageType(string $type)
+    public function setMessageType(string $type)
     {
         switch ($type){
             case "ORM":
@@ -77,7 +77,8 @@ trait SetHeaderTrait
             case "ORU":
                 $this->setValue("ORU", 0, 9, 1);
                 $this->setValue("R01", 0, 9, 2);
-                $this->setValue("ORU_R01", 0, 9, 3);
+                //$this->setValue("ORU_R01", 0, 9, 3);
+                $this->setValue("", 0, 9, 3);
                 break;
         }
     }

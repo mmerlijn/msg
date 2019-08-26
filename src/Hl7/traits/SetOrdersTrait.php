@@ -64,7 +64,9 @@ trait SetOrdersTrait
         $this->setOrderCollectorIdentifier($Orders->collector_identifier['id'], $Orders->collector_identifier['last_name'], $Orders->collector_identifier['first_name']);
         $this->setOrderPriority($Orders->priority);
         $this->setOrderActionCode($Orders->action_code);
+        $this->setOrderDiagnosticServ($Orders->diagnostic_serv);
         $this->setOrderResultStatus($Orders->result_status);
+        $this->setOrderResultDateTime($Orders->resultDateTime);
         $this->setOrderTimingQuantity($Orders->timing_quantity);
         $this->setOrderRequester($Orders->requester['name'], $Orders->requester['agbcode'], $Orders->requester['source']);
         $this->setOrderResponsibleObserver($Orders);
@@ -273,6 +275,13 @@ trait SetOrdersTrait
             foreach ($nrs as $nr) {
                 $this->setValue($value ? date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut) : '', $nr, 7, 4, 1);
             }
+            $nrs = $this->getSegmentNrs('OBR', false, false);
+            if (!is_array($nrs)) {
+                $nrs = [$nrs];
+            }
+            foreach ($nrs as $nr) {
+                $this->setValue($value ? date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut) : '', $nr, 20);
+            }
         }
     }
 
@@ -303,6 +312,16 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 11);
         }
     }
+    private function setOrderDiagnosticServ(string $value): void
+    {
+        $nrs = $this->getSegmentNrs('OBR', false);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 24);
+        }
+    }
     private function setOrderResultStatus(string $value): void
     {
         $nrs = $this->getSegmentNrs('OBR', false);
@@ -311,6 +330,18 @@ trait SetOrdersTrait
         }
         foreach ($nrs as $nr) {
             $this->setValue($value, $nr, 25);
+        }
+    }
+    private function setOrderResultDateTime(string $value): void
+    {
+        if($value) {
+            $nrs = $this->getSegmentNrs('OBR', false);
+            if (!is_array($nrs)) {
+                $nrs = [$nrs];
+            }
+            foreach ($nrs as $nr) {
+                $this->setValue($value ? date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut) : "", $nr, 22,1);
+            }
         }
     }
     private function setOrderTimingQuantity(array $value): void
