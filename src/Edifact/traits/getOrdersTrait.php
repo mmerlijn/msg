@@ -53,7 +53,7 @@ trait getOrdersTrait
         //$o->placer_order_nr = //zdnr
         //$o->filler_order_nr = //labnr
         $SegNr = $this->getSegmentNrs('DET',true);
-        $o->observation_start_time = date_create_from_format("ymdhi"
+        $o->observation_start_time = date_create_from_format("ymdHi"
             , $this->getValue($SegNr, 1, 1)
             .$this->getValue($SegNr, 1, 2)
             .$this->getValue($SegNr, 1, 3)
