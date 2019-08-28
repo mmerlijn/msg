@@ -194,14 +194,14 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
-            $this->setValue($name['last_name'], $nr, 5, 1, 5);
-            $this->setValue($name['surname'], $nr, 5, 1, 3);
-            $this->setValue($name['last_name_prefix'], $nr, 5, 1, 4);
-            $this->setValue($name['surname_prefix'], $nr, 5, 1, 2);
+            $this->setValue((string)$name['last_name'], $nr, 5, 1, 5);
+            $this->setValue((string)$name['surname'], $nr, 5, 1, 3);
+            $this->setValue((string)$name['last_name_prefix'], $nr, 5, 1, 4);
+            $this->setValue((string)$name['surname_prefix'], $nr, 5, 1, 2);
 
             $this->setValue($this->formatName($name['surname'], $name['last_name'], $name['surname_prefix'], $name['last_name_prefix']), $nr, 5, 1, 1); //name
             if (isset($name['initials'])) {
-                $name['initials'] = str_replace([".", " "], "", $name['initials']);
+                $name['initials'] = str_replace([".", " "], "", (string)$name['initials']);
                 $this->setValue(substr($name['initials'], 0, 1), $nr, 5, 2);
                 if (strlen($name['initials']) > 1) {
                     $this->setValue(substr($name['initials'], 1), $nr, 5, 3);
@@ -218,13 +218,13 @@ trait SetPatientTrait
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
             $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
-            $this->setValue($address['building_nr_full'], $nr, 11, 1, 3);
-            $this->setValue($address['street'] ?? '', $nr, 11, 1, 2);
+            $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3);
+            $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2);
             $this->setValue(trim($address['street'] . " " . $address['building_nr_full']), $nr, 11, 1, 1); //address
-            $this->setValue($address['city'] ?? '', $nr, 11, 3);
-            $this->setValue($address['postcode'] ?? '', $nr, 11, 5);
-            $this->setValue($address['building_nr_additive'] ?? '', $nr, 11, 2);
-            $this->setValue($address['country'] ?? '', $nr, 11, 6);
+            $this->setValue((string)($address['city'] ?? ''), $nr, 11, 3);
+            $this->setValue((string)($address['postcode'] ?? ''), $nr, 11, 5);
+            $this->setValue((string)($address['building_nr_additive'] ?? ''), $nr, 11, 2);
+            $this->setValue((string)($address['country'] ?? ''), $nr, 11, 6);
             $this->setValue("M", $nr, 11, 7);
         }
     }
