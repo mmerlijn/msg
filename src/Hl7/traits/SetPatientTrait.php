@@ -217,6 +217,7 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
+
             $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
             $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3);
             $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2);
