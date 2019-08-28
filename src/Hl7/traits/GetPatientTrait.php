@@ -174,6 +174,17 @@ trait GetPatientTrait
             $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
             $address['country'] = $this->getValue($nr, 11, 6);
             $address['address_type'] = $this->getValue($nr, 11, 7); //M=mailing, L=legal address BA=bad address
+            if(!$address['street'] && $address['address']){
+                $st = $this->split_address($address['address']);
+                $address['street'] = $st['street'];
+            }
+            $address['address'] = $address['street']." ".$address['building_nr_full'];
+
+            if(!$address['building_nr']){
+                $st = $this->split_address($address['address']);
+                $address['building_nr'] = $st['number'];
+                $address['building_nr_additive'] = $st['numberAddition'];
+            }
         }
         return $address;
     }
@@ -192,5 +203,23 @@ trait GetPatientTrait
             return $this->getValue($nr, 32);
         }
         return "";
+    }
+
+    private function split_address($streetStr)
+    {
+
+        $aMatch = array();
+        $pattern = '#^([\w[:punct:] ]+) ([0-9 ]{1,5})([\w[:punct:]\-/]*)$#';
+        $matchResult = preg_match($pattern, $streetStr, $aMatch);
+
+        $street = trim($aMatch[1]??false ? $aMatch[1] : '');
+        $number = trim($aMatch[2]??false ? $aMatch[2] : '');
+        $numberAddition = trim($aMatch[3]??false ? $aMatch[3] : '');
+        if(!$matchResult){
+            $street = $streetStr;
+        }
+
+        return array('street' => $street, 'number' => $number, 'numberAddition' => $numberAddition);
+
     }
 }

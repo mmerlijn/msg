@@ -300,5 +300,40 @@ class HL7
         }
         return '';
     }
+    public function setField($value,string $segment,int $fieldNr, int $componentNr = 0, int $subComponentNr = 0,bool $first=false):void
+    {
+        $nrs = $this->getSegmentNrs($segment, $first);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, $fieldNr,$componentNr,$subComponentNr);
+        }
+    }
+    public function getField(string $segment,int $fieldNr, int $componentNr=0, int $subComponentNr=0,$repeat=0,array $params=['first'=>true,'nr'=>false])
+    {
 
+            $nrsSegment = $this->getSegmentNrs($segment);
+            if (!is_array($nrsSegment)) {
+                $nrsSegment = [];
+            }
+            if (count($nrsSegment)) {
+                if ($params['nr']??false !== false) {
+                    if (count($nrsSegment) > $params['nr']) {
+                        return $this->getValue($nrsSegment[$params['nr']], $fieldNr, $componentNr, $subComponentNr, $repeat);
+                    } else {
+                        return false;
+                    }
+                } elseif ($params['first']??true) {
+                    return $this->getValue($nrsSegment[0], $fieldNr, $componentNr, $subComponentNr, $repeat);
+                } else {
+                    $data = [];
+                    foreach ($nrsSegment as $nr) {
+                        $data[] = $this->getValue($nr, $fieldNr, $componentNr, $subComponentNr, $repeat);
+                    }
+                    return $data;
+                }
+            }
+            return false;
+    }
 }

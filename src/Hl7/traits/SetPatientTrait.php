@@ -16,7 +16,7 @@ trait SetPatientTrait
     {
         $this->setPIDId();
         foreach ($P->phones as $phone) {
-            if($phone) {
+            if ($phone) {
                 $this->setPatientPhone($phone);
             }
         }
@@ -33,14 +33,14 @@ trait SetPatientTrait
             'initials' => $P->initials,
         ]);
         $this->setPatientAddress([
-            'address'=>$P->address,
-            'street'=>$P->street,
-            'city'=>$P->city,
-            'postcode'=>$P->postcode,
-            'building_nr'=>$P->building_nr,
-            'building_nr_full'=>$P->building_nr_full,
-            'building_nr_additive'=>$P->building_nr_additive,
-            'country'=>$P->country,
+            'address' => $P->address,
+            'street' => $P->street,
+            'city' => $P->city,
+            'postcode' => $P->postcode,
+            'building_nr' => $P->building_nr,
+            'building_nr_full' => $P->building_nr_full,
+            'building_nr_additive' => $P->building_nr_additive,
+            'country' => $P->country,
         ]);
         $this->setPatientIdentityUnknown($P->identity_unknown_indicator);
         $this->setPatientReliabilityCode($P->identity_reliability_code);
@@ -89,6 +89,7 @@ trait SetPatientTrait
             $this->setValue($value, $nr, 8);
         }
     }
+
     public function setPIDId(): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
@@ -96,17 +97,19 @@ trait SetPatientTrait
             $this->setValue(1, $nr, 1);
         }
     }
-    public function setPatientDob(string $value):void
+
+    public function setPatientDob(string $value): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
             $datetime = date_create_from_format("Y-m-d", $value)->format("Ymd");
-            $this->setValue($datetime, $nr, 7,1);
+            $this->setValue($datetime, $nr, 7, 1);
         }
     }
+
     public function setPatientInsurance(string $policy_nr, string $uzovi, string $insurance_company): void
     {
-        if($policy_nr) {
+        if ($policy_nr) {
             $nr = $this->getSegmentNrs('IN1', true, true);
             $this->setValue(1, $nr, 1);
             if ($nr !== false) {
@@ -125,14 +128,14 @@ trait SetPatientTrait
             }
         }
     }
+
     public function setPatientIds($ids): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
-        foreach ($ids as $t=>$id)
-        {
-            if(!isset(static::$tree[$nr][3][$t])) {
+        foreach ($ids as $t => $id) {
+            if (!isset(static::$tree[$nr][3][$t])) {
                 $new_nr = $this->addRepeatField($nr, 3);
-            }else{
+            } else {
                 $new_nr = $t;
             }
             static::$tree[$nr][3][$new_nr][1] = $id['identifier'];
@@ -151,7 +154,7 @@ trait SetPatientTrait
                 if (!($patIds[1] ?? null)) {
                     $empty = false;
                 }
-                if ( ($patIds[4][1] ?? null) == $authority AND ($patIds[5] ?? null) == $identifier) {
+                if (($patIds[4][1] ?? null) == $authority AND ($patIds[5] ?? null) == $identifier) {
                     //already exist
                     static::$tree[$nr][3][$i][1] = $id;
                     $found = true;
@@ -187,69 +190,45 @@ trait SetPatientTrait
     }
 
 
-    public function setPatientName($name):void
+    public function setPatientName($name): void
     {
-        $nr = $this->getSegmentNrs('PID',true,true);
-        if($nr!==false)
-        {
-            if(isset($name['last_name'])) {
-                $this->setValue($name['last_name'], $nr, 5, 1, 5);
-            }
-            if(isset($name['surname'])){
-                $this->setValue($name['surname'], $nr, 5, 1, 3);
-            }
-            if(isset($name['last_name_prefix'])){
-                $this->setValue($name['last_name_prefix'], $nr, 5,1,4);
-            }
-            if(isset($name['surname_prefix'])){
-                $this->setValue($name['surname_prefix'], $nr, 5,1,2);
-            }
-            if(isset($name['name'])){
-                $this->setValue($name['name'], $nr, 5,1,1);
-            }
-            if(isset($name['initials'])){
-                $name['initials'] = str_replace(["."," "], "", $name['initials']);
-                $this->setValue(substr($name['initials'],0,1), $nr, 5,2);
-                if(strlen($name['initials'])>1) {
+        $nr = $this->getSegmentNrs('PID', true, true);
+        if ($nr !== false) {
+            $this->setValue($name['last_name'], $nr, 5, 1, 5);
+            $this->setValue($name['surname'], $nr, 5, 1, 3);
+            $this->setValue($name['last_name_prefix'], $nr, 5, 1, 4);
+            $this->setValue($name['surname_prefix'], $nr, 5, 1, 2);
+
+            $this->setValue($this->formatName($name['surname'], $name['last_name'], $name['surname_prefix'], $name['last_name_prefix']), $nr, 5, 1, 1); //name
+            if (isset($name['initials'])) {
+                $name['initials'] = str_replace([".", " "], "", $name['initials']);
+                $this->setValue(substr($name['initials'], 0, 1), $nr, 5, 2);
+                if (strlen($name['initials']) > 1) {
                     $this->setValue(substr($name['initials'], 1), $nr, 5, 3);
-                }else{
+                } else {
                     $this->setValue("", $nr, 5, 3);
                 }
             }
-            $this->setValue("L", $nr, 5,7);
+            $this->setValue("L", $nr, 5, 7);
         }
     }
 
-    public function setPatientAddress($address):void
+    public function setPatientAddress($address): void
     {
-        $nr = $this->getSegmentNrs('PID',true,true);
-        if($nr!==false)
-        {
-            if(isset($address['address'])) {
-                $this->setValue($address['address'], $nr, 11, 1, 1);
-            }
-            if(isset($address['street'])){
-                $this->setValue($address['street'], $nr, 11, 1, 2);
-            }
-            if(isset($address['city'])){
-                $this->setValue($address['city'], $nr, 11,3);
-            }
-            if(isset($address['postcode'])){
-                $this->setValue($address['postcode'], $nr, 11,5);
-            }
-
-            if(isset($address['building_nr']) OR isset($address['building_nr_full'])){
-                $this->setValue($address['building_nr_full']?$address['building_nr']:'', $nr, 11,1,3);
-            }
-            if(isset($address['building_nr_additive'])){
-                $this->setValue($address['building_nr_additive'], $nr, 11,2);
-            }
-            if(isset($address['country'])){
-                $this->setValue($address['country'], $nr, 11,6);
-            }
-            $this->setValue("M", $nr, 11,7);
+        $nr = $this->getSegmentNrs('PID', true, true);
+        if ($nr !== false) {
+            $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
+            $this->setValue($address['building_nr_full'], $nr, 11, 1, 3);
+            $this->setValue($address['street'] ?? '', $nr, 11, 1, 2);
+            $this->setValue(trim($address['street'] . " " . $address['building_nr_full']), $nr, 11, 1, 1); //address
+            $this->setValue($address['city'] ?? '', $nr, 11, 3);
+            $this->setValue($address['postcode'] ?? '', $nr, 11, 5);
+            $this->setValue($address['building_nr_additive'] ?? '', $nr, 11, 2);
+            $this->setValue($address['country'] ?? '', $nr, 11, 6);
+            $this->setValue("M", $nr, 11, 7);
         }
     }
+
     public function setPatientIdentityUnknown(string $value): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
@@ -257,11 +236,23 @@ trait SetPatientTrait
             $this->setValue($value, $nr, 31);
         }
     }
-    public function setPatientReliabilityCode(string $value):void
+
+    public function setPatientReliabilityCode(string $value): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
             $this->setValue($value, $nr, 32);
         }
+    }
+
+    private function formatName($surname, $lastname, $surname_pref, $lastname_pref)
+    {
+        $name = '';
+        if ($lastname) {
+            $name .= trim($lastname_pref . " " . $lastname) . " -";
+        }
+        $name .= " " . trim($surname_pref . " " . $surname);
+
+        return trim($name);
     }
 }
