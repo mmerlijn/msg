@@ -107,7 +107,7 @@ trait SetPatientTrait
         }
     }
 
-    public function setPatientInsurance(string $policy_nr, string $uzovi, string $insurance_company): void
+    public function setPatientInsurance($policy_nr, $uzovi, $insurance_company): void
     {
         if ($policy_nr) {
             $nr = $this->getSegmentNrs('IN1', true, true);

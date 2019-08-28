@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,20 +24,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
-              <caret line="241" column="54" lean-forward="true" selection-start-line="241" selection-start-column="54" selection-end-line="241" selection-end-column="54" />
+            <state relative-caret-position="901">
+              <caret line="112" column="46" lean-forward="true" selection-start-line="112" selection-start-column="46" selection-end-line="112" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="184" selection-start-line="184" selection-end-line="184" />
+            <state relative-caret-position="1224">
+              <caret line="218" column="33" lean-forward="true" selection-start-line="218" selection-start-column="33" selection-end-line="218" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -238,20 +235,6 @@
               <item name="msg" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Hl7" type="462c0819:PsiDirectoryNode" />
-              <item name="fields" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="msg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="msg" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Hl7" type="462c0819:PsiDirectoryNode" />
-              <item name="segments" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="msg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="msg" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Hl7" type="462c0819:PsiDirectoryNode" />
               <item name="traits" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -330,12 +313,12 @@
       <workItem from="1566418257315" duration="25645000" />
       <workItem from="1566537307870" duration="617000" />
       <workItem from="1566825632981" duration="8516000" />
-      <workItem from="1566977071995" duration="8942000" />
+      <workItem from="1566977071995" duration="10112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168161000" />
+    <option name="totallyTimeSpent" value="169331000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="0" width="1934" height="2127" extended-state="0" />
@@ -762,17 +745,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php">
+    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="241" column="54" lean-forward="true" selection-start-line="241" selection-start-column="54" selection-end-line="241" selection-end-column="54" />
+        <state relative-caret-position="1224">
+          <caret line="218" column="33" lean-forward="true" selection-start-line="218" selection-start-column="33" selection-end-line="218" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php">
+    <entry file="file://$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="184" selection-start-line="184" selection-end-line="184" />
+        <state relative-caret-position="901">
+          <caret line="112" column="46" lean-forward="true" selection-start-line="112" selection-start-column="46" selection-end-line="112" selection-end-column="46" />
         </state>
       </provider>
     </entry>
