@@ -28,9 +28,10 @@ class Order
     public function addOrderComment(OrderComment $comment)
     {
         $present=false;
-        foreach ($this->order_comments as $o){
-            if($o->identifier_code == $comment->identifier_code AND $o->identifier_label==$comment->identifier_label){
+        foreach ($this->order_comments as $k=>$o){
+            if($o->identifier_code == $comment->identifier_code ){
                 $present=true;
+                $updateableOrderNr = $k;
             }
         }
         if(!$present){
@@ -40,6 +41,10 @@ class Order
             {
                 $this->order_comments[$nr]->id = $nr+1;
             }
+        }else{
+            $this->order_comments[$updateableOrderNr]->value = $comment->value;
+            $this->order_comments[$updateableOrderNr]->type_of_value = $comment->type_of_value;
+            $this->order_comments[$updateableOrderNr]->identifier_label = $comment->identifier_label;
         }
     }
 }
