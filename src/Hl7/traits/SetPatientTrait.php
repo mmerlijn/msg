@@ -8,6 +8,7 @@
 
 namespace mmerlijn\msg\src\Hl7\traits;
 
+use mmerlijn\msg\src\Hl7\fields\CX;
 use mmerlijn\msg\src\repo\Patient;
 
 trait SetPatientTrait
@@ -23,7 +24,12 @@ trait SetPatientTrait
         $this->setPatientSex($P->sex);
         $this->setPatientDob($P->dob);
         $this->setPatientInsurance($P->policy_nr, $P->uzovi, $P->insurance_company_name);
+        $this->unsetPatientIds();
+
         $this->setPatientIds($P->identities);
+        if($P->bsn){
+            $this->setBsn($P->bsn);
+        }
         $this->setPatientName([
             'last_name' => $P->last_name,
             'last_name_prefix' => $P->last_name_prefix,
@@ -144,6 +150,13 @@ trait SetPatientTrait
         }
     }
 
+    public function unsetPatientIds()
+    {
+        $nr = $this->getSegmentNrs('PID', true, true);
+        if ($nr !== false) {
+            static::$tree[$nr][3] = [CX::setEmpty()];
+        }
+    }
     public function setPatientId(string $id, string $authority, string $identifier): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
