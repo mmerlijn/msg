@@ -26,7 +26,23 @@ class Patient
     public $building_nr_additive = '';
     public $building_nr_full = '';
     public $country = 'NL';
-    public $address_type = "M";
+    public $address_type = "H"; //home address
+    public $address_valid_start="";
+    public $address_valid_end="";
+
+    //second address
+    public $second_address=false; //default only one address
+    public $address2 = '';
+    public $street2 = '';
+    public $city2 = '';
+    public $postcode2 = '';
+    public $building_nr2;
+    public $building_nr_additive2 = '';
+    public $building_nr_full2 = '';
+    public $country2 = 'NL';
+    public $address_type2 = "C";
+    public $address_valid_start2="";
+    public $address_valid_end2="";
 
     public $phones = [];
     public $sex = '';

@@ -26,6 +26,7 @@ trait GetPatientTrait
         $Patient->initials = $name['initials'];
         $Patient->type_code = $name['type_code'];
 
+        //address
         $address = $this->getPatientAddress();
         $Patient->address = $address['address'];
         $Patient->street = $address['street'];
@@ -36,6 +37,21 @@ trait GetPatientTrait
         $Patient->building_nr_full = $address['building_nr_full'];
         $Patient->country = $address['country'];
         $Patient->address_type = $address['address_type'];
+        $Patient->address_valid_start = $address['address_valid_start'];
+        if($address['second_address']){
+            $address2 = $this->getPatientAddress(1);
+            $Patient->address2 = $address2['address'];
+            $Patient->street2 = $address2['street'];
+            $Patient->city2 = $address2['city'];
+            $Patient->postcode2 = str_replace(" ","",$address2['postcode']);
+            $Patient->building_nr2 = $address2['building_nr'];
+            $Patient->building_nr_additive2 = $address2['building_nr_additive'];
+            $Patient->building_nr_full2 = $address2['building_nr_full'];
+            $Patient->country2 = $address2['country'];
+            $Patient->address_type2 = $address2['address_type'];
+            $Patient->address_valid_start2 = $address2['address_valid_start'];
+        }
+
 
         $Patient->phones = $this->getPatientPhone();
 
@@ -160,20 +176,20 @@ trait GetPatientTrait
         return "";
     }
 
-    public function getPatientAddress()
+    public function getPatientAddress($addressnr=0)
     {
         $address = [];
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            $address['address'] = $this->getValue($nr, 11, 1, 1);
-            $address['street'] = $this->getValue($nr, 11, 1, 2);
-            $address['city'] = $this->getValue($nr, 11, 3);
-            $address['postcode'] = $this->getValue($nr, 11, 5);
-            $address['building_nr'] = $this->getValue($nr, 11, 1, 3);
-            $address['building_nr_additive'] = $this->getValue($nr, 11, 2);
+            $address['address'] = $this->getValue($nr, 11, 1, 1,$addressnr);
+            $address['street'] = $this->getValue($nr, 11, 1, 2,$addressnr);
+            $address['city'] = $this->getValue($nr, 11, 3,0,$addressnr);
+            $address['postcode'] = $this->getValue($nr, 11, 5,0,$addressnr);
+            $address['building_nr'] = $this->getValue($nr, 11, 1, 3,$addressnr);
+            $address['building_nr_additive'] = $this->getValue($nr, 11, 2,0,$addressnr);
             $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
-            $address['country'] = $this->getValue($nr, 11, 6);
-            $address['address_type'] = $this->getValue($nr, 11, 7); //M=mailing, L=legal address BA=bad address
+            $address['country'] = $this->getValue($nr, 11, 6,0,$addressnr);
+            $address['address_type'] = $this->getValue($nr, 11, 7,0,$addressnr); //M=mailing, L=legal address BA=bad address
             if(!$address['street'] && $address['address']){
                 $st = $this->split_address($address['address']);
                 $address['street'] = $st['street'];
@@ -184,6 +200,12 @@ trait GetPatientTrait
                 $st = $this->split_address($address['address']);
                 $address['building_nr'] = $st['number'];
                 $address['building_nr_additive'] = $st['numberAddition'];
+            }
+            $address['address_valid_start'] = $this->getValue($nr, 11, 12,1,$addressnr); //address valid from
+            //more than one address
+            $address['second_address']=false;
+            if($this->getValue($nr, 11,1,1,$addressnr+1)){
+                $address['second_address']=true;
             }
         }
         return $address;
