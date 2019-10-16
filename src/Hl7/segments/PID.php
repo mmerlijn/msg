@@ -53,7 +53,7 @@ class PID extends Segment
         8 => ['class' => IS::class, 'rpt' => false, 'length' => 1, 'opt' => 'O', 'table' => Table0001::class, 'name' => 'Administrative Sex'], //
         9 => ['class' => XPN::class, 'rpt' => true, 'length' => 250, 'opt' => 'B', 'name' => 'Patient Alias'], //
         10 => ['class' => CE::class, 'rpt' => false, 'length' => 250, 'opt' => 'O', 'table' => Table0005::class, 'name' => 'Race'], //
-        11 => ['class' => XAD::class, 'rpt' => false, 'length' => 250, 'opt' => 'O', 'name' => 'Patient Address'], //
+        11 => ['class' => XAD::class, 'rpt' => true, 'length' => 250, 'opt' => 'O', 'name' => 'Patient Address'], //
         12 => ['class' => IS::class, 'rpt' => false, 'length' => 4, 'opt' => 'B', Table0289::class, 'name' => 'County Code'], //
         13 => ['class' => XTN::class, 'rpt' => true, 'length' => 250, 'opt' => 'O', 'name' => 'Phone Number - Home'], //
         14 => ['class' => XTN::class, 'rpt' => true, 'length' => 250, 'opt' => 'O', 'name' => 'Phone Number - Business'], //

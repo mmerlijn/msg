@@ -247,7 +247,9 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
-
+            if($addressnr>0 AND !$this->getField('PID', 11,3,0,$addressnr)) {
+                $this->addRepeatField($nr, 11);
+            }
             $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
             $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3, $addressnr);
             $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2, $addressnr);
