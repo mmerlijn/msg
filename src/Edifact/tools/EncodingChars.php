@@ -57,7 +57,7 @@ class EncodingChars
         return static::$releaseCharacter;
     }
 
-    public static function getEeserved()
+    public static function getReserved()
     {
         return static::$reserved;
     }

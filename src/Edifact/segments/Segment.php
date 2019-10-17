@@ -36,7 +36,9 @@ class Segment
     {
         $filled = [0 => static::class];
         //Split string to array
-        $fields = explode(EncodingChars::getDataElementSeparator(), $data);
+        $pattern = '/('.EncodingChars::getReleaseCharacter().'<!\?)\\'.EncodingChars::getDataElementSeparator().'/';
+        $fields = preg_split($pattern, $data);
+        //$fields = explode(EncodingChars::getDataElementSeparator(), $data);
 
         //static::runBeforeSetFilled($fields);
         //loop through the structure of the segment
