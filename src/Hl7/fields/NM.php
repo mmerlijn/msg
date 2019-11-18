@@ -17,7 +17,7 @@ class NM extends Field
     public static function setFilled(string $data, string $seg, bool $component = false, bool $validate = false)
     {
         if (!is_numeric($data) AND $data) {
-            throw new ValidationException('Data in ' . $seg . '.' . $fieldNr . '.' . $componentNr . ' (NM) error: numeric value is expected got ' . $data);
+            throw new ValidationException('Data in ' . $seg . '. (NM) error: numeric value is expected got ' . $data);
         }
         return $data;
     }
