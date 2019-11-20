@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/fields/NM.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/fields/NM.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Edifact/segments/Segment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+            <state relative-caret-position="561">
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -55,20 +55,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hl7test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="121" column="3" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="121" selection-end-column="3" />
+            <state relative-caret-position="868">
+              <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php">
+        <entry file="file://$PROJECT_DIR$/src/Hl7/HL7.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
+            <state relative-caret-position="204">
+              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="150" column="41" selection-start-line="150" selection-start-column="41" selection-end-line="150" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -106,6 +115,7 @@
       <find>encode</find>
       <find>decode</find>
       <find>encod</find>
+      <find>esc</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -113,8 +123,8 @@
     <dirStrings>
       <dir>K:\php_projects\mmerlijn\msg\src\Hl7\fields</dir>
       <dir>K:\php_projects\mmerlijn\msg\src\Hl7\tables</dir>
-      <dir>K:\php_projects\mmerlijn\msg\src\Hl7</dir>
       <dir>K:\php_projects\mmerlijn\msg\src\Edifact</dir>
+      <dir>K:\php_projects\mmerlijn\msg\src\Hl7</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -123,7 +133,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Edifact/segments/UNZ.php" />
         <option value="$PROJECT_DIR$/src/Edifact/segments/NUB.php" />
         <option value="$PROJECT_DIR$/src/Edifact/fields/Bloedgroep.php" />
         <option value="$PROJECT_DIR$/src/Edifact/segments/BLG.php" />
@@ -174,6 +183,7 @@
         <option value="$PROJECT_DIR$/src/Edifact/segments/Segment.php" />
         <option value="$PROJECT_DIR$/src/Hl7/fields/NM.php" />
         <option value="$PROJECT_DIR$/hl7test.php" />
+        <option value="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" />
       </list>
     </option>
   </component>
@@ -191,9 +201,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1707" />
-    <option name="y" value="681" />
+    <option name="y" value="65" />
     <option name="width" value="1638" />
-    <option name="height" value="1294" />
+    <option name="height" value="1910" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -224,7 +234,7 @@
               <item name="msg" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Hl7" type="462c0819:PsiDirectoryNode" />
-              <item name="fields" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="msg" type="b2602c69:ProjectViewProjectNode" />
@@ -313,18 +323,19 @@
       <workItem from="1571162046669" duration="13780000" />
       <workItem from="1571338747858" duration="3435000" />
       <workItem from="1571897211970" duration="86000" />
-      <workItem from="1574066374913" duration="500000" />
+      <workItem from="1574066374913" duration="1348000" />
+      <workItem from="1574238805735" duration="1120000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209504000" />
+    <option name="totallyTimeSpent" value="211472000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1707" y="681" width="1638" height="1294" extended-state="0" />
+    <frame x="1707" y="65" width="1638" height="1910" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2572877" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26045626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -337,7 +348,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.419466" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2740574" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -381,13 +392,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Hl7/segments/OBX.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="65" column="77" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Hl7/fields/CE.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -561,13 +565,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/fields/parentFieldTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Hl7/fields/XAD.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -707,13 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hl7/HL7.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4913">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/edifactTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="901">
@@ -731,17 +721,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Edifact/segments/Segment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+        <state relative-caret-position="561">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -752,10 +735,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/fields/parentFieldTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/HL7.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hl7test.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="121" column="3" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="121" selection-end-column="3" />
+        <state relative-caret-position="868">
+          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="150" column="41" selection-start-line="150" selection-start-column="41" selection-end-line="150" selection-end-column="41" />
         </state>
       </provider>
     </entry>

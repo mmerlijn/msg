@@ -147,7 +147,8 @@ class EncodingChars
                 '', //nf
                 '', //ce
             ], $string);
-        $string = str_replace('\\E\\', static::$escapeChar, $string);
+        //$string = str_replace('\\E\\', static::$escapeChar, $string); //we don't want backslashes in messages, replace for forward slash 20-11-2019
+        $string = str_replace('\\E\\', "/", $string); //we don't want backslashes in messages, replace for forward slash 20-11-2019
         $string = preg_replace('/\\\(\.((in)|(ti)|(sk))\d{1,2})\\\/', '', $string);
         /* TODO
                 '\\Cxxyy\\',  //  '/\\(C[0-9a-f]{2})\\/i'
