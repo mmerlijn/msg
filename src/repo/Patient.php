@@ -27,11 +27,11 @@ class Patient
     public $building_nr_full = '';
     public $country = 'NL';
     public $address_type = "H"; //home address
-    public $address_valid_start="";
-    public $address_valid_end="";
+    public $address_valid_start = "";
+    public $address_valid_end = "";
 
     //second address
-    public $second_address=false; //default only one address
+    public $second_address = false; //default only one address
     public $address2 = '';
     public $street2 = '';
     public $city2 = '';
@@ -41,8 +41,8 @@ class Patient
     public $building_nr_full2 = '';
     public $country2 = 'NL';
     public $address_type2 = "C";
-    public $address_valid_start2="";
-    public $address_valid_end2="";
+    public $address_valid_start2 = "";
+    public $address_valid_end2 = "";
 
     public $phones = [];
     public $sex = '';
@@ -64,16 +64,15 @@ class Patient
     public function setIdentity($identifier, $assigningAuthority, $typeCode)
     {
         $exist = false;
-        foreach ($this->identities as $identity){
-            if($assigningAuthority == $identity['assigningAuthority']){
-                $exist=true;
+        foreach ($this->identities as $identity) {
+            if ($assigningAuthority == $identity['assigningAuthority']) {
+                $exist = true;
             }
         }
-        if(!$exist){
+        if (!$exist) {
             $this->identities[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
         }
-        if($assigningAuthority=="NLMINBIZA" AND $typeCode =="NNNLD")
-        {
+        if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
             $this->bsn = $identifier;
         }
     }

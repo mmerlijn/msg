@@ -34,8 +34,8 @@ class HL7
     protected static $version = '2.4';
     protected static $sendingApplication = '';
     protected static $receivingApplication = '';
-    protected $dateTimeFormat="Y-m-d H:i:s";
-    public $dateTimeFormatOut="YmdHisO";
+    protected $dateTimeFormat = "Y-m-d H:i:s";
+    public $dateTimeFormatOut = "YmdHisO";
     //HL7 tree structure
     //tree [Segment] [Field] [Repeat] [Component] [SubComponent]
     //public $tree = [];
@@ -59,7 +59,7 @@ class HL7
         $this->buildSegments($hl7string);
 
         //read first line (header MSH) and set header params
-        $this->readHeader(static::$segments[0],$validate);
+        $this->readHeader(static::$segments[0], $validate);
 
         //loop through all input message segments
         foreach (static::$segments as $i => $segment) {
@@ -125,7 +125,7 @@ class HL7
      * @param string $string Raw HL7 MSH string
      * @throws \Exception
      */
-    protected function readHeader(string $string,bool $validate=true): void
+    protected function readHeader(string $string, bool $validate = true): void
     {
         // The first segment should be the control segment
         if (!preg_match('/^(MSH)+(.)(.)(.)(.)(.)(.)/', $string, $matches)) {
@@ -160,21 +160,21 @@ class HL7
     public function getValue($segmentNr, $fieldNr, $componentNr = 0, $subComponentNr = 0, $repeat = 0)
     {
         if ($subComponentNr) {
-            if(isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr])) {
+            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr])) {
                 return static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr];
-            }else{
+            } else {
                 return null;
             }
         } elseif ($componentNr) {
-            if(isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr])){
+            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr])) {
                 return static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr];
-            }else{
+            } else {
                 return null;
             }
         } else {
-            if(isset(static::$tree[$segmentNr][$fieldNr][$repeat])) {
+            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat])) {
                 return static::$tree[$segmentNr][$fieldNr][$repeat];
-            }else{
+            } else {
                 return null;
             }
         }
@@ -277,9 +277,10 @@ class HL7
         }
         return false;
     }
-    public function setDatetimeFormat($datetime,$segment,$nr)
+
+    public function setDatetimeFormat($datetime, $segment, $nr)
     {
-        if($datetime) {
+        if ($datetime) {
             switch (strlen($datetime)) {
                 case 14:
                     $format = "YmdHis";
@@ -296,46 +297,49 @@ class HL7
                 default:
                     throw new \Exception("ERROR {$segment}.{$nr}.1 datetime format, given {$datetime}");
             }
-           return $datetime ? date_create_from_format($format, $datetime)->format($this->dateTimeFormat) : "";
+            return $datetime ? date_create_from_format($format, $datetime)->format($this->dateTimeFormat) : "";
         }
         return '';
     }
-    public function setField($value,string $segment,int $fieldNr, int $componentNr = 0, int $subComponentNr = 0,bool $first=false):void
+
+    public function setField($value, string $segment, int $fieldNr, int $componentNr = 0, int $subComponentNr = 0, bool $first = false): void
     {
         $nrs = $this->getSegmentNrs($segment, $first);
         if (!is_array($nrs)) {
             $nrs = [$nrs];
         }
         foreach ($nrs as $nr) {
-            $this->setValue($value, $nr, $fieldNr,$componentNr,$subComponentNr);
+            $this->setValue($value, $nr, $fieldNr, $componentNr, $subComponentNr);
         }
     }
-    public function getField(string $segment,int $fieldNr, int $componentNr=0, int $subComponentNr=0,$repeat=0,array $params=['first'=>true,'nr'=>false])
+
+    public function getField(string $segment, int $fieldNr, int $componentNr = 0, int $subComponentNr = 0, $repeat = 0, array $params = ['first' => true, 'nr' => false])
     {
 
-            $nrsSegment = $this->getSegmentNrs($segment);
-            if (!is_array($nrsSegment)) {
-                $nrsSegment = [];
-            }
-            if (count($nrsSegment)) {
-                if ($params['nr']??false !== false) {
-                    if (count($nrsSegment) > $params['nr']) {
-                        return $this->getValue($nrsSegment[$params['nr']], $fieldNr, $componentNr, $subComponentNr, $repeat);
-                    } else {
-                        return false;
-                    }
-                } elseif ($params['first']??true) {
-                    return $this->getValue($nrsSegment[0], $fieldNr, $componentNr, $subComponentNr, $repeat);
+        $nrsSegment = $this->getSegmentNrs($segment);
+        if (!is_array($nrsSegment)) {
+            $nrsSegment = [];
+        }
+        if (count($nrsSegment)) {
+            if ($params['nr'] ?? false !== false) {
+                if (count($nrsSegment) > $params['nr']) {
+                    return $this->getValue($nrsSegment[$params['nr']], $fieldNr, $componentNr, $subComponentNr, $repeat);
                 } else {
-                    $data = [];
-                    foreach ($nrsSegment as $nr) {
-                        $data[] = $this->getValue($nr, $fieldNr, $componentNr, $subComponentNr, $repeat);
-                    }
-                    return $data;
+                    return false;
                 }
+            } elseif ($params['first'] ?? true) {
+                return $this->getValue($nrsSegment[0], $fieldNr, $componentNr, $subComponentNr, $repeat);
+            } else {
+                $data = [];
+                foreach ($nrsSegment as $nr) {
+                    $data[] = $this->getValue($nr, $fieldNr, $componentNr, $subComponentNr, $repeat);
+                }
+                return $data;
             }
-            return false;
+        }
+        return false;
     }
+
     protected function split_address($streetStr)
     {
 
@@ -343,10 +347,10 @@ class HL7
         $pattern = '#^([\w[:punct:] ]+) ([0-9 ]{1,5})([\w[:punct:]\-/]*)$#';
         $matchResult = preg_match($pattern, $streetStr, $aMatch);
 
-        $street = trim($aMatch[1]??false ? $aMatch[1] : '');
-        $number = trim($aMatch[2]??false ? $aMatch[2] : '');
-        $numberAddition = trim($aMatch[3]??false ? $aMatch[3] : '');
-        if(!$matchResult){
+        $street = trim($aMatch[1] ?? false ? $aMatch[1] : '');
+        $number = trim($aMatch[2] ?? false ? $aMatch[2] : '');
+        $numberAddition = trim($aMatch[3] ?? false ? $aMatch[3] : '');
+        if (!$matchResult) {
             $street = $streetStr;
         }
 

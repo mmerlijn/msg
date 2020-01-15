@@ -14,7 +14,7 @@ trait SetHeaderTrait
         $this->setSendingDevice($H->sending_device);
         $this->setSendingFacility($H->sending_facility);
         $this->setValue($H->field_separator, 0, 1);
-        $this->setValue($H->encoding_characters, 0,2);
+        $this->setValue($H->encoding_characters, 0, 2);
         $this->setReceivingApplication($H->receiving_application);
         $this->setReceivingFacility($H->receiving_facility);
         $this->setDatetimeOfMessage($H->datetime_of_message);
@@ -33,21 +33,20 @@ trait SetHeaderTrait
 
     public function setSendingApplication($value): void
     {
-        $nr = $this->getSegmentNrs('MSH',true,true);
-        //if($value!==null){
-            $this->setValue($value, $nr, 3, 1);
-        //}else{
-        //    throw new \Exception("Sending application cannot be NULL");
-        //}
+        $nr = $this->getSegmentNrs('MSH', true, true);
+        $this->setValue($value, $nr, 3, 1);
     }
+
     public function setSendingDevice(string $value): void
     {
         $this->setValue($value, 0, 3, 2);
     }
+
     public function setSendingFacility(string $value): void
     {
         $this->setValue($value, 0, 4, 1);
     }
+
     public function setReceivingApplication(string $value): void
     {
         $this->setValue($value, 0, 5, 1);
@@ -55,11 +54,7 @@ trait SetHeaderTrait
 
     public function setReceivingFacility($value): void
     {
-        //if($value!==null){
-            $this->setValue($value, 0, 6, 1);
-        //}else{
-        //    throw new \Exception("Receiving facility cannot be NULL");
-        //}
+        $this->setValue($value, 0, 6, 1);
     }
 
     public function setDatetimeOfMessage(string $value = null): void
@@ -67,17 +62,18 @@ trait SetHeaderTrait
         if ($value !== null) {
             try {
                 $datetime = date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut);
-                $this->setValue($datetime, 0, 7,1);
+                $this->setValue($datetime, 0, 7, 1);
             } catch (\Exception $e) {
                 throw new \Exception("Error setDatetimeOfMessage not proper format expect Y-m-d H:i:s got {$value}");
             }
-        }else{
-            $this->setValue(date($this->dateTimeFormatOut), 0, 7,1);
+        } else {
+            $this->setValue(date($this->dateTimeFormatOut), 0, 7, 1);
         }
     }
+
     public function setMessageType(string $type)
     {
-        switch ($type){
+        switch ($type) {
             case "ORM":
                 $this->setValue("ORM", 0, 9, 1);
                 $this->setValue("O01", 0, 9, 2);
@@ -91,6 +87,7 @@ trait SetHeaderTrait
                 break;
         }
     }
+
     public function setMessageTypeType(string $value): void
     {
         $this->setValue($value, 0, 9, 1);
@@ -106,64 +103,67 @@ trait SetHeaderTrait
         $this->setValue($value, 0, 9, 3);
     }
 
-    public function setMessageControlId($value=null): void
+    public function setMessageControlId($value = null): void
     {
-        if($value!==null) {
+        if ($value !== null) {
             $this->setValue($value, 0, 10);
-        }else{
+        } else {
             //20 hex lange time + random code (uniek)
-            $this->setValue(dechex(time()).bin2hex(random_bytes(6)), 0, 10);
+            $this->setValue(dechex(time()) . bin2hex(random_bytes(6)), 0, 10);
         }
     }
 
-    public function setProcessingId(string $value=null): void
+    public function setProcessingId(string $value = null): void
     {
-        if($value!==null){
+        if ($value !== null) {
             $this->setValue($value, 0, 11, 1);
-        }else{
-            $this->setValue("P", 0, 11,1);
+        } else {
+            $this->setValue("P", 0, 11, 1);
         }
     }
 
-    public function setVersionId(string $value=null): void
+    public function setVersionId(string $value = null): void
     {
-        if($value!==null){
+        if ($value !== null) {
             $this->setValue($value, 0, 12, 1);
-        }else{
+        } else {
             $this->setValue("2.4", 0, 12, 1);
         }
 
     }
 
-    public function setCountryCode(string $value=null): void
+    public function setCountryCode(string $value = null): void
     {
-        if($value!==null){
+        if ($value !== null) {
             $this->setValue($value, 0, 17);
-        }else{
+        } else {
             $this->setValue("NLD", 0, 17);
         }
 
     }
 
-    public function setCharacterSet(string $value=null): void
+    public function setCharacterSet(string $value = null): void
     {
-        if($value!==null){
+        if ($value !== null) {
             $this->setValue($value, 0, 18);
-        }else{
+        } else {
             $this->setValue("8859/1", 0, 18);
         }
 
     }
-    public function setSequenceNr(string $value=null):void
+
+    public function setSequenceNr(string $value = null): void
     {
-        $this->setValue($value,0,13);
+        $this->setValue($value, 0, 13);
     }
-    public function setAcceptAcknowledgement(string $value):void
+
+    public function setAcceptAcknowledgement(string $value): void
     {
-        $this->setValue($value,0,15);
+        $this->setValue($value, 0, 15);
     }
-    public function setApplicationAcknowledgement(string $value):void
+
+    public function setApplicationAcknowledgement(string $value): void
     {
-        $this->setValue($value,0,16);
+        $this->setValue($value, 0, 16);
     }
 }

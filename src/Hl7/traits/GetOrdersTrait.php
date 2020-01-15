@@ -29,7 +29,7 @@ trait GetOrdersTrait
 
         $value = $this->getValue($nr, 1); //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
         $Orders->control = $value ? $value : "NW";
-        $Orders->phone = $this->getValue($nr, 23,1);
+        $Orders->phone = $this->getValue($nr, 23, 1);
 
         $Orders->order_status = $this->getValue($nr, 5);
         //Requestnr
@@ -54,17 +54,17 @@ trait GetOrdersTrait
         $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
         $Orders->entered_by = [
             'agbcode' => $this->getValue($nr, 10, 1),
-            'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3),", "),
+            'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3), ", "),
             'source' => $this->getValue($nr, 10, 9, 1),
         ];
         $Orders->verified_by = [
             'agbcode' => $this->getValue($nr, 11, 1),
-            'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3),", "),
+            'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3), ", "),
             'source' => $this->getValue($nr, 11, 9, 1),
         ];
         $Orders->requester = [
             'agbcode' => $this->getValue($nr, 12, 1),
-            'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3),", "),
+            'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3), ", "),
             'source' => $this->getValue($nr, 12, 9, 1)
         ];
         $Orders->entering_location = [
@@ -105,7 +105,7 @@ trait GetOrdersTrait
             'source' => $this->getValue($nr, 21, 6, 1),
         ];
         if ($Orders->control != "NW") {
-            $effDatetime = $this->getValue($nr, 15,1);
+            $effDatetime = $this->getValue($nr, 15, 1);
 
             $Orders->order_effective_datetime = $this->setDatetimeFormat($effDatetime, 'ORC', 15);
         }
@@ -113,8 +113,8 @@ trait GetOrdersTrait
         if ($nrPV1 !== false) {
             $Orders->patient_visit_set_id = $this->getValue($nrPV1, 1);
             $Orders->patient_visit_class = $this->getValue($nrPV1, 2);
-            $Orders->patient_visit_assigned_location['point_of_care'] = $this->getValue($nrPV1, 3,1);
-            $Orders->patient_visit_visit_number['id_number'] = $this->getValue($nrPV1, 19,1);
+            $Orders->patient_visit_assigned_location['point_of_care'] = $this->getValue($nrPV1, 3, 1);
+            $Orders->patient_visit_visit_number['id_number'] = $this->getValue($nrPV1, 19, 1);
             $Orders->patient_visit_indicator = $this->getValue($nrPV1, 51);
             $Orders->pv1 = true;
         }
@@ -146,30 +146,30 @@ trait GetOrdersTrait
             $Order->observation_end_time = $this->setDatetimeFormat($endTime, 'OBR', 8);
 
             $Order->action_code = $this->getValue($nr, 11); //at home => L, else O
-            if(!$Orders->phone){
-                $Orders->phone = $this->getValue($nr, 17,1); //phone callback
+            if (!$Orders->phone) {
+                $Orders->phone = $this->getValue($nr, 17, 1); //phone callback
             }
 
             $Orders->result_status = $this->getValue($nr, 25);//F=final, C=correction
             $Orders->diagnostic_serv = $this->getValue($nr, 24);//bv LAB
-            $Orders->resultDateTime = $this->setDatetimeFormat($this->getValue($nr,22,1),$nr,22);
-            $Orders->timing_quantity['priority'] = $this->getValue($nr,27, 6);
+            $Orders->resultDateTime = $this->setDatetimeFormat($this->getValue($nr, 22, 1), $nr, 22);
+            $Orders->timing_quantity['priority'] = $this->getValue($nr, 27, 6);
 
             if (!in_array($Orders->action_code, ['L', "O"])) {
                 $Orders->action_code = $Order->action_code;
             }
-            $Order->specimen_received_datetime = $this->setDatetimeFormat($this->getValue($nr, 14,1), $nr,14);
-            $Order->specimen_source = $this->getValue($nr, 15,1,1);
+            $Order->specimen_received_datetime = $this->setDatetimeFormat($this->getValue($nr, 14, 1), $nr, 14);
+            $Order->specimen_source = $this->getValue($nr, 15, 1, 1);
 
             $Order->clinical_information = $this->getValue($nr, 13);
 
             //$requestDate = $this->getValue($nr, 27, 4, 1);
             //$Order->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 27);
-            if(!$Orders->request_date){
-                $requestDate = $this->getValue($nr,20);
+            if (!$Orders->request_date) {
+                $requestDate = $this->getValue($nr, 20);
                 $Orders->request_date = $this->setDatetimeFormat($requestDate, 'OBR', 20);
             }
-            $Orders->collectors_comment = $this->getValue($nr, 39,2);
+            $Orders->collectors_comment = $this->getValue($nr, 39, 2);
 
             $Orders->copy_to = [
                 'agbcode' => $this->getValue($nr, 28, 1),
@@ -252,10 +252,10 @@ trait GetOrdersTrait
                 $OrderComment->units = $this->getValue($i, 6, 1);
                 $OrderComment->references_range = $this->getValue($i, 7);
                 $OrderComment->result_status = $this->getValue($i, 11);
-                $OrderComment->abnormal_flags = $this->getValue($i,8);
-                $OrderComment->datetime_of_the_observation = $this->setDatetimeFormat($this->getValue($i,14,1),$nr,14);
-                $OrderComment->equipment_instance_identifier = $this->getValue($i, 18,1);
-                $OrderComment->datetime_of_analysis = $this->setDatetimeFormat($this->getValue($i,19,1),$nr,19);
+                $OrderComment->abnormal_flags = $this->getValue($i, 8);
+                $OrderComment->datetime_of_the_observation = $this->setDatetimeFormat($this->getValue($i, 14, 1), $nr, 14);
+                $OrderComment->equipment_instance_identifier = $this->getValue($i, 18, 1);
+                $OrderComment->datetime_of_analysis = $this->setDatetimeFormat($this->getValue($i, 19, 1), $nr, 19);
 
                 //OrderNotices of the OBX
                 while ($this->ifNextSegmentIs($i, 'NTE')) {

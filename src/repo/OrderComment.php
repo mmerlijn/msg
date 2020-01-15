@@ -4,7 +4,6 @@
 namespace mmerlijn\msg\src\repo;
 
 
-
 class OrderComment
 {
     public $id = '';
@@ -24,16 +23,17 @@ class OrderComment
     public $value_source = '';
     public $units = '';
     public $references_range = '';
-    public $abnormal_flags='';
+    public $abnormal_flags = '';
     public $result_status = 'F'; //F/C
-    public $datetime_of_the_observation='';
-    public $equipment_instance_identifier='';
+    public $datetime_of_the_observation = '';
+    public $equipment_instance_identifier = '';
     public $datetime_of_analysis = '';
 
-    public $repeated=false;
-    public $notes=[]; //become NTE segments
+    public $repeated = false;
+    public $notes = []; //become NTE segments
 
-    public function addOrderNote(OrderNote $note){
+    public function addOrderNote(OrderNote $note)
+    {
         $this->notes[] = $note;
     }
 }

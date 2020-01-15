@@ -59,12 +59,12 @@ class Orders
     ];
     public $order_effective_datetime = ""; //Alleen bij CA, RO en XO (zie $control)
     //PV1
-    public $pv1=false; //pv1 present and shown
+    public $pv1 = false; //pv1 present and shown
     public $patient_visit_set_id = 1;
     public $patient_visit_class = "O";
     public $patient_visit_indicator = "V";
-    public $patient_visit_assigned_location=[]; //PV1.3
-    public $patient_visit_visit_number=[]; //PV1.19
+    public $patient_visit_assigned_location = []; //PV1.3
+    public $patient_visit_visit_number = []; //PV1.19
 
     //PV2
     public $admit_reason_code;
@@ -82,17 +82,17 @@ class Orders
     public $organisation_address = ['street' => '', 'buildingnr' => '', 'city' => '', 'postcode' => ''];
     public $organisation_phone = "";
 
-    public $collectors_comment='';
+    public $collectors_comment = '';
 
-    public $order_status='';
+    public $order_status = '';
 
-    public $diagnostic_serv=""; //OBR 24 bv. LAB (L)
+    public $diagnostic_serv = ""; //OBR 24 bv. LAB (L)
     public $action_code = ""; //at home => L, else O
-    public $result_status=''; //F=final, C=correction
-    public $resultDateTime=''; //OBR22
-    public $timing_quantity=['priority'=>''];
+    public $result_status = ''; //F=final, C=correction
+    public $resultDateTime = ''; //OBR22
+    public $timing_quantity = ['priority' => ''];
     public $orders = [];
-    public $notes=[];
+    public $notes = [];
 
     public function __construct()
     {

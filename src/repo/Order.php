@@ -4,8 +4,6 @@
 namespace mmerlijn\msg\src\repo;
 
 
-
-
 class Order
 {
     public $id = '';
@@ -20,38 +18,39 @@ class Order
     public $clinical_information = '';
     //16 = ordering provider this is the same as ordering provider from ORC => see requester
     //17 same as phonenumbers from ORC
-    public $result_status='';
+    public $result_status = '';
     public $request_date = '';
 
-    public $specimen_received_datetime=null;
-    public $specimen_source=null;
-    public $order_comments=[];
+    public $specimen_received_datetime = null;
+    public $specimen_source = null;
+    public $order_comments = [];
 
-    public $notes=[];
+    public $notes = [];
 
     public function addOrderComment(OrderComment $comment)
     {
-        $present=false;
-        foreach ($this->order_comments as $k=>$o){
-            if($o->identifier_code == $comment->identifier_code ){
-                $present=true;
+        $present = false;
+        foreach ($this->order_comments as $k => $o) {
+            if ($o->identifier_code == $comment->identifier_code) {
+                $present = true;
                 $updateableOrderNr = $k;
             }
         }
-        if(!$present){
+        if (!$present) {
             $this->order_comments[] = $comment;
-            $nr = count($this->order_comments)-1;
-            if(!$this->order_comments[$nr]->id)
-            {
-                $this->order_comments[$nr]->id = $nr+1;
+            $nr = count($this->order_comments) - 1;
+            if (!$this->order_comments[$nr]->id) {
+                $this->order_comments[$nr]->id = $nr + 1;
             }
-        }else{
+        } else {
             $this->order_comments[$updateableOrderNr]->value = $comment->value;
             $this->order_comments[$updateableOrderNr]->type_of_value = $comment->type_of_value;
             $this->order_comments[$updateableOrderNr]->identifier_label = $comment->identifier_label;
         }
     }
-    public function addOrderNote(OrderNote $note){
+
+    public function addOrderNote(OrderNote $note)
+    {
         $this->notes[] = $note;
     }
 }

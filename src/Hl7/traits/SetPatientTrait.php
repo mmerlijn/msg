@@ -50,7 +50,7 @@ trait SetPatientTrait
             'address_type' => $P->address_type,
             'address_valid_start' => $P->address_valid_start
         ]);
-        if($P->second_address){
+        if ($P->second_address) {
             $this->setPatientAddress([
                 'address' => $P->address2,
                 'street' => $P->street2,
@@ -62,7 +62,7 @@ trait SetPatientTrait
                 'country' => $P->country2,
                 'address_type' => $P->address_type2,
                 'address_valid_start' => $P->address_valid_start2
-            ],1);
+            ], 1);
         }
         $this->setPatientIdentityUnknown($P->identity_unknown_indicator);
         $this->setPatientReliabilityCode($P->identity_reliability_code);
@@ -247,25 +247,25 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
-            if($addressnr>0 AND !$this->getField('PID', 11,3,0,$addressnr)) {
+            if ($addressnr > 0 AND !$this->getField('PID', 11, 3, 0, $addressnr)) {
                 $this->addRepeatField($nr, 11);
             }
-            if(!$address['building_nr']){
-                $st = $this->split_address("Straat ".$address['building_nr_full']);
+            if (!$address['building_nr']) {
+                $st = $this->split_address("Straat " . $address['building_nr_full']);
                 $address['building_nr'] = $st['number'];
                 $address['building_nr_additive'] = $st['numberAddition'];
-            }else{
+            } else {
                 $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
             }
             $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3, $addressnr);
             $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2, $addressnr);
             $this->setValue(trim($address['street'] . " " . $address['building_nr_full']), $nr, 11, 1, 1, $addressnr); //address
-            $this->setValue((string)($address['city'] ?? ''), $nr, 11, 3, 0,$addressnr);
-            $this->setValue((string)($address['postcode'] ?? ''), $nr, 11, 5, 0,$addressnr);
-            $this->setValue((string)($address['building_nr_additive'] ?? ''), $nr, 11, 2, 0,$addressnr);
-            $this->setValue((string)($address['country'] ?? ''), $nr, 11, 6, 0,$addressnr);
-            $this->setValue((string)$address['address_type'] ?? "H", $nr, 11, 7, 0,$addressnr);
-            $this->setValue((string)$address['address_valid_start'] ?? "", $nr, 11, 12, 1,$addressnr);
+            $this->setValue((string)($address['city'] ?? ''), $nr, 11, 3, 0, $addressnr);
+            $this->setValue((string)($address['postcode'] ?? ''), $nr, 11, 5, 0, $addressnr);
+            $this->setValue((string)($address['building_nr_additive'] ?? ''), $nr, 11, 2, 0, $addressnr);
+            $this->setValue((string)($address['country'] ?? ''), $nr, 11, 6, 0, $addressnr);
+            $this->setValue((string)$address['address_type'] ?? "H", $nr, 11, 7, 0, $addressnr);
+            $this->setValue((string)$address['address_valid_start'] ?? "", $nr, 11, 12, 1, $addressnr);
         }
     }
 

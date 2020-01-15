@@ -35,14 +35,17 @@ Trait GetHeaderTrait
     {
         return $this->getValue(0, 3, 1);
     }
+
     public function getSendingDevice()
     {
         return $this->getValue(0, 3, 2);
     }
+
     public function getSendingFacility()
     {
         return $this->getValue(0, 4, 1);
     }
+
     public function getReceivingApplication()
     {
         return $this->getValue(0, 5, 1);

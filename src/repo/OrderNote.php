@@ -8,6 +8,6 @@ class OrderNote
 {
     public $id = '';
     public $source_of_comment = '';
-    public $comment="";
-    public $comment_type=[];
+    public $comment = "";
+    public $comment_type = [];
 }

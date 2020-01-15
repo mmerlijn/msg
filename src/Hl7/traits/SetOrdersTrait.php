@@ -51,8 +51,8 @@ trait SetOrdersTrait
         $this->setOrderRequestDate($Orders->request_date);
         $this->setPointOfCare($Orders->pointOfCare);
         $this->setOrderCreatedAt($Orders->created_at);
-        $this->setOrderEnteredBy($Orders->entered_by['name']??null, $Orders->entered_by['agbcode']??null, $Orders->entered_by['source']??null);
-        $this->setOrderVerifiedBy($Orders->verified_by['name']??null, $Orders->verified_by['agbcode']??null, $Orders->verified_by['source']??null);
+        $this->setOrderEnteredBy($Orders->entered_by['name'] ?? null, $Orders->entered_by['agbcode'] ?? null, $Orders->entered_by['source'] ?? null);
+        $this->setOrderVerifiedBy($Orders->verified_by['name'] ?? null, $Orders->verified_by['agbcode'] ?? null, $Orders->verified_by['source'] ?? null);
         $this->setOrderOrganisation($Orders->entering_organisation['name'], $Orders->entering_organisation['agbcode'], $Orders->entering_organisation['source']);
         $this->setOrderLocation($Orders->entering_location['location'], $Orders->entering_location['name'], $Orders->entering_location['agbcode']);
         $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']);
@@ -77,30 +77,31 @@ trait SetOrdersTrait
         $this->setCollectorsComment($Orders->collectors_comment);
 
     }
+
     private function deleteCurrentOrders()
     {
         $nr = $this->getSegmentNrs('PV1', true);
-        if($nr!==false) {
+        if ($nr !== false) {
             unset(static::$tree[$nr]);
         }
-        $nr = $this->getSegmentNrs('PV2',true);
-        if($nr!==false) {
+        $nr = $this->getSegmentNrs('PV2', true);
+        if ($nr !== false) {
             unset(static::$tree[$nr]);
         }
-        $nrs = $this->getSegmentNrs('OBX',false);
-        if($nrs!==false) {
+        $nrs = $this->getSegmentNrs('OBX', false);
+        if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
                 unset(static::$tree[$nr]);
             }
         }
-        $nrs = $this->getSegmentNrs('OBR',false);
-        if($nrs!==false) {
+        $nrs = $this->getSegmentNrs('OBR', false);
+        if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
                 unset(static::$tree[$nr]);
             }
         }
-        $nrs = $this->getSegmentNrs('ORC',false);
-        if($nrs!==false) {
+        $nrs = $this->getSegmentNrs('ORC', false);
+        if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
                 unset(static::$tree[$nr]);
             }
@@ -135,6 +136,7 @@ trait SetOrdersTrait
             }
         }
     }
+
     private function setCollectorsComment($comment)
     {
         if ($comment) {
@@ -210,7 +212,7 @@ trait SetOrdersTrait
                 $nrs = [$nrs];
             }
             foreach ($nrs as $nr) {
-                $this->setValue($value, $nr, 17,1);
+                $this->setValue($value, $nr, 17, 1);
             }
         }
 
@@ -312,6 +314,7 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 5);
         }
     }
+
     private function setOrderActionCode(string $value): void
     {
         $nrs = $this->getSegmentNrs('OBR', false);
@@ -322,6 +325,7 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 11);
         }
     }
+
     private function setOrderDiagnosticServ(string $value): void
     {
         $nrs = $this->getSegmentNrs('OBR', false);
@@ -332,6 +336,7 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 24);
         }
     }
+
     private function setOrderResultStatus(string $value): void
     {
         $nrs = $this->getSegmentNrs('OBR', false);
@@ -342,18 +347,20 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 25);
         }
     }
+
     private function setOrderResultDateTime(string $value): void
     {
-        if($value) {
+        if ($value) {
             $nrs = $this->getSegmentNrs('OBR', false);
             if (!is_array($nrs)) {
                 $nrs = [$nrs];
             }
             foreach ($nrs as $nr) {
-                $this->setValue($value ? date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut) : "", $nr, 22,1);
+                $this->setValue($value ? date_create_from_format("Y-m-d H:i:s", $value)->format($this->dateTimeFormatOut) : "", $nr, 22, 1);
             }
         }
     }
+
     private function setOrderTimingQuantity(array $value): void
     {
         $nrs = $this->getSegmentNrs('OBR', false);
@@ -361,7 +368,7 @@ trait SetOrdersTrait
             $nrs = [$nrs];
         }
         foreach ($nrs as $nr) {
-            $this->setValue($value['priority'], $nr, 27,6);
+            $this->setValue($value['priority'], $nr, 27, 6);
         }
     }
 
@@ -394,13 +401,14 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 10, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 10, 2, 1);
                     $this->setValue($initials, $nr, 10, 3);
                 }
             }
         }
     }
+
     private function setOrderVerifiedBy(string $name, string $agbcode = null, string $source = 'VEKTIS'): void
     {
         if ($name or $agbcode) {
@@ -418,7 +426,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 11, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 11, 2, 1);
                     $this->setValue($initials, $nr, 11, 3);
                 }
@@ -470,7 +478,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 12, 2, 1);
                     $this->setValue($initials, $nr, 12, 3);
                 }
@@ -487,7 +495,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 16, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 16, 2, 1);
                     $this->setValue($initials, $nr, 16, 3);
                 }
@@ -510,7 +518,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 17, 3);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 17, 2);
                 }
             }
@@ -534,7 +542,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 19, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 19, 2, 1);
                     $this->setValue($initials, $nr, 19, 3);
                 }
@@ -556,7 +564,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 21, 6, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 21, 1);
                 }
             }
@@ -580,7 +588,7 @@ trait SetOrdersTrait
                         $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
                     }
                 }
-                if($name) {
+                if ($name) {
                     $this->setValue($name, $nr, 12, 2, 1);
                     $this->setValue($initials, $nr, 12, 3);
                 }
@@ -614,6 +622,7 @@ trait SetOrdersTrait
             }
         }
     }
+
     private function setOrderStatus(string $value): void
     {
         $nrs = $this->getSegmentNrs('ORC', false, true);
@@ -624,16 +633,17 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 5);
         }
     }
+
     //params [$k=>$v] with $k=order param en $k=value
     private function setOrderPatientVisit(Orders $O): void
     {
-        if($O->pv1){
+        if ($O->pv1) {
             $nr = $this->getSegmentNrs('PV1', true, true);
             if ($nr !== false) {
                 $this->setValue($O->patient_visit_set_id, $nr, 1);
                 $this->setValue($O->patient_visit_class, $nr, 2);
-                $this->setValue($O->patient_visit_assigned_location['point_of_care']??null, $nr, 3,1);
-                $this->setValue($O->patient_visit_visit_number['id_number']??null, $nr, 19,1);
+                $this->setValue($O->patient_visit_assigned_location['point_of_care'] ?? null, $nr, 3, 1);
+                $this->setValue($O->patient_visit_visit_number['id_number'] ?? null, $nr, 19, 1);
                 $this->setValue($O->patient_visit_indicator, $nr, 51);
             }
         }
@@ -654,16 +664,16 @@ trait SetOrdersTrait
         $this->setValue($Order->clinical_information, $new_nr, 13);
         $this->setValue($Order->request_date ? date_create_from_format("Y-m-d H:i:s", $Order->request_date)->format($this->dateTimeFormatOut) : '', $new_nr, 27, 4, 1);
 
-        $this->setValue($Order->specimen_received_datetime ? date_create_from_format("Y-m-d H:i:s", $Order->specimen_received_datetime )->format($this->dateTimeFormatOut): '',$new_nr,14,1);
-        $this->setValue($Order->specimen_source,$new_nr,15,1,1);
+        $this->setValue($Order->specimen_received_datetime ? date_create_from_format("Y-m-d H:i:s", $Order->specimen_received_datetime)->format($this->dateTimeFormatOut) : '', $new_nr, 14, 1);
+        $this->setValue($Order->specimen_source, $new_nr, 15, 1, 1);
         $orcnr = $this->getSegmentNrs('ORC', true);
         static::$tree[$new_nr][16] = static::$tree[$orcnr][12]; //requester
         static::$tree[$new_nr][17] = static::$tree[$orcnr][14]; //phone and fax
         //Order notes
-        foreach ($Order->notes as $i =>$note){
-            $nr = $this->createSegment('NTE',$new_nr+1+$i);
+        foreach ($Order->notes as $i => $note) {
+            $nr = $this->createSegment('NTE', $new_nr + 1 + $i);
             $this->setvalue($i + 1, $nr, 1);
-            $this->setvalue($note->source_of_comment??'O', $nr, 2);
+            $this->setvalue($note->source_of_comment ?? 'O', $nr, 2);
             $this->setValue($note->comment, $nr, 3);
         }
         //Order comments
@@ -678,11 +688,11 @@ trait SetOrdersTrait
 
     private function setOrderComments(OrderComment $OrderComment, $nr)
     {
-        if(!$OrderComment->type_of_value){
-            if($OrderComment->value_code){
-                $OrderComment->type_of_value="CE";
-            }else{
-                $OrderComment->type_of_value="ST";
+        if (!$OrderComment->type_of_value) {
+            if ($OrderComment->value_code) {
+                $OrderComment->type_of_value = "CE";
+            } else {
+                $OrderComment->type_of_value = "ST";
             }
         }
         static::$tree[$nr][5][0] = Table0125::getClass($OrderComment->type_of_value)::setEmpty();
@@ -692,13 +702,13 @@ trait SetOrdersTrait
         $this->setValue($OrderComment->identifier_code, $nr, 3, 1);
         $this->setValue($OrderComment->identifier_label, $nr, 3, 2);
         $this->setValue($OrderComment->identifier_source, $nr, 3, 3);
-        if($OrderComment->identifier_alternate_code){
+        if ($OrderComment->identifier_alternate_code) {
             $this->setValue($OrderComment->identifier_alternate_code, $nr, 3, 4);
         }
-        if($OrderComment->identifier_alternate_label){
+        if ($OrderComment->identifier_alternate_label) {
             $this->setValue($OrderComment->identifier_alternate_label, $nr, 3, 5);
         }
-        if($OrderComment->identifier_alternate_source){
+        if ($OrderComment->identifier_alternate_source) {
             $this->setValue($OrderComment->identifier_alternate_source, $nr, 3, 6);
         }
 
@@ -728,17 +738,17 @@ trait SetOrdersTrait
         }
         $this->setValue($OrderComment->references_range, $nr, 7);
         $this->setValue($OrderComment->result_status, $nr, 11);
-        $this->setValue($OrderComment->abnormal_flags,$nr,8);
-        $this->setValue($OrderComment->equipment_instance_identifier,$nr,18,1);
+        $this->setValue($OrderComment->abnormal_flags, $nr, 8);
+        $this->setValue($OrderComment->equipment_instance_identifier, $nr, 18, 1);
         $this->setValue($OrderComment->datetime_of_the_observation ? date_create_from_format("Y-m-d H:i:s", $OrderComment->datetime_of_the_observation)->format($this->dateTimeFormatOut) : '', $nr, 14, 1);
         $this->setValue($OrderComment->datetime_of_analysis ? date_create_from_format("Y-m-d H:i:s", $OrderComment->datetime_of_analysis)->format($this->dateTimeFormatOut) : '', $nr, 19, 1);
 
 
         foreach ($OrderComment->notes as $i => $note) {
-            $nr = $this->createSegment('NTE', $nr + 1+$i);
-            $this->setvalue($i + 1, $nr , 1);
-            $this->setvalue($note->source_of_comment??'O', $nr , 2);
-            $this->setValue($note->comment, $nr , 3);
+            $nr = $this->createSegment('NTE', $nr + 1 + $i);
+            $this->setvalue($i + 1, $nr, 1);
+            $this->setvalue($note->source_of_comment ?? 'O', $nr, 2);
+            $this->setValue($note->comment, $nr, 3);
             //$this->setValue("Opm. uitslag", $nr + 1, 4, 2);
         }
     }
