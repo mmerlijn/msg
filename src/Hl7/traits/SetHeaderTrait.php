@@ -11,6 +11,8 @@ trait SetHeaderTrait
     public function setHeader(Header $H): void
     {
         $this->setSendingApplication($H->sending_application);
+        $this->setSendingDevice($H->sending_device);
+        $this->setSendingFacility($H->sending_facility);
         $this->setValue($H->field_separator, 0, 1);
         $this->setValue($H->encoding_characters, 0,2);
         $this->setReceivingApplication($H->receiving_application);
@@ -32,13 +34,20 @@ trait SetHeaderTrait
     public function setSendingApplication($value): void
     {
         $nr = $this->getSegmentNrs('MSH',true,true);
-        if($value!==null){
+        //if($value!==null){
             $this->setValue($value, $nr, 3, 1);
-        }else{
-            throw new \Exception("Sending application cannot be NULL");
-        }
+        //}else{
+        //    throw new \Exception("Sending application cannot be NULL");
+        //}
     }
-
+    public function setSendingDevice(string $value): void
+    {
+        $this->setValue($value, 0, 3, 2);
+    }
+    public function setSendingFacility(string $value): void
+    {
+        $this->setValue($value, 0, 4, 1);
+    }
     public function setReceivingApplication(string $value): void
     {
         $this->setValue($value, 0, 5, 1);
@@ -46,11 +55,11 @@ trait SetHeaderTrait
 
     public function setReceivingFacility($value): void
     {
-        if($value!==null){
+        //if($value!==null){
             $this->setValue($value, 0, 6, 1);
-        }else{
-            throw new \Exception("Receiving facility cannot be NULL");
-        }
+        //}else{
+        //    throw new \Exception("Receiving facility cannot be NULL");
+        //}
     }
 
     public function setDatetimeOfMessage(string $value = null): void

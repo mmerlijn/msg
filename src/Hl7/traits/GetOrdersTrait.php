@@ -8,8 +8,10 @@
 
 namespace mmerlijn\msg\src\Hl7\traits;
 
+use mmerlijn\msg\src\Hl7\segments\OBX;
 use mmerlijn\msg\src\repo\Order;
 use mmerlijn\msg\src\repo\OrderComment;
+use mmerlijn\msg\src\repo\OrderNote;
 use mmerlijn\msg\src\repo\Orders;
 
 
@@ -29,6 +31,7 @@ trait GetOrdersTrait
         $Orders->control = $value ? $value : "NW";
         $Orders->phone = $this->getValue($nr, 23,1);
 
+        $Orders->order_status = $this->getValue($nr, 5);
         //Requestnr
         $value = $this->getValue($nr, 4, 1);
         if (!$value) {
@@ -82,7 +85,6 @@ trait GetOrdersTrait
                 }
             }
         }
-
         $updateTime = $this->getValue($nr, 15, 1);   //by codes  “CA”, “RO” or “XO”
         $Orders->update_time_request = $this->setDatetimeFormat($updateTime, 'ORC', 15);
         //orc17
@@ -111,6 +113,8 @@ trait GetOrdersTrait
         if ($nrPV1 !== false) {
             $Orders->patient_visit_set_id = $this->getValue($nrPV1, 1);
             $Orders->patient_visit_class = $this->getValue($nrPV1, 2);
+            $Orders->patient_visit_assigned_location['point_of_care'] = $this->getValue($nrPV1, 3,1);
+            $Orders->patient_visit_visit_number['id_number'] = $this->getValue($nrPV1, 19,1);
             $Orders->patient_visit_indicator = $this->getValue($nrPV1, 51);
             $Orders->pv1 = true;
         }
@@ -142,6 +146,10 @@ trait GetOrdersTrait
             $Order->observation_end_time = $this->setDatetimeFormat($endTime, 'OBR', 8);
 
             $Order->action_code = $this->getValue($nr, 11); //at home => L, else O
+            if(!$Orders->phone){
+                $Orders->phone = $this->getValue($nr, 17,1); //phone callback
+            }
+
             $Orders->result_status = $this->getValue($nr, 25);//F=final, C=correction
             $Orders->diagnostic_serv = $this->getValue($nr, 24);//bv LAB
             $Orders->resultDateTime = $this->setDatetimeFormat($this->getValue($nr,22,1),$nr,22);
@@ -150,6 +158,8 @@ trait GetOrdersTrait
             if (!in_array($Orders->action_code, ['L', "O"])) {
                 $Orders->action_code = $Order->action_code;
             }
+            $Order->specimen_received_datetime = $this->setDatetimeFormat($this->getValue($nr, 14,1), $nr,14);
+            $Order->specimen_source = $this->getValue($nr, 15,1,1);
 
             $Order->clinical_information = $this->getValue($nr, 13);
 
@@ -172,8 +182,18 @@ trait GetOrdersTrait
                 'first_name' => $this->getValue($nr, 10, 3)
             ];
             $i = $nr;
+            //OrderNotices of the OBR
+            while ($this->ifNextSegmentIs($i, 'NTE')) {
+                $i++;
+                $OrderNotice = new OrderNote();
+                $OrderNotice->id = $this->getValue($i, 1);
+                $OrderNotice->source_of_comment = $this->getValue($i, 2);
+                $OrderNotice->comment = $this->getValue($i, 3);
+                $Order->addOrderNote($OrderNotice);
+            }
             while ($this->ifNextSegmentIs($i, 'OBX')) {
                 $i++;
+
                 $OrderComment = new OrderComment();
                 $value = [];
                 if (count(static::$tree[$i][5]) > 1) {
@@ -232,10 +252,24 @@ trait GetOrdersTrait
                 $OrderComment->units = $this->getValue($i, 6, 1);
                 $OrderComment->references_range = $this->getValue($i, 7);
                 $OrderComment->result_status = $this->getValue($i, 11);
+                $OrderComment->abnormal_flags = $this->getValue($i,8);
+                $OrderComment->datetime_of_the_observation = $this->setDatetimeFormat($this->getValue($i,14,1),$nr,14);
+                $OrderComment->equipment_instance_identifier = $this->getValue($i, 18,1);
+                $OrderComment->datetime_of_analysis = $this->setDatetimeFormat($this->getValue($i,19,1),$nr,19);
 
+                //OrderNotices of the OBX
+                while ($this->ifNextSegmentIs($i, 'NTE')) {
+                    $i++;
+                    $OrderNotice = new OrderNote();
+                    $OrderNotice->id = $this->getValue($i, 1);
+                    $OrderNotice->source_of_comment = $this->getValue($i, 2);
+                    $OrderNotice->comment = $this->getValue($i, 3);
+                    $OrderComment->addOrderNote($OrderNotice);
+                }
                 $Order->addOrderComment($OrderComment);
 
             }
+
             $Orders->addOrder($Order);
         }
 

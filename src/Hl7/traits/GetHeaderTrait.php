@@ -12,6 +12,8 @@ Trait GetHeaderTrait
     {
         $H = new Header();
         $H->sending_application = $this->getSendingApplication();
+        $H->sending_device = $this->getSendingDevice();
+        $H->sending_facility = $this->getSendingFacility();
         $H->receiving_application = $this->getReceivingApplication();
         $H->receiving_facility = $this->getReceivingFacility();
         $H->datetime_of_message = $this->getDatetimeOfMessage();
@@ -33,7 +35,14 @@ Trait GetHeaderTrait
     {
         return $this->getValue(0, 3, 1);
     }
-
+    public function getSendingDevice()
+    {
+        return $this->getValue(0, 3, 2);
+    }
+    public function getSendingFacility()
+    {
+        return $this->getValue(0, 4, 1);
+    }
     public function getReceivingApplication()
     {
         return $this->getValue(0, 5, 1);

@@ -63,6 +63,8 @@ class Orders
     public $patient_visit_set_id = 1;
     public $patient_visit_class = "O";
     public $patient_visit_indicator = "V";
+    public $patient_visit_assigned_location=[]; //PV1.3
+    public $patient_visit_visit_number=[]; //PV1.19
 
     //PV2
     public $admit_reason_code;
@@ -82,6 +84,7 @@ class Orders
 
     public $collectors_comment='';
 
+    public $order_status='';
 
     public $diagnostic_serv=""; //OBR 24 bv. LAB (L)
     public $action_code = ""; //at home => L, else O
@@ -89,7 +92,7 @@ class Orders
     public $resultDateTime=''; //OBR22
     public $timing_quantity=['priority'=>''];
     public $orders = [];
-
+    public $notes=[];
 
     public function __construct()
     {

@@ -28,9 +28,9 @@ trait SetOrdersTrait
         if ($Orders->admit_reason_name) {
             $this->setOrderAdmitReason($Orders->admit_reason_code, $Orders->admit_reason_name, $Orders->admit_reason_source);
         }
-        if($Orders->pv1) {
-            $this->setOrderPatientVisit();
-        }
+        //only set when $Orders->pv1 = true
+        $this->setOrderPatientVisit($Orders);
+
         $orcIsSet = false;
         foreach ($Orders->orders as $teller => $order) {
             if ($repeatOrc or !$orcIsSet) {
@@ -43,7 +43,7 @@ trait SetOrdersTrait
 
         $this->setOrderControl($Orders->control);
         $this->setOrderUpdateTimeRequest($Orders->update_time_request);
-        $this->setOrderPhone($Orders->phone);
+
         $this->setOrderFax($Orders->fax);
 
         $this->setOrderRequestnr($Orders->requestnr);
@@ -58,8 +58,10 @@ trait SetOrdersTrait
         $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']);
         $this->setOrderFacility($Orders->ordering_facility['name'], $Orders->ordering_facility['agbcode'], $Orders->ordering_facility['source']);
         $this->setOrderEffectiveDatetime($Orders->order_effective_datetime);
+        $this->setOrderStatus($Orders->order_status);
 
         //put to ORC and OBR
+        $this->setOrderPhone($Orders->phone);
         $this->setOrderCopyTo($Orders->copy_to['name'], $Orders->copy_to['agbcode'], $Orders->copy_to['source']);
         $this->setOrderCollectorIdentifier($Orders->collector_identifier['id'], $Orders->collector_identifier['last_name'], $Orders->collector_identifier['first_name']);
         $this->setOrderPriority($Orders->priority);
@@ -201,6 +203,14 @@ trait SetOrdersTrait
                     static::$tree[$nr][14][$new_nr][3] = $type;
                 }
 
+            }
+            $nrs = $this->getSegmentNrs('OBR', false, true);
+
+            if (!is_array($nrs)) {
+                $nrs = [$nrs];
+            }
+            foreach ($nrs as $nr) {
+                $this->setValue($value, $nr, 17,1);
             }
         }
 
@@ -604,15 +614,30 @@ trait SetOrdersTrait
             }
         }
     }
-
-    private function setOrderPatientVisit($set_id = 1, $class = "O", $indicator = "V"): void
+    private function setOrderStatus(string $value): void
     {
-        $nr = $this->getSegmentNrs('PV1', true, true);
-        if ($nr !== false) {
-            $this->setValue($set_id, $nr, 1);
-            $this->setValue($class, $nr, 2);
-            $this->setValue($indicator, $nr, 51);
+        $nrs = $this->getSegmentNrs('ORC', false, true);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
         }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 5);
+        }
+    }
+    //params [$k=>$v] with $k=order param en $k=value
+    private function setOrderPatientVisit(Orders $O): void
+    {
+        if($O->pv1){
+            $nr = $this->getSegmentNrs('PV1', true, true);
+            if ($nr !== false) {
+                $this->setValue($O->patient_visit_set_id, $nr, 1);
+                $this->setValue($O->patient_visit_class, $nr, 2);
+                $this->setValue($O->patient_visit_assigned_location['point_of_care']??null, $nr, 3,1);
+                $this->setValue($O->patient_visit_visit_number['id_number']??null, $nr, 19,1);
+                $this->setValue($O->patient_visit_indicator, $nr, 51);
+            }
+        }
+
     }
 
     private function setOrder(Order $Order, $new_nr, $OBRnr = 1)
@@ -628,11 +653,21 @@ trait SetOrdersTrait
         $this->setValue($Order->action_code, $new_nr, 11);
         $this->setValue($Order->clinical_information, $new_nr, 13);
         $this->setValue($Order->request_date ? date_create_from_format("Y-m-d H:i:s", $Order->request_date)->format($this->dateTimeFormatOut) : '', $new_nr, 27, 4, 1);
+
+        $this->setValue($Order->specimen_received_datetime ? date_create_from_format("Y-m-d H:i:s", $Order->specimen_received_datetime )->format($this->dateTimeFormatOut): '',$new_nr,14,1);
+        $this->setValue($Order->specimen_source,$new_nr,15,1,1);
         $orcnr = $this->getSegmentNrs('ORC', true);
         static::$tree[$new_nr][16] = static::$tree[$orcnr][12]; //requester
         static::$tree[$new_nr][17] = static::$tree[$orcnr][14]; //phone and fax
+        //Order notes
+        foreach ($Order->notes as $i =>$note){
+            $nr = $this->createSegment('NTE',$new_nr+1+$i);
+            $this->setvalue($i + 1, $nr, 1);
+            $this->setvalue($note->source_of_comment??'O', $nr, 2);
+            $this->setValue($note->comment, $nr, 3);
+        }
         //Order comments
-        $extraSegments = 0;
+        $extraSegments = count($Order->notes);
         foreach ($Order->order_comments as $i => $order_comment) {
             $nr = $this->createSegment('OBX', $new_nr + $i + 1 + $extraSegments);
             $order_comment->id = $i + 1;
@@ -693,12 +728,18 @@ trait SetOrdersTrait
         }
         $this->setValue($OrderComment->references_range, $nr, 7);
         $this->setValue($OrderComment->result_status, $nr, 11);
+        $this->setValue($OrderComment->abnormal_flags,$nr,8);
+        $this->setValue($OrderComment->equipment_instance_identifier,$nr,18,1);
+        $this->setValue($OrderComment->datetime_of_the_observation ? date_create_from_format("Y-m-d H:i:s", $OrderComment->datetime_of_the_observation)->format($this->dateTimeFormatOut) : '', $nr, 14, 1);
+        $this->setValue($OrderComment->datetime_of_analysis ? date_create_from_format("Y-m-d H:i:s", $OrderComment->datetime_of_analysis)->format($this->dateTimeFormatOut) : '', $nr, 19, 1);
+
+
         foreach ($OrderComment->notes as $i => $note) {
-            $this->createSegment('NTE', $nr + 1);
-            $this->setvalue($i + 1, $nr + 1, 1);
-            $this->setvalue("O", $nr + 1, 2);
-            $this->setValue($note, $nr + 1, 3);
-            $this->setValue("Opm. uitslag", $nr + 1, 4, 2);
+            $nr = $this->createSegment('NTE', $nr + 1+$i);
+            $this->setvalue($i + 1, $nr , 1);
+            $this->setvalue($note->source_of_comment??'O', $nr , 2);
+            $this->setValue($note->comment, $nr , 3);
+            //$this->setValue("Opm. uitslag", $nr + 1, 4, 2);
         }
     }
 }

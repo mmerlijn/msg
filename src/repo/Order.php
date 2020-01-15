@@ -23,7 +23,11 @@ class Order
     public $result_status='';
     public $request_date = '';
 
+    public $specimen_received_datetime=null;
+    public $specimen_source=null;
     public $order_comments=[];
+
+    public $notes=[];
 
     public function addOrderComment(OrderComment $comment)
     {
@@ -46,5 +50,8 @@ class Order
             $this->order_comments[$updateableOrderNr]->type_of_value = $comment->type_of_value;
             $this->order_comments[$updateableOrderNr]->identifier_label = $comment->identifier_label;
         }
+    }
+    public function addOrderNote(OrderNote $note){
+        $this->notes[] = $note;
     }
 }

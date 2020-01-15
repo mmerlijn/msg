@@ -250,7 +250,13 @@ trait SetPatientTrait
             if($addressnr>0 AND !$this->getField('PID', 11,3,0,$addressnr)) {
                 $this->addRepeatField($nr, 11);
             }
-            $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
+            if(!$address['building_nr']){
+                $st = $this->split_address("Straat ".$address['building_nr_full']);
+                $address['building_nr'] = $st['number'];
+                $address['building_nr_additive'] = $st['numberAddition'];
+            }else{
+                $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
+            }
             $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3, $addressnr);
             $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2, $addressnr);
             $this->setValue(trim($address['street'] . " " . $address['building_nr_full']), $nr, 11, 1, 1, $addressnr); //address
@@ -288,5 +294,23 @@ trait SetPatientTrait
         $name .= " " . trim($surname_pref . " " . $surname);
 
         return trim($name);
+    }
+
+    private function split_address($streetStr)
+    {
+
+        $aMatch = array();
+        $pattern = '#^([\w[:punct:] ]+) ([0-9 ]{1,5})([\w[:punct:]\-/]*)$#';
+        $matchResult = preg_match($pattern, $streetStr, $aMatch);
+
+        $street = trim($aMatch[1]??false ? $aMatch[1] : '');
+        $number = trim($aMatch[2]??false ? $aMatch[2] : '');
+        $numberAddition = trim($aMatch[3]??false ? $aMatch[3] : '');
+        if(!$matchResult){
+            $street = $streetStr;
+        }
+
+        return array('street' => $street, 'number' => $number, 'numberAddition' => $numberAddition);
+
     }
 }

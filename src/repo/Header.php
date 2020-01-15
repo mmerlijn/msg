@@ -11,6 +11,8 @@ class Header
     public $field_separator="|";
     public $encoding_characters = "^~\&";
     public $sending_application=null;
+    public $sending_device=null;
+    public $sending_facility=null;
     public $receiving_application="";
     public $receiving_facility=null;
     public $datetime_of_message=null;
