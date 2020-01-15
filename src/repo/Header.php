@@ -10,11 +10,11 @@ class Header
 {
     public $field_separator="|";
     public $encoding_characters = "^~\&";
-    public $sending_application=null;
-    public $sending_device=null;
-    public $sending_facility=null;
+    public $sending_application="";
+    public $sending_device="";
+    public $sending_facility="";
     public $receiving_application="";
-    public $receiving_facility=null;
+    public $receiving_facility="";
     public $datetime_of_message=null;
     public $message_type_type = "ORM";
     public $message_type_trigger_event = "O01";
