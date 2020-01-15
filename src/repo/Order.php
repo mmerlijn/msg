@@ -22,7 +22,7 @@ class Order
     public $request_date = '';
 
     public $specimen_received_datetime = null;
-    public $specimen_source = null;
+    public $specimen_source = "";
     public $order_comments = [];
 
     public $notes = [];
