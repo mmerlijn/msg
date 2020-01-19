@@ -31,14 +31,28 @@ trait SetOrdersTrait
         //only set when $Orders->pv1 = true
         $this->setOrderPatientVisit($Orders);
 
+        //for obr position
+        $positions=[];
+        $t=10000;
+        foreach ($Orders->orders as $k=>$v){
+            if($v->position<0){
+                $positions[$t*2 + ($v->position*50)] = $k;
+            }else if($v->position || $v->position===0) {
+                $positions[$v->position] = $k;
+            }else{
+                $positions[$t++] = $k;
+            }
+        }
+        ksort($positions);
         $orcIsSet = false;
-        foreach ($Orders->orders as $teller => $order) {
+        $teller=1;
+        foreach ($positions as $k=>$id){
             if ($repeatOrc or !$orcIsSet) {
                 $this->createSegment('ORC', count(static::$tree));
                 $orcIsSet = true;
             }
             $nr = $this->createSegment('OBR', count(static::$tree));
-            $this->setOrder($order, $nr, $teller + 1);
+            $this->setOrder($Orders->orders[$id], $nr, $teller++);
         }
 
         $this->setOrderControl($Orders->control);

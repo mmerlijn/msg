@@ -27,6 +27,8 @@ class Order
 
     public $notes = [];
 
+    public $position; //position where the order will be placed in de the msg (0=first,1 =second, -1 =last, -2=second last
+
     public function addOrderComment(OrderComment $comment)
     {
         $present = false;

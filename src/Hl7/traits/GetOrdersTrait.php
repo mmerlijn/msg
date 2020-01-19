@@ -269,7 +269,7 @@ trait GetOrdersTrait
                 $Order->addOrderComment($OrderComment);
 
             }
-
+            $Order->position = count($Orders->orders);
             $Orders->addOrder($Order);
         }
 

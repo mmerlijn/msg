@@ -116,7 +116,7 @@ class Orders
         //adding the order comments to the order (if they exist)
         if(!empty($Order->order_comments)){
             foreach ($Order->order_comments as $oc){
-                $this->orders[$id]->addComment($oc);
+                $this->orders[$id]->addOrderComment($oc);
             }
         }
     }
