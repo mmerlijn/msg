@@ -119,6 +119,10 @@ class Orders
                 $this->orders[$id]->addOrderComment($oc);
             }
         }
+        // update the position
+        if($Order->position!==null){
+            $this->orders[$id]->position = $Order->position;
+        }
     }
 
     public function addComment(OrderComment $Comment, $position = 'last'): void

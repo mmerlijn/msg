@@ -33,17 +33,28 @@ trait SetOrdersTrait
 
         //for obr position
         $positions=[];
-        $t=10000;
-        foreach ($Orders->orders as $k=>$v){
-            if($v->position<0){
-                $positions[$t*2 + ($v->position*50)] = $k;
-            }else if($v->position || $v->position===0) {
-                $positions[$v->position] = $k;
-            }else{
-                $positions[$t++] = $k;
+        //TODO not totally correct but acceptable (best use for all last elements -1 for position (the last one at last)
+        foreach($Orders->orders as $k=>$v) {
+            if(!($v->position<0)) {
+                if (!$v->position || $v->position === -1) {
+                    $pos = count($Orders->orders);
+                } else {
+                    $pos = $v->position;
+                }
+                array_splice($positions, $pos, 0, $k);
             }
         }
-        ksort($positions);
+        foreach($Orders->orders as $k=>$v) {
+            if($v->position<0) {
+                if ($v->position === -1) {
+                    $pos = count($Orders->orders);
+                } else {
+                    $pos = $v->position + 1;
+                }
+                array_splice($positions, $pos, 0, $k);
+            }
+        }
+
         $orcIsSet = false;
         $teller=1;
         foreach ($positions as $k=>$id){
