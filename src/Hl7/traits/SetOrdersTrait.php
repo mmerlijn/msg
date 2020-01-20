@@ -24,12 +24,14 @@ trait SetOrdersTrait
     public function setOrders(Orders $Orders, $repeatOrc = true)
     {
         $this->deleteCurrentOrders();
+
+        //only set when $Orders->pv1 = true
+        $this->setOrderPatientVisit($Orders);
         //pv2
         if ($Orders->admit_reason_name) {
             $this->setOrderAdmitReason($Orders->admit_reason_code, $Orders->admit_reason_name, $Orders->admit_reason_source);
         }
-        //only set when $Orders->pv1 = true
-        $this->setOrderPatientVisit($Orders);
+
 
         //for obr position
         $positions=[];
@@ -131,6 +133,13 @@ trait SetOrdersTrait
                 unset(static::$tree[$nr]);
             }
         }
+        $nrs = $this->getSegmentNrs('NTE', false);
+        if ($nrs !== false) {
+            foreach (array_reverse($nrs) as $nr) {
+                unset(static::$tree[$nr]);
+            }
+        }
+        self::$tree = array_values(self::$tree); ///array keys reset
     }
 
     private function setOrderResponsibleObserver($Orders)

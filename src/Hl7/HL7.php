@@ -11,6 +11,7 @@ namespace mmerlijn\msg\src\Hl7;
 use mmerlijn\msg\src\Hl7\segments\MSH;
 use mmerlijn\msg\src\Hl7\segments\PID;
 use mmerlijn\msg\src\Hl7\tools\EncodingChars;
+use mysql_xdevapi\Exception;
 
 
 /**
@@ -213,6 +214,11 @@ class HL7
     {
         $segmentNrs = [];
         foreach (static::$tree as $i => $leave) {
+            if (empty($leave)) {
+                throw new \Exception("Leave is empty");
+            }
+
+
             if ($leave[0]::name() == $segment) {
                 $segmentNrs[] = $i;
                 if ($first) {
