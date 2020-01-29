@@ -7,6 +7,7 @@ namespace mmerlijn\msg\src\Hl7;
 
 use mmerlijn\msg\src\Hl7\segments\MSH;
 
+use mmerlijn\msg\src\Hl7\segments\NTE;
 use mmerlijn\msg\src\Hl7\segments\OBR;
 use mmerlijn\msg\src\Hl7\segments\OBX;
 use mmerlijn\msg\src\Hl7\segments\ORC;
@@ -29,6 +30,7 @@ class ParnassiaOrder extends HL7
         'ORC' => ORC::class,
         'OBR' => OBR::class,
         'OBX' => OBX::class,
+        'NTE' => NTE::class,
     ];
     public $dateTimeFormatOut="YmdHis";
 }

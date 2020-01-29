@@ -6,6 +6,7 @@ namespace mmerlijn\msg\src\Edifact\traits;
 
 use mmerlijn\msg\src\repo\Order;
 use mmerlijn\msg\src\repo\OrderComment;
+use mmerlijn\msg\src\repo\OrderNote;
 use mmerlijn\msg\src\repo\Orders;
 
 trait getOrdersTrait
@@ -80,7 +81,9 @@ trait getOrdersTrait
                     $Order->result_status = "F";
                 }
                 if($this->ifNextSegmentIs($SegNr, 'OPB')){
-                    $c->notes[] = $this->getOPB($SegNr);
+                    $note = new OrderNote();
+                    $note->comment = $this->getOPB($SegNr);
+                    $c->notes[] = $note;
                 }
                 $Order->addComment($c);
             }
