@@ -676,8 +676,8 @@ trait SetOrdersTrait
             if ($nr !== false) {
                 $this->setValue($O->patient_visit_set_id, $nr, 1);
                 $this->setValue($O->patient_visit_class, $nr, 2);
-                $this->setValue($O->patient_visit_assigned_location['point_of_care'] ?? null, $nr, 3, 1);
-                $this->setValue($O->patient_visit_visit_number['id_number'] ?? null, $nr, 19, 1);
+                $this->setValue($O->patient_visit_assigned_location['point_of_care'] ?? '', $nr, 3, 1);
+                $this->setValue($O->patient_visit_visit_number['id_number'] ?? '', $nr, 19, 1);
                 $this->setValue($O->patient_visit_indicator, $nr, 51);
             }
         }
