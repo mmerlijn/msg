@@ -10,7 +10,7 @@ use mmerlijn\msg\src\repo\Orders;
 
 trait getOrdersTrait
 {
-    public function getOrders()
+    public function getOrders($withNUB=false)
     {
         $Order = new Orders();
         $Order->control="RE";
@@ -85,16 +85,18 @@ trait getOrdersTrait
                 $Order->addComment($c);
             }
         }
-        $segNrs = $this->getSegmentNrs('NUB');
-        if($segNrs) {
-            foreach ($segNrs as $SegNr) {
-                $c = new OrderComment();
-                $c->type_of_value = "ST";
-                $c->identifier_label = $this->getValue($SegNr, 1);
-                $c->identifier_code = "";
-                $c->identifier_source = "L";
-                $c->result_status = "I";
-                $Order->addComment($c);
+        if($withNUB) {
+            $segNrs = $this->getSegmentNrs('NUB');
+            if ($segNrs) {
+                foreach ($segNrs as $SegNr) {
+                    $c = new OrderComment();
+                    $c->type_of_value = "ST";
+                    $c->identifier_label = $this->getValue($SegNr, 1);
+                    $c->identifier_code = "";
+                    $c->identifier_source = "L";
+                    $c->result_status = "I";
+                    $Order->addComment($c);
+                }
             }
         }
         return $Order;

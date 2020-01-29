@@ -36,7 +36,7 @@ class Patient
     public $street2 = '';
     public $city2 = '';
     public $postcode2 = '';
-    public $building_nr2;
+    public $building_nr2='';
     public $building_nr_additive2 = '';
     public $building_nr_full2 = '';
     public $country2 = 'NL';
