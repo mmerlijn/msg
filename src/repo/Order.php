@@ -21,6 +21,8 @@ class Order
     public $result_status = '';
     public $request_date = '';
 
+    public $collection_volume_units='';
+    public $collection_volume_quantity='';
     public $specimen_received_datetime = null;
     public $specimen_source = "";
     public $order_comments = [];

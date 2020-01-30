@@ -698,6 +698,9 @@ trait SetOrdersTrait
         $this->setValue($Order->clinical_information, $new_nr, 13);
         $this->setValue($Order->request_date ? date_create_from_format("Y-m-d H:i:s", $Order->request_date)->format($this->dateTimeFormatOut) : '', $new_nr, 27, 4, 1);
 
+        $this->setValue($Order->collection_volume_quantity,$new_nr,9,1);
+        $this->setValue($Order->collection_volume_units,$new_nr,9,2);
+
         $this->setValue($Order->specimen_received_datetime ? date_create_from_format("Y-m-d H:i:s", $Order->specimen_received_datetime)->format($this->dateTimeFormatOut) : '', $new_nr, 14, 1);
         $this->setValue($Order->specimen_source, $new_nr, 15, 1, 1);
         $orcnr = $this->getSegmentNrs('ORC', true);

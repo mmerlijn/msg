@@ -149,6 +149,8 @@ trait GetOrdersTrait
             if (!$Orders->phone) {
                 $Orders->phone = $this->getValue($nr, 17, 1); //phone callback
             }
+            $Order->collection_volume_quantity = $this->getValue($nr, 9,1);
+            $Order->collection_volume_units = $this->getValue($nr, 9,2);
 
             $Orders->result_status = $this->getValue($nr, 25);//F=final, C=correction
             $Orders->diagnostic_serv = $this->getValue($nr, 24);//bv LAB
