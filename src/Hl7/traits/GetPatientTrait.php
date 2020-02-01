@@ -38,6 +38,7 @@ trait GetPatientTrait
         $Patient->country = $address['country'];
         $Patient->address_type = $address['address_type'];
         $Patient->address_valid_start = $address['address_valid_start'];
+
         if ($address['second_address']) {
             $address2 = $this->getPatientAddress(1);
             $Patient->address2 = $address2['address'];
@@ -195,6 +196,7 @@ trait GetPatientTrait
             $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
             $address['country'] = $this->getValue($nr, 11, 6, 0, $addressnr);
             $address['address_type'] = $this->getValue($nr, 11, 7, 0, $addressnr); //M=mailing, L=legal address BA=bad address
+
             if(strlen($address['street']) > strlen($address['address'])){ //address should be larger
                 if(strpos($address['street'],$address['building_nr'])){
                     //street is an address

@@ -15,6 +15,8 @@ trait SetPatientTrait
 {
     public function setPatient(Patient $P)
     {
+        $this->deleteCurrentPatient();
+
         $this->setPIDId();
         foreach ($P->phones as $phone) {
             if ($phone) {
@@ -50,6 +52,7 @@ trait SetPatientTrait
             'address_type' => $P->address_type,
             'address_valid_start' => $P->address_valid_start
         ]);
+
         if ($P->second_address) {
             $this->setPatientAddress([
                 'address' => $P->address2,
@@ -66,6 +69,19 @@ trait SetPatientTrait
         }
         $this->setPatientIdentityUnknown($P->identity_unknown_indicator);
         $this->setPatientReliabilityCode($P->identity_reliability_code);
+    }
+
+    private function deleteCurrentPatient()
+    {
+        $nr = $this->getSegmentNrs('PID', true);
+        if ($nr !== false) {
+            unset(static::$tree[$nr]);
+        }
+        $nr = $this->getSegmentNrs('IN1', true);
+        if ($nr !== false) {
+            unset(static::$tree[$nr]);
+        }
+        self::$tree = array_values(self::$tree); ///array keys reset
     }
 
     public function setPatientPhone(string $data): void
@@ -250,14 +266,25 @@ trait SetPatientTrait
             if ($addressnr > 0 AND !$this->getField('PID', 11, 3, 0, $addressnr)) {
                 $this->addRepeatField($nr, 11);
             }
-            if (!$address['building_nr']) {
+            if($address['building_nr_full']) {
                 $st = $this->split_address("Straat " . $address['building_nr_full']);
                 $address['building_nr'] = $st['number'];
                 $address['building_nr_additive'] = $st['numberAddition'];
-            } else {
-                $address['building_nr_full'] = trim(($address['building_nr'] ?? '') . " " . ($address['building_nr_additive'] ?? ''));
+            }elseif($address['building_nr']){
+                $st = $this->split_address("Straat " . $address['building_nr']);
+                $address['building_nr'] = $st['number'];
+                if($st['numberAddition'] and !$address['building_nr_additive']){
+                    $address['building_nr_additive'] = $st['numberAddition'];
+                }
+                $address['building_nr_full'] = trim($address['building_nr'].' '.$address['building_nr_additive']);
+            }else{
+                $st = $this->split_address($address['street']);
+                $address['street'] = $st['street'];
+                $address['building_nr'] = $st['number'];
+                $address['building_nr_additive'] = $st['numberAddition'];
+                $address['building_nr_full'] = trim($address['building_nr'].' '.$address['building_nr_additive']);
             }
-            $this->setValue((string)$address['building_nr_full'], $nr, 11, 1, 3, $addressnr);
+            $this->setValue((string)$address['building_nr'], $nr, 11, 1, 3, $addressnr);
             $this->setValue((string)($address['street'] ?? ''), $nr, 11, 1, 2, $addressnr);
             $this->setValue(trim($address['street'] . " " . $address['building_nr_full']), $nr, 11, 1, 1, $addressnr); //address
             $this->setValue((string)($address['city'] ?? ''), $nr, 11, 3, 0, $addressnr);
