@@ -5,6 +5,7 @@ namespace mmerlijn\msg\src\Hl7;
 
 
 
+use mmerlijn\msg\src\Hl7\segments\IN1;
 use mmerlijn\msg\src\Hl7\segments\MSH;
 
 use mmerlijn\msg\src\Hl7\segments\NTE;
@@ -27,6 +28,7 @@ class ParnassiaOrder extends HL7
     protected static $allowedSegments = [
         'MSH' => MSH::class,
         'PID' => PID::class,
+        'IN1' => IN1::class,
         'ORC' => ORC::class,
         'OBR' => OBR::class,
         'OBX' => OBX::class,
