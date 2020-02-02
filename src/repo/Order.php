@@ -62,9 +62,9 @@ class Order
     {
         foreach ($this->order_comments as $k => $o) {
             if ($o->identifier_code == $identifier_code or $o->identifier_label == $identifier_code) {
-                unset($this->order_comments[$k]);
+                array_splice($this->order_comments, $k, 1);
             }
         }
-        sort($this->order_comments);
+        //sort($this->order_comments);
     }
 }
