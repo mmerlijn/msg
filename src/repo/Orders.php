@@ -146,6 +146,12 @@ class Orders
             }
         }
     }
+    public function deleteOrderCommentByIdentifierCode(string $identifier_code):void
+    {
+        foreach ($this->orders as $order) {
+            $order->deleteOrderCommentByIdentifierCode($identifier_code);
+        }
+    }
 
     public function deleteOrderByTestCode($testcode)
     {

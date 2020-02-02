@@ -57,4 +57,14 @@ class Order
     {
         $this->notes[] = $note;
     }
+
+    public function deleteOrderCommentByIdentifierCode(string $identifier_code):void
+    {
+        foreach ($this->order_comments as $k => $o) {
+            if ($o->identifier_code == $identifier_code or $o->identifier_label == $identifier_code) {
+                unset($this->order_comments[$k]);
+            }
+        }
+        sort($this->order_comments);
+    }
 }
