@@ -24,7 +24,6 @@ trait SetOrdersTrait
     public function setOrders(Orders $Orders, $repeatOrc = true)
     {
         $this->deleteCurrentOrders();
-
         //only set when $Orders->pv1 = true
         $this->setOrderPatientVisit($Orders);
         //pv2
@@ -67,7 +66,6 @@ trait SetOrdersTrait
             $nr = $this->createSegment('OBR', count(static::$tree));
             $this->setOrder($Orders->orders[$id], $nr, $teller++);
         }
-
         $this->setOrderControl($Orders->control);
         $this->setOrderUpdateTimeRequest($Orders->update_time_request);
 
@@ -102,7 +100,6 @@ trait SetOrdersTrait
 
         $this->setObservingOrganisation($Orders);
         $this->setCollectorsComment($Orders->collectors_comment);
-
     }
 
     private function deleteCurrentOrders()
@@ -770,6 +767,7 @@ trait SetOrdersTrait
             }
 
         }
+
         if ($OrderComment->units) {
             $this->setValue($OrderComment->units, $nr, 6, 1);
         }

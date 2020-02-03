@@ -105,6 +105,7 @@ class Segment
                 }
             } else {
                 //var_dump($tree[0]);
+                static::runBeforeToHl7($k, $field);
                 $_hl7[] = static::$structure[$k]['class']::toHl7($field[0], $depth + 1);
             }
             $hl7[] = implode(EncodingChars::getRepetitionSeparator(), $_hl7);

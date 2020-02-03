@@ -67,10 +67,9 @@ class OBX extends Segment
         }
     }
     protected static function runBeforeToHl7($segmentWithNr,$dataTree){
-        //var_dump($segmentWithNr);
-        //var_dump($dataTree);
+
         if($segmentWithNr==2){
-            static::$structure[5]['class'] = Table0125::getClass($dataTree[0]::$name);
+            static::$structure[5]['class'] = Table0125::getClass($dataTree[0]); //
         }
     }
 }
