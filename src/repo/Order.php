@@ -50,6 +50,10 @@ class Order
             $this->order_comments[$updateableOrderNr]->value = $comment->value;
             $this->order_comments[$updateableOrderNr]->type_of_value = $comment->type_of_value;
             $this->order_comments[$updateableOrderNr]->identifier_label = $comment->identifier_label;
+            $this->order_comments[$updateableOrderNr]->identifier_source = $comment->identifier_source;
+            $this->order_comments[$updateableOrderNr]->value_code = $comment->value_code;
+            $this->order_comments[$updateableOrderNr]->value_source = $comment->value_source;
+
         }
     }
 
