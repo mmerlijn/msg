@@ -162,13 +162,33 @@ trait GetPatientTrait
             $names['last_name_prefix'] = $this->getValue($nr, 5, 1, 4);
             $names['surname_prefix'] = $this->getValue($nr, 5, 1, 2);
             $names['name'] = $this->getValue($nr, 5, 1, 1);
-            $names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 2), 0, 1) . $this->getValue($nr, 5, 3));
+            //$names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 2), 0, 1) . $this->getValue($nr, 5, 3));
+            $names['initials'] =$this->initials($nr);
             $names['type_code'] = $this->getValue($nr, 5, 7);    //L = legal
             if (!strlen($names['surname'])) {
                 $names['surname'] = $names['name'];
             }
         }
         return $names;
+    }
+
+    private function initials(int $nr):string
+    {
+        $first_name = str_replace(" ","",$this->getValue($nr, 5, 2));
+        $initials = str_replace(" ","",$this->getValue($nr, 5, 3));
+        if(strlen($first_name)>1){
+            if(strpos($initials, $first_name) !== false){
+                $initials = trim(str_replace($first_name, "", $initials));
+                if($initials[0] == $first_name[0]){
+                    $initials = substr($initials, 1);
+                }
+            }
+            if(!ctype_upper($first_name[1])){
+                $first_name = $first_name[0];
+            }
+        }
+
+        return $first_name.$initials;
     }
 
     public function getPatientDob()
