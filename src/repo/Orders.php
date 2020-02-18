@@ -111,6 +111,7 @@ class Orders
         }
         if (!$present) {
             $this->orders[] = $Order;
+            sort($this->orders);
             $id = count($this->orders)-1;
         }
         //adding the order comments to the order (if they exist)
