@@ -24,6 +24,9 @@ class ST extends Field
 
     public static function toHl7($tree, $depth)
     {
-        return EncodingChars::encode($tree);
+        if($tree)
+            return EncodingChars::encode($tree);
+        else
+            return "";
     }
 }

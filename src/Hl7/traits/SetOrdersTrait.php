@@ -76,12 +76,12 @@ trait SetOrdersTrait
         $this->setOrderRequestDate($Orders->request_date);
         $this->setPointOfCare($Orders->pointOfCare);
         $this->setOrderCreatedAt($Orders->created_at);
-        $this->setOrderEnteredBy($Orders->entered_by['name'] ?? null, $Orders->entered_by['agbcode'] ?? null, $Orders->entered_by['source'] ?? null);
-        $this->setOrderVerifiedBy($Orders->verified_by['name'] ?? null, $Orders->verified_by['agbcode'] ?? null, $Orders->verified_by['source'] ?? null);
-        $this->setOrderOrganisation($Orders->entering_organisation['name'], $Orders->entering_organisation['agbcode'], $Orders->entering_organisation['source']);
-        $this->setOrderLocation($Orders->entering_location['location'], $Orders->entering_location['name'], $Orders->entering_location['agbcode']);
-        $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']);
-        $this->setOrderFacility($Orders->ordering_facility['name'], $Orders->ordering_facility['agbcode'], $Orders->ordering_facility['source']);
+        $this->setOrderEnteredBy($Orders->entered_by['name'] ?? null, $Orders->entered_by['agbcode'] ?? null, $Orders->entered_by['source'] ?? '');
+        $this->setOrderVerifiedBy($Orders->verified_by['name'] ?? null, $Orders->verified_by['agbcode'] ?? null, $Orders->verified_by['source'] ?? '');
+        $this->setOrderOrganisation($Orders->entering_organisation['name'], $Orders->entering_organisation['agbcode'], $Orders->entering_organisation['source'] ?? '');
+        $this->setOrderLocation($Orders->entering_location['location'], $Orders->entering_location['name'], $Orders->entering_location['agbcode']??'');
+        $this->setOrderActionBy($Orders->action_by['name'], $Orders->action_by['agbcode'], $Orders->action_by['source']??'');
+        $this->setOrderFacility($Orders->ordering_facility['name'], $Orders->ordering_facility['agbcode'], $Orders->ordering_facility['source']??'');
         $this->setOrderEffectiveDatetime($Orders->order_effective_datetime);
         $this->setOrderStatus($Orders->order_status);
 
