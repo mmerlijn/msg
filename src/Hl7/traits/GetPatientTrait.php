@@ -176,18 +176,20 @@ trait GetPatientTrait
     {
         $first_name = str_replace(" ","",$this->getValue($nr, 5, 2));
         $initials = str_replace(" ","",$this->getValue($nr, 5, 3));
-        if(strlen($first_name)>1){
-            if(strpos($initials, $first_name) !== false){
+
+        if(mb_strlen($first_name)>1){
+
+            if(mb_strpos($initials, $first_name) !== false){
                 $initials = trim(str_replace($first_name, "", $initials));
                 if($initials[0] == $first_name[0]){
-                    $initials = substr($initials, 1);
+                    $initials = mb_substr($initials, 1);
                 }
             }
+
             if(!ctype_upper($first_name[1])){
-                $first_name = $first_name[0];
+                $first_name = mb_substr($first_name,0,1);
             }
         }
-
         return $first_name.$initials;
     }
 

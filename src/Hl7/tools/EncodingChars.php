@@ -162,11 +162,36 @@ class EncodingChars
                 '\\.skxx\\', //  '/\\(\.sk\d{1,2})\\/'  //  Skip <number> spaces to the right.
                         //allemaal tegelijkertijd  '/\\(\.((in)|(ti)|(sk))\d{1,2})\\/'
         */
+        //return trim(static::encodeChars($string));
         return trim($string);
     }
 
     private static function encodeChars(string $string): string
     {
-        return str_replace(array_keys(static::$charsEncoding), static::$charsEncoding, $string);
+        //https://stackoverflow.com/questions/14114411/remove-all-special-characters-from-a-string
+        $utf8 = [
+            '/[áàâãªäåœ]/u'   =>   'a',
+            '/[ÁÀÂÃÄÅŒÆ]/u'    =>   'A',
+            '/[ÍÌÎÏ]/u'     =>   'I',
+            '/[íìîï]/u'     =>   'i',
+            '/[éèêë]/u'     =>   'e',
+            '/[ÉÈÊË]/u'     =>   'E',
+            '/[óòôõºöø]/u'   =>   'o',
+            '/[ÓÒÔÕÖØ]/u'    =>   'O',
+            '/[úùûü]/u'     =>   'u',
+            '/[ÚÙÛÜ]/u'     =>   'U',
+            '/[ýÿ]/u'     =>   'y',
+            '/[Ý]/u'     =>   'y',
+            '/ç/'           =>   'c',
+            '/Ç/'           =>   'C',
+            '/ñ/'           =>   'n',
+            '/Ñ/'           =>   'N',
+            '/–/'           =>   '-', // UTF-8 hyphen to "normal" hyphen
+            '/[’‘‹›‚]/u'    =>   ' ', // Literally a single quote
+            '/[“”«»„]/u'    =>   ' ', // Double quote
+            '/ /'           =>   ' ', // nonbreaking space (equiv. to 0x160)
+        ];
+        return preg_replace(array_keys($utf8), array_values($utf8), $string);
+        //return str_replace(array_keys(static::$charsEncoding), static::$charsEncoding, $string);
     }
 }
