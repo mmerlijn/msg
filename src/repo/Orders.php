@@ -110,8 +110,9 @@ class Orders
             }
         }
         if (!$present) {
-            $this->orders[] = $Order;
-            $id = count($this->orders)-1;
+            $id = count($this->orders);
+            $this->orders[$id] = $Order;
+
         }
         //adding the order comments to the order (if they exist)
         if(!empty($Order->order_comments)){
