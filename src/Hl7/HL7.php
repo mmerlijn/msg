@@ -106,7 +106,7 @@ class HL7
 
         $msg = "";
         foreach (static::$tree as $tree) {
-            $msg .= $tree[0]::toHl7($tree) . "\n";
+            $msg .= $tree[0]::toHl7($tree) . "\r";
         }
         return $msg;
     }
