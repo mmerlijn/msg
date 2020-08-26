@@ -6,7 +6,7 @@
  * Time: 22:41
  */
 
-namespace mmerlijn\msg\src\Hl7\Exceptions;
+namespace mmerlijn\msg\src\Hl7\exceptions;
 
 
 class ValidationException extends \Exception

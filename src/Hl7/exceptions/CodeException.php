@@ -6,7 +6,7 @@
  * Time: 00:02
  */
 
-namespace mmerlijn\msg\src\Hl7\Exceptions;
+namespace mmerlijn\msg\src\Hl7\exceptions;
 
 class CodeException extends \Exception
 {

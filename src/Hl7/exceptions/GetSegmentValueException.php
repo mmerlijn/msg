@@ -6,7 +6,7 @@
  * Time: 15:55
  */
 
-namespace mmerlijn\msg\src\Hl7\Exceptions;
+namespace mmerlijn\msg\src\Hl7\exceptions;
 
 
 class GetSegmentValueException extends \Exception
