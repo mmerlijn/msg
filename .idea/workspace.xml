@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/msg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/msg.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +55,7 @@
       <recent name="K:\php_projects\mmerlijn\msg\src\Edifact32" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -141,18 +142,23 @@
       <workItem from="1589262374842" duration="9000" />
       <workItem from="1589913322096" duration="594000" />
       <workItem from="1589987101812" duration="3520000" />
-      <workItem from="1591132000124" duration="21000" />
+      <workItem from="1591132000124" duration="893000" />
+      <workItem from="1591192733077" duration="197000" />
+      <workItem from="1591194088159" duration="1451000" />
+      <workItem from="1591249697970" duration="39000" />
+      <workItem from="1597764299760" duration="673000" />
+      <workItem from="1598449187870" duration="857000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="667" y="1185" width="585" height="592" key="find.popup" timestamp="1588964512935">
+    <state x="1853" y="928" width="585" height="534" key="find.popup" timestamp="1598449287962">
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
-    <state x="667" y="1185" width="585" height="592" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1588964512935" />
+    <state x="1853" y="928" width="585" height="534" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1598449287962" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

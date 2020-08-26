@@ -83,7 +83,7 @@ trait SetOrdersTrait
         $this->setOrderActionBy($Orders->action_by['name'] ?? '', $Orders->action_by['agbcode'] ?? '', $Orders->action_by['source']??'');
         $this->setOrderFacility($Orders->ordering_facility['name'] ?? '', $Orders->ordering_facility['agbcode']??'', $Orders->ordering_facility['source']??'');
         $this->setOrderEffectiveDatetime($Orders->order_effective_datetime);
-        $this->setOrderStatus($Orders->order_status);
+        $this->setOrderStatus($Orders->order_status??'');
 
         //put to ORC and OBR
         $this->setOrderPhone($Orders->phone);
