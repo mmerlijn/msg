@@ -24,7 +24,7 @@ use mmerlijn\msg\src\Hl7\segments\PV1;
 class Message
 {
     //default all supported segments
-    protected static $segments=[
+    protected $segments=[
         'MSH'=>MSH::class,
         'NTE'=>NTE::class,
         'PID'=>PID::class,
@@ -37,11 +37,13 @@ class Message
         'OBR'=>OBR::class,
         'OBX'=>OBX::class,
     ];
-    public static function getSegments(string $application=''):array
+    protected $application=[];
+
+    public function getSegments(string $application=''):array
     {
-        if(isset(static::$application[$application])){
-            return static::$application[$application];
+        if(isset($this->application[$application])){
+            return $this->application[$application];
         }
-        return static::$segments;
+        return $this->segments;
     }
 }

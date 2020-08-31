@@ -3,10 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/exceptions/CodeException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/exceptions/CodeException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/exceptions/GetSegmentValueException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/exceptions/GetSegmentValueException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/exceptions/SetSegmentValueException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/exceptions/SetSegmentValueException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/exceptions/ValidationException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/exceptions/ValidationException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/ParnassiaOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/ParnassiaOrder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/types/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/Message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/types/ORM.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/ORM.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/types/ORU.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/ORU.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +156,8 @@
       <workItem from="1591194088159" duration="1451000" />
       <workItem from="1591249697970" duration="39000" />
       <workItem from="1597764299760" duration="673000" />
-      <workItem from="1598449187870" duration="1646000" />
+      <workItem from="1598449187870" duration="2486000" />
+      <workItem from="1598864304523" duration="4485000" />
     </task>
     <servers />
   </component>
@@ -158,10 +165,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1853" y="928" width="585" height="534" key="find.popup" timestamp="1598449287962">
+    <state x="930" y="527" width="1596" height="1028" key="find.popup" timestamp="1598864888105">
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
-    <state x="1853" y="928" width="585" height="534" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1598449287962" />
+    <state x="930" y="527" width="1596" height="1028" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1598864888105" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

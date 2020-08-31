@@ -76,7 +76,7 @@ trait GetPatientTrait
         $tel = [];
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            foreach (static::$tree[$nr][13] as $phone) {
+            foreach ($this->tree[$nr][13] as $phone) {
 
                 //if ($phone[2] ?? null == 'PRN' AND $phone[3] ?? null == 'PH') {
                 //$tel['home'] = str_replace($find, "", $phone[1]);
@@ -120,7 +120,7 @@ trait GetPatientTrait
         $ids = [];
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            foreach (static::$tree[$nr][3] as $patIds) {
+            foreach ($this->tree[$nr][3] as $patIds) {
                 if ($patIds[1] ?? false) {
                     $ids[] = ['identifier' => $patIds[1], 'assigningAuthority' => $patIds[4][1] ?? null, 'typeCode' => $patIds[5]];
                 }
@@ -133,7 +133,7 @@ trait GetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            foreach (static::$tree[$nr][3] as $patIds) {
+            foreach ($this->tree[$nr][3] as $patIds) {
                 if ($patIds[4][1] ?? null == $authority AND $patIds[5] ?? null == $identifier) {
                     return $patIds[1];
                 }

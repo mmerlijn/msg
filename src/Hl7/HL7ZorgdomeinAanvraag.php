@@ -29,7 +29,7 @@ class HL7ZorgdomeinAanvraag extends HL7
 {
     use GetHeaderTrait, GetPatientTrait, GetOrdersTrait, SetHeaderTrait, SetOrdersTrait, SetPatientTrait;
 
-    protected static $allowedSegments = [
+    protected $allowedSegments = [
         'MSH' => MSH::class,
         'PID' => PID::class,
         'PV1' => PV1::class,

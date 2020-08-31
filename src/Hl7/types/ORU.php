@@ -17,7 +17,7 @@ use mmerlijn\msg\src\Hl7\segments\PV2;
 //ORU_R01
 class ORU extends Message
 {
-    public static $allowedSegments=[
+    public $allowedSegments=[
         'MSH'=>MSH::class,
         'PID'=>PID::class,
         'NTE'=>NTE::class,
@@ -35,7 +35,7 @@ class ORU extends Message
         //'SPM'=>SPM::class,
         'DSC'=>DSC::class
     ];
-    public static $structure=[
+    public $structure=[
         'MSH'=>MSH::class,
         'PID'=>PID::class,
         'NTE'=>NTE::class,

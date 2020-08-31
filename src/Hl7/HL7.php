@@ -21,26 +21,26 @@ use mysql_xdevapi\Exception;
 class HL7
 {
     //can be overwritten by child, default set by messageType, is for building new messages
-    protected static $structure = [
+    protected $structure = [
         'MSH' => MSH::class,
     ];
     //MUST be set by child
-    protected static $allowedSegments = [
+    protected $allowedSegments = [
         'MSH' => MSH::class,
         'PID' => PID::class,
     ];
     //collection of al HL7 lines
-    protected static $segments = [];
-    protected static $messageType = 'ORM';
-    protected static $version = '2.4';
-    protected static $sendingApplication = '';
-    protected static $receivingApplication = '';
+    protected $segments = [];
+    protected $messageType = 'ORM';
+    protected $version = '2.4';
+    protected $sendingApplication = '';
+    protected $receivingApplication = '';
     protected $dateTimeFormat = "Y-m-d H:i:s";
     public $dateTimeFormatOut = "YmdHisO";
     //HL7 tree structure
     //tree [Segment] [Field] [Repeat] [Component] [SubComponent]
     //public $tree = [];
-    protected static $tree = [];
+    protected $tree = [];
 
     public function __construct()
     {
@@ -60,41 +60,41 @@ class HL7
         $this->buildSegments($hl7string);
 
         //read first line (header MSH) and set header params
-        $this->readHeader(static::$segments[0], $validate);
+        $this->readHeader($this->segments[0], $validate);
 
         //loop through all input message segments
-        foreach (static::$segments as $i => $segment) {
+        foreach ($this->segments as $i => $segment) {
             if ($i == 0) { //skip MSH
                 continue;
             }
             $segmentName = substr($segment, 0, 3);
-            if (key_exists($segmentName, static::$allowedSegments)) {
-                $SEG = static::$allowedSegments[$segmentName];
+            if (key_exists($segmentName, $this->allowedSegments)) {
+                $SEG = $this->allowedSegments[$segmentName];
             } else {
-                throw new \Exception('ERROR segment ' . $segmentName . ' is not presented in allowed segments ' . implode(", ", array_keys(static::$allowedSegments)));
+                throw new \Exception('ERROR segment ' . $segmentName . ' is not presented in allowed segments ' . implode(", ", array_keys($this->allowedSegments)));
             }
             //$this->tree[] = $SEG::setFilled($segment);
-            static::$tree[] = $SEG::setFilled($segment);
+            $this->tree[] = $SEG::setFilled($segment);
         }
     }
 
-    public static function getTree()
+    public function getTree()
     {
-        return static::$tree;
+        return $this->tree;
     }
 
-    public static function dumpTree()
+    public function dumpTree()
     {
-        var_dump(static::$tree);
+        var_dump($this->tree);
     }
 
     public function reset()
     {
-        static::$tree = [];
-        static::$messageType = 'ORM';
-        static::$version = '2.4';
-        static::$sendingApplication = '';
-        static::$receivingApplication = '';
+        $this->tree = [];
+        $this->messageType = 'ORM';
+        $this->version = '2.4';
+        $this->sendingApplication = '';
+        $this->receivingApplication = '';
     }
 
     /** Convert HL7tree to msg string
@@ -105,7 +105,7 @@ class HL7
     {
 
         $msg = "";
-        foreach (static::$tree as $tree) {
+        foreach ($this->tree as $tree) {
             $msg .= $tree[0]::toHl7($tree) . "\r";
         }
         return $msg;
@@ -118,7 +118,7 @@ class HL7
     {
         //static::$segments = preg_split('/$\R?^/m', $msg);
         //if (count(static::$segments) < 2) {
-        static::$segments = preg_split("/\r\n|\n|\r/", trim($msg));
+        $this->segments = preg_split("/\r\n|\n|\r/", trim($msg));
         //}
     }
 
@@ -136,17 +136,17 @@ class HL7
         EncodingChars::setSeparator($matches);
 
         //$this->tree[0] = MSH::setFilled($string, true);
-        static::$tree[0] = MSH::setFilled($string, $validate);
+        $this->tree[0] = MSH::setFilled($string, $validate);
 
         //static::$receivingApplication = $this->tree[0][5][0][1];
         //static::$version = $this->tree[0][12][0][1];
         //static::$messageType = $this->tree[0][9][0][1];
         //static::$sendingApplication = $this->tree[0][3][0][1];
 
-        static::$receivingApplication = static::$tree[0][5][0][1];
-        static::$version = static::$tree[0][12][0][1];
-        static::$messageType = static::$tree[0][9][0][1];
-        static::$sendingApplication = static::$tree[0][3][0][1];
+        $this->receivingApplication = $this->tree[0][5][0][1];
+        $this->version = $this->tree[0][12][0][1];
+        $this->messageType = $this->tree[0][9][0][1];
+        $this->sendingApplication = $this->tree[0][3][0][1];
 
     }
 
@@ -161,20 +161,20 @@ class HL7
     public function getValue($segmentNr, $fieldNr, $componentNr = 0, $subComponentNr = 0, $repeat = 0)
     {
         if ($subComponentNr) {
-            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr])) {
-                return static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr];
+            if (isset($this->tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr])) {
+                return $this->tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr];
             } else {
                 return null;
             }
         } elseif ($componentNr) {
-            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr])) {
-                return static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr];
+            if (isset($this->tree[$segmentNr][$fieldNr][$repeat][$componentNr])) {
+                return $this->tree[$segmentNr][$fieldNr][$repeat][$componentNr];
             } else {
                 return null;
             }
         } else {
-            if (isset(static::$tree[$segmentNr][$fieldNr][$repeat])) {
-                return static::$tree[$segmentNr][$fieldNr][$repeat];
+            if (isset($this->tree[$segmentNr][$fieldNr][$repeat])) {
+                return $this->tree[$segmentNr][$fieldNr][$repeat];
             } else {
                 return null;
             }
@@ -185,11 +185,11 @@ class HL7
     {
 
         if ($subComponentNr) {
-            static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr] = $data;
+            $this->tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr] = $data;
         } elseif ($componentNr) {
-            static::$tree[$segmentNr][$fieldNr][$repeat][$componentNr] = $data;
+            $this->tree[$segmentNr][$fieldNr][$repeat][$componentNr] = $data;
         } else {
-            static::$tree[$segmentNr][$fieldNr][$repeat] = $data;
+            $this->tree[$segmentNr][$fieldNr][$repeat] = $data;
         }
     }
 
@@ -197,12 +197,12 @@ class HL7
     protected function addRepeatField(int $segmentNr, int $fieldNr): int
     {
         //check if repeat is possible
-        if (static::$tree[$segmentNr][0]::isRepeatable($fieldNr)) {
-            static::$tree[$segmentNr][$fieldNr][] = static::$tree[$segmentNr][$fieldNr][0][0]::setEmpty();
+        if ($this->tree[$segmentNr][0]::isRepeatable($fieldNr)) {
+            $this->tree[$segmentNr][$fieldNr][] = $this->tree[$segmentNr][$fieldNr][0][0]::setEmpty();
         } else {
-            throw new \Exception(static::$tree[$segmentNr][0][0] . ' field ' . $fieldNr . ' could not repeated');
+            throw new \Exception($this->tree[$segmentNr][0][0] . ' field ' . $fieldNr . ' could not repeated');
         }
-        return count(static::$tree[$segmentNr][$fieldNr]) - 1;
+        return count($this->tree[$segmentNr][$fieldNr]) - 1;
     }
 
     /** gets the index number form the tree for a given segment. For example: PID -> 1 m ORC -> [10,15,20]
@@ -213,7 +213,7 @@ class HL7
     protected function getSegmentNrs(string $segment, $first = false, $createIfNotExist = false)
     {
         $segmentNrs = [];
-        foreach (static::$tree as $i => $leave) {
+        foreach ($this->tree as $i => $leave) {
             if (empty($leave)) {
                 throw new \Exception("Leave is empty");
             }
@@ -245,7 +245,7 @@ class HL7
             do {
                 $newSegment = $this->getNextAllowedSegment($newSegment);
                 if ($newSegment === null) {
-                    $nr = count(static::$tree);
+                    $nr = count($this->tree);
                 } else {
                     $nr = $this->getSegmentNrs($newSegment, true);
                 }
@@ -253,22 +253,22 @@ class HL7
         } else {
             $nr = $position;
         }
-        array_splice(static::$tree, $nr, 0, static::$allowedSegments[$segment]::setEmpty());
+        array_splice($this->tree, $nr, 0, $this->allowedSegments[$segment]::setEmpty());
         return $nr;
     }
 
     public function getNextAllowedSegment($segment)
     {
-        if (in_array($segment, array_keys(static::$allowedSegments))) {
+        if (in_array($segment, array_keys($this->allowedSegments))) {
             $nextSegment = null;
-            foreach (array_reverse(static::$allowedSegments) as $allowedSegment => $class) {
+            foreach (array_reverse($this->allowedSegments) as $allowedSegment => $class) {
                 if ($allowedSegment == $segment) {
                     return $nextSegment;
                 }
                 $nextSegment = $allowedSegment;
             }
         } else {
-            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys(static::$allowedSegments)));
+            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys($this->allowedSegments)));
         }
         return false;
     }
@@ -276,8 +276,8 @@ class HL7
 
     protected function ifNextSegmentIs(int $currentNr, string $segment): bool
     {
-        if (isset(static::$tree[$currentNr + 1])) {
-            if ($segment == static::$tree[$currentNr + 1][0]::name()) {
+        if (isset($this->tree[$currentNr + 1])) {
+            if ($segment == $this->tree[$currentNr + 1][0]::name()) {
                 return true;
             }
         }

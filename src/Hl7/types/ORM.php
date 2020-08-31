@@ -43,7 +43,7 @@ class ORM extends Message
         'BLG'=>BLG::class,
     ];
     //Zorgdomein
-    private static $application=['ZorgDomein'=>[
+    protected $application=['ZorgDomein'=>[
         'MSH'=>MSH::class,
         'PID'=>PID::class,
         'PV1'=>PV1::class,
@@ -62,11 +62,4 @@ class ORM extends Message
         6 => ['class' => OBR::class, 'opt' => 'R', 'rpt' => false, 'name' => ''],
     ];
 
-    public static function getSegments(string $application=''):array
-    {
-        if(isset(static::$application[$application])){
-            return static::$application[$application];
-        }
-        return static::$segments;
-    }
 }

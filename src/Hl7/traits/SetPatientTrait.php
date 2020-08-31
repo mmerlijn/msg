@@ -75,13 +75,13 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
-            unset(static::$tree[$nr]);
+            unset($this->tree[$nr]);
         }
         $nr = $this->getSegmentNrs('IN1', true);
         if ($nr !== false) {
-            unset(static::$tree[$nr]);
+            unset($this->tree[$nr]);
         }
-        self::$tree = array_values(self::$tree); ///array keys reset
+        $this->tree = array_values($this->tree); ///array keys reset
     }
 
     public function setPatientPhone(string $data): void
@@ -91,7 +91,7 @@ trait SetPatientTrait
         $empty = true;
 
         if ($nr !== false) {
-            foreach (static::$tree[$nr][13] as $i => $phone) {
+            foreach ($this->tree[$nr][13] as $i => $phone) {
 
                 if (!($phone[1] ?? null)) {
                     $empty = false;
@@ -108,13 +108,13 @@ trait SetPatientTrait
                     $new_nr = 0;
                 }
                 if (substr($data, 0, 2) == "06") {
-                    static::$tree[$nr][13][$new_nr][1] = $data;
-                    static::$tree[$nr][13][$new_nr][2] = 'PNR';
-                    static::$tree[$nr][13][$new_nr][3] = 'CP';
+                    $this->tree[$nr][13][$new_nr][1] = $data;
+                    $this->tree[$nr][13][$new_nr][2] = 'PNR';
+                    $this->tree[$nr][13][$new_nr][3] = 'CP';
                 } else {
-                    static::$tree[$nr][13][$new_nr][1] = $data;
-                    static::$tree[$nr][13][$new_nr][2] = 'PNR';
-                    static::$tree[$nr][13][$new_nr][3] = 'PH';
+                    $this->tree[$nr][13][$new_nr][1] = $data;
+                    $this->tree[$nr][13][$new_nr][2] = 'PNR';
+                    $this->tree[$nr][13][$new_nr][3] = 'PH';
                 }
             }
         }
@@ -171,14 +171,14 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         foreach ($ids as $t => $id) {
-            if (!isset(static::$tree[$nr][3][$t])) {
+            if (!isset($this->tree[$nr][3][$t])) {
                 $new_nr = $this->addRepeatField($nr, 3);
             } else {
                 $new_nr = $t;
             }
-            static::$tree[$nr][3][$new_nr][1] = $id['identifier'];
-            static::$tree[$nr][3][$new_nr][4][1] = $id['assigningAuthority'];
-            static::$tree[$nr][3][$new_nr][5] = $id['typeCode'];
+            $this->tree[$nr][3][$new_nr][1] = $id['identifier'];
+            $this->tree[$nr][3][$new_nr][4][1] = $id['assigningAuthority'];
+            $this->tree[$nr][3][$new_nr][5] = $id['typeCode'];
         }
     }
 
@@ -186,7 +186,7 @@ trait SetPatientTrait
     {
         $nr = $this->getSegmentNrs('PID', true, true);
         if ($nr !== false) {
-            static::$tree[$nr][3] = [CX::setEmpty()];
+            $this->tree[$nr][3] = [CX::setEmpty()];
         }
     }
 
@@ -196,13 +196,13 @@ trait SetPatientTrait
         $found = false;
         $empty = true;
         if ($nr !== false) {
-            foreach (static::$tree[$nr][3] as $i => $patIds) {
+            foreach ($this->tree[$nr][3] as $i => $patIds) {
                 if (!($patIds[1] ?? null)) {
                     $empty = false;
                 }
                 if (($patIds[4][1] ?? null) == $authority AND ($patIds[5] ?? null) == $identifier) {
                     //already exist
-                    static::$tree[$nr][3][$i][1] = $id;
+                    $this->tree[$nr][3][$i][1] = $id;
                     $found = true;
                 }
             }
@@ -212,9 +212,9 @@ trait SetPatientTrait
                 } else {
                     $new_nr = 0;
                 }
-                static::$tree[$nr][3][$new_nr][1] = $id;
-                static::$tree[$nr][3][$new_nr][4][1] = $authority;
-                static::$tree[$nr][3][$new_nr][5] = $identifier;
+                $this->tree[$nr][3][$new_nr][1] = $id;
+                $this->tree[$nr][3][$new_nr][4][1] = $authority;
+                $this->tree[$nr][3][$new_nr][5] = $identifier;
             }
         }
 

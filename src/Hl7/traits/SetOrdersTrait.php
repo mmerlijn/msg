@@ -60,10 +60,10 @@ trait SetOrdersTrait
         $teller=1;
         foreach ($positions as $k=>$id){
             if ($repeatOrc or !$orcIsSet) {
-                $this->createSegment('ORC', count(static::$tree));
+                $this->createSegment('ORC', count($this->tree));
                 $orcIsSet = true;
             }
-            $nr = $this->createSegment('OBR', count(static::$tree));
+            $nr = $this->createSegment('OBR', count($this->tree));
             $this->setOrder($Orders->orders[$id], $nr, $teller++);
         }
         $this->setOrderControl($Orders->control);
@@ -106,37 +106,37 @@ trait SetOrdersTrait
     {
         $nr = $this->getSegmentNrs('PV1', true);
         if ($nr !== false) {
-            unset(static::$tree[$nr]);
+            unset($this->tree[$nr]);
         }
         $nr = $this->getSegmentNrs('PV2', true);
         if ($nr !== false) {
-            unset(static::$tree[$nr]);
+            unset($this->tree[$nr]);
         }
         $nrs = $this->getSegmentNrs('OBX', false);
         if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
-                unset(static::$tree[$nr]);
+                unset($this->tree[$nr]);
             }
         }
         $nrs = $this->getSegmentNrs('OBR', false);
         if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
-                unset(static::$tree[$nr]);
+                unset($this->tree[$nr]);
             }
         }
         $nrs = $this->getSegmentNrs('ORC', false);
         if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
-                unset(static::$tree[$nr]);
+                unset($this->tree[$nr]);
             }
         }
         $nrs = $this->getSegmentNrs('NTE', false);
         if ($nrs !== false) {
             foreach (array_reverse($nrs) as $nr) {
-                unset(static::$tree[$nr]);
+                unset($this->tree[$nr]);
             }
         }
-        self::$tree = array_values(self::$tree); ///array keys reset
+        $this->tree = array_values($this->tree); ///array keys reset
     }
 
     private function setOrderResponsibleObserver($Orders)
@@ -214,14 +214,14 @@ trait SetOrdersTrait
             foreach ($nrs as $nr) {
                 $found = false;
                 $empty = true;
-                foreach (static::$tree[$nr][14] as $i => $order) {
+                foreach ($this->tree[$nr][14] as $i => $order) {
 
                     if (!($order[1] ?? null)) {
                         $empty = false;
                     }
                     if (($order[3] ?? null) == $type) {
                         //already exist
-                        static::$tree[$nr][14][$i][1] = $value;
+                        $this->tree[$nr][14][$i][1] = $value;
                         $found = true;
                     }
                 }
@@ -231,9 +231,9 @@ trait SetOrdersTrait
                     } else {
                         $new_nr = 0;
                     }
-                    static::$tree[$nr][14][$new_nr][1] = $value;
-                    static::$tree[$nr][14][$new_nr][2] = 'WPN';
-                    static::$tree[$nr][14][$new_nr][3] = $type;
+                    $this->tree[$nr][14][$new_nr][1] = $value;
+                    $this->tree[$nr][14][$new_nr][2] = 'WPN';
+                    $this->tree[$nr][14][$new_nr][3] = $type;
                 }
 
             }
@@ -701,8 +701,8 @@ trait SetOrdersTrait
         $this->setValue($Order->specimen_received_datetime ? date_create_from_format("Y-m-d H:i:s", $Order->specimen_received_datetime)->format($this->dateTimeFormatOut) : '', $new_nr, 14, 1);
         $this->setValue($Order->specimen_source, $new_nr, 15, 1, 1);
         $orcnr = $this->getSegmentNrs('ORC', true);
-        static::$tree[$new_nr][16] = static::$tree[$orcnr][12]; //requester
-        static::$tree[$new_nr][17] = static::$tree[$orcnr][14]; //phone and fax
+        $this->tree[$new_nr][16] = $this->tree[$orcnr][12]; //requester
+        $this->tree[$new_nr][17] = $this->tree[$orcnr][14]; //phone and fax
         //Order notes
         foreach ($Order->notes as $i => $note) {
             $nr = $this->createSegment('NTE', $new_nr + 1 + $i);
@@ -729,7 +729,7 @@ trait SetOrdersTrait
                 $OrderComment->type_of_value = "ST";
             }
         }
-        static::$tree[$nr][5][0] = Table0125::getClass($OrderComment->type_of_value)::setEmpty();
+        $this->tree[$nr][5][0] = Table0125::getClass($OrderComment->type_of_value)::setEmpty();
         $this->setValue($OrderComment->id, $nr, 1);
         $this->setValue($OrderComment->type_of_value, $nr, 2);
 
@@ -748,14 +748,14 @@ trait SetOrdersTrait
 
         if ($OrderComment->repeated) {
             foreach ($OrderComment->value as $t => $v) {
-                if (!isset(static::$tree[$nr[5][$t]])) {
+                if (!isset($this->tree[$nr[5][$t]])) {
                     $f = $this->addRepeatField($nr, 5);
                 } else {
                     $f = $t;
                 }
-                static::$tree[$nr][5][$f][1] = $OrderComment->value_code[$t];
-                static::$tree[$nr][5][$f][2] = $OrderComment->value[$t];
-                static::$tree[$nr][5][$f][3] = $OrderComment->value_source[$t];
+                $this->tree[$nr][5][$f][1] = $OrderComment->value_code[$t];
+                $this->tree[$nr][5][$f][2] = $OrderComment->value[$t];
+                $this->tree[$nr][5][$f][3] = $OrderComment->value_source[$t];
             }
         } else {
             if ($OrderComment->type_of_value == 'CE') {

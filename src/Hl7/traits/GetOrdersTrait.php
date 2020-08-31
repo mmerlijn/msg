@@ -74,8 +74,8 @@ trait GetOrdersTrait
         ];
         $value = $this->getValue($nr, 13, 1);
         $Orders->pointOfCare = $value ? $value : '';
-        if (isset(static::$tree[$nr][14])) {
-            foreach (static::$tree[$nr][14] as $order) {
+        if (isset($this->tree[$nr][14])) {
+            foreach ($this->tree[$nr][14] as $order) {
                 if (($order[3] ?? null) == 'PH') {
 
                     $Orders->phone = $order[1];
@@ -198,14 +198,14 @@ trait GetOrdersTrait
 
                 $OrderComment = new OrderComment();
                 $value = [];
-                if (count(static::$tree[$i][5]) > 1) {
+                if (count($this->tree[$i][5]) > 1) {
                     $OrderComment->repeated = true;
                 }
                 // TODO repeatable
                 switch ($this->getValue($i, 2)) {
                     case "CE":
                         if ($OrderComment->repeated) {
-                            foreach (static::$tree[$i][5] as $item) {
+                            foreach ($this->tree[$i][5] as $item) {
                                 $value['value_code'][] = $item[1];
                                 $value['value'][] = $item[2];
                                 $value['value_source'][] = $item[3];
@@ -226,7 +226,7 @@ trait GetOrdersTrait
                     case "TX":
                     case "TM":
                         if ($OrderComment->repeated) {
-                            foreach (static::$tree[$i][5] as $item) {
+                            foreach ($this->tree[$i][5] as $item) {
                                 $value['value_code'][] = '';
                                 $value['value'][] = $item;
                                 $value['value_source'][] = '';
