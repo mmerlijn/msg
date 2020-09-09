@@ -4,15 +4,6 @@
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7ZorgdomeinAanvraag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/ParnassiaOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/ParnassiaOrder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/types/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/Message.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/types/ORM.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/ORM.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/types/ORU.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/types/ORU.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +148,12 @@
       <workItem from="1591249697970" duration="39000" />
       <workItem from="1597764299760" duration="673000" />
       <workItem from="1598449187870" duration="2486000" />
-      <workItem from="1598864304523" duration="4485000" />
+      <workItem from="1598864304523" duration="5740000" />
+      <workItem from="1598940143508" duration="2000" />
+      <workItem from="1598988993037" duration="608000" />
+      <workItem from="1599024690920" duration="13000" />
+      <workItem from="1599600247912" duration="1354000" />
+      <workItem from="1599644205534" duration="288000" />
     </task>
     <servers />
   </component>

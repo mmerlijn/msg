@@ -106,7 +106,7 @@ class HL7
 
         $msg = "";
         foreach ($this->tree as $tree) {
-            $msg .= $tree[0]::toHl7($tree) . "\r";
+            $msg .= $tree[0]::toHl7($tree) . chr(13); //carriage return
         }
         return $msg;
     }
