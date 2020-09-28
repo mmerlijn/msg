@@ -9,7 +9,7 @@
 namespace mmerlijn\msg\src\Hl7\fields;
 
 
-class FN extends Field
+class FNF extends Field
 {
     use parentFieldTrait;
     protected static $name = 'FN';

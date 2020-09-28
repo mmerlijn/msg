@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/fields/FN.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/fields/FNF.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/fields/XCN.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/fields/XCN.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/fields/XPN.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/fields/XPN.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +40,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -153,7 +156,8 @@
       <workItem from="1598988993037" duration="608000" />
       <workItem from="1599024690920" duration="13000" />
       <workItem from="1599600247912" duration="1354000" />
-      <workItem from="1599644205534" duration="288000" />
+      <workItem from="1599644205534" duration="1633000" />
+      <workItem from="1601301662366" duration="540000" />
     </task>
     <servers />
   </component>
@@ -161,6 +165,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1558" y="962" width="1744" height="660" key="dock-window-1" timestamp="1601302164195">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state x="1558" y="962" width="1744" height="660" key="dock-window-1/0.0.3840.2120@0.0.3840.2120" timestamp="1601302164195" />
     <state x="930" y="527" width="1596" height="1028" key="find.popup" timestamp="1598864888105">
       <screen x="0" y="0" width="3840" height="2120" />
     </state>

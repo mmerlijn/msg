@@ -19,7 +19,7 @@ class XPN extends Field
     use parentFieldTrait;
     protected static $name = 'XPN';
     private static $structure = [
-        1 => ['class' => FN::class, 'length' => 194, 'opt' => 'O', 'name' => 'Family Name'],
+        1 => ['class' => FNF::class, 'length' => 194, 'opt' => 'O', 'name' => 'Family Name'],
         2 => ['class' => ST::class, 'length' => 30, 'opt' => 'O', 'name' => 'Given Name'],
         3 => ['class' => ST::class, 'length' => 30, 'opt' => 'O', 'name' => 'Second And Further Given Names Or Initials Thereof'],
         4 => ['class' => ST::class, 'length' => 20, 'opt' => 'O', 'name' => 'Suffix (e.g., Jr Or Iii)'],
