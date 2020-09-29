@@ -14,7 +14,7 @@ class Orders
     public $labnr = '';
     public $complete = "Y"; //Wordt nog niets mee gedaan wel uitgelezen uit edifact
     public $request_date = '';
-    public $priority = "R"; //S=faxed, R=regular (else)
+    public $priority = ""; //S=faxed, R=regular (else)
     public $created_at = '';
     public $pointOfCare = '';
     public $entered_by = [ //ORC 10
