@@ -57,23 +57,41 @@ class Patient
 
     public $bsn = '';
     public $identities = [];
+    public $identities_alternate = [];
 
     public $identity_unknown_indicator = "Y"; //If the referrer’s verification of the BSN is unknown: “Y”. Else: “N”.
     public $identity_reliability_code = "NNNLD";
 
-    public function setIdentity($identifier, $assigningAuthority, $typeCode)
+    public function setIdentity($identifier, $assigningAuthority, $typeCode,$alternate=false)
     {
-        $exist = false;
-        foreach ($this->identities as $identity) {
-            if ($assigningAuthority == $identity['assigningAuthority']) {
-                $exist = true;
+        if(!$alternate){
+            $exist = false;
+            foreach ($this->identities as $identity) {
+                if ($assigningAuthority == $identity['assigningAuthority']) {
+                    $exist = true;
+                }
+            }
+            if (!$exist) {
+                $this->identities[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
+            }
+            if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
+                $this->bsn = $identifier;
+            }
+        }else{
+            $exist = false;
+            foreach ($this->identities_alternate as $identity) {
+                if ($assigningAuthority == $identity['assigningAuthority']) {
+                    $exist = true;
+                }
+            }
+            if (!$exist) {
+                $this->identities_alternate[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
+            }
+            if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
+                $this->bsn = $identifier;
+                $this->setIdentity($identifier,  $assigningAuthority, $typeCode,false);
             }
         }
-        if (!$exist) {
-            $this->identities[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
-        }
-        if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
-            $this->bsn = $identifier;
-        }
+
     }
 }

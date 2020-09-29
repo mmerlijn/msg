@@ -27,8 +27,10 @@ trait SetPatientTrait
         $this->setPatientDob($P->dob);
         $this->setPatientInsurance($P->policy_nr, $P->uzovi, $P->insurance_company_name);
         $this->unsetPatientIds();
+        $this->unsetPatientAlternateIds();
 
         $this->setPatientIds($P->identities);
+        $this->setPatientAlternateIds($P->identities_alternate);
         if ($P->bsn) {
             $this->setBsn($P->bsn);
         }
@@ -181,7 +183,27 @@ trait SetPatientTrait
             $this->tree[$nr][3][$new_nr][5] = $id['typeCode'];
         }
     }
-
+    public function setPatientAlternateIds($ids): void
+    {
+        $nr = $this->getSegmentNrs('PID', true, true);
+        foreach ($ids as $t => $id) {
+            if (!isset($this->tree[$nr][4][$t])) {
+                $new_nr = $this->addRepeatField($nr, 3);
+            } else {
+                $new_nr = $t;
+            }
+            $this->tree[$nr][4][$new_nr][1] = $id['identifier'];
+            $this->tree[$nr][4][$new_nr][4][1] = $id['assigningAuthority'];
+            $this->tree[$nr][4][$new_nr][5] = $id['typeCode'];
+        }
+    }
+    public function unsetPatientAlternateIds()
+    {
+        $nr = $this->getSegmentNrs('PID', true, true);
+        if ($nr !== false) {
+            $this->tree[$nr][4] = [CX::setEmpty()];
+        }
+    }
     public function unsetPatientIds()
     {
         $nr = $this->getSegmentNrs('PID', true, true);
@@ -217,9 +239,35 @@ trait SetPatientTrait
                 $this->tree[$nr][3][$new_nr][5] = $identifier;
             }
         }
-
     }
-
+    public function setPatientAlternateId(string $id, string $authority, string $identifier): void
+    {
+        $nr = $this->getSegmentNrs('PID', true, true);
+        $found = false;
+        $empty = true;
+        if ($nr !== false) {
+            foreach ($this->tree[$nr][4] as $i => $patIds) {
+                if (!($patIds[1] ?? null)) {
+                    $empty = false;
+                }
+                if (($patIds[4][1] ?? null) == $authority AND ($patIds[5] ?? null) == $identifier) {
+                    //already exist
+                    $this->tree[$nr][4][$i][1] = $id;
+                    $found = true;
+                }
+            }
+            if (!$found) {
+                if ($empty) {
+                    $new_nr = $this->addRepeatField($nr, 4);
+                } else {
+                    $new_nr = 0;
+                }
+                $this->tree[$nr][4][$new_nr][1] = $id;
+                $this->tree[$nr][4][$new_nr][4][1] = $authority;
+                $this->tree[$nr][4][$new_nr][5] = $identifier;
+            }
+        }
+    }
     public function setBsn(string $bsn): void
     {
         $this->setPatientId($bsn, 'NLMINBIZA', 'NNNLD');

@@ -65,6 +65,7 @@ trait GetPatientTrait
             $Patient->setIdentity($id['identifier'], $id['assigningAuthority'], $id['typeCode']);
         }
         $Patient->identities = $this->getPatientIds(); //set BSN and other id's
+        $Patient->identities_alternate = $this->getPatientAlternateIds(); //set BSN and other id's
         $Patient->identity_unknown_indicator = $this->getIdentityUnknownIndicator();
         $Patient->identity_reliability_code = $this->getIdentityReliability();
         return $Patient;
@@ -121,6 +122,19 @@ trait GetPatientTrait
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
             foreach ($this->tree[$nr][3] as $patIds) {
+                if ($patIds[1] ?? false) {
+                    $ids[] = ['identifier' => $patIds[1], 'assigningAuthority' => $patIds[4][1] ?? null, 'typeCode' => $patIds[5]];
+                }
+            }
+        }
+        return $ids;
+    }
+    public function getPatientAlternateIds()
+    {
+        $ids = [];
+        $nr = $this->getSegmentNrs('PID', true);
+        if ($nr !== false) {
+            foreach ($this->tree[$nr][4] as $patIds) {
                 if ($patIds[1] ?? false) {
                     $ids[] = ['identifier' => $patIds[1], 'assigningAuthority' => $patIds[4][1] ?? null, 'typeCode' => $patIds[5]];
                 }
