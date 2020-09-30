@@ -90,9 +90,6 @@ class EncodingChars
                 static::$repetitionSeparator, // ~
                 static::$componentSeparator, // ^
                 static::$subComponentSeparator, //&
-                '\n\r',
-                '\n', //carriage retur
-                '\r',
                 '<br>',
                 '<b>',
                 '<strong>',
@@ -106,9 +103,6 @@ class EncodingChars
                 '\\S\\', // ^
                 '\\T\\', // &
                 '\\.br\\', //carriage return
-                '\\.br\\', //carriage return
-                '\\.br\\', //carriage return
-                '\\.br\\', //carriage return
                 '\\H\\', // Start highlighting
                 '\\H\\', // Start highlighting
                 '\\N\\', //Normal text (end highlighting)
@@ -116,6 +110,9 @@ class EncodingChars
 
             ]
             , $string);
+        //str_replace werkt niet goed met line breaks dus vandaar onderstaande voor line breaks
+        $string = preg_replace("/[\n\r]/", '\\.br\\', $string);
+
 
         return trim(static::encodeChars($string));
     }
