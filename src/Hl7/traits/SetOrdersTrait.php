@@ -614,14 +614,14 @@ trait SetOrdersTrait
             }
             foreach ($nrs as $nr) {
                 if ($agbcode) {
-                    $this->setValue($agbcode, $nr, 12, 1);
+                    $this->setValue($agbcode, $nr, 28, 1);
                     if (is_numeric($agbcode)) {
-                        $this->setValue($source ? $source : 'VEKTIS', $nr, 12, 9, 1);
+                        $this->setValue($source ? $source : 'VEKTIS', $nr, 28, 9, 1);
                     }
                 }
                 if ($name) {
-                    $this->setValue($name, $nr, 12, 2, 1);
-                    $this->setValue($initials, $nr, 12, 3);
+                    $this->setValue($name, $nr, 28, 2, 1);
+                    $this->setValue($initials, $nr, 28, 3);
                 }
             }
         }
