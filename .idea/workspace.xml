@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/Edifact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/Edifact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +161,12 @@
       <workItem from="1601406647563" duration="4065000" />
       <workItem from="1601446782219" duration="18000" />
       <workItem from="1601456097909" duration="5570000" />
-      <workItem from="1601578873217" duration="1715000" />
+      <workItem from="1601578873217" duration="2731000" />
+      <workItem from="1601583348676" duration="68000" />
+      <workItem from="1601627010246" duration="275000" />
+      <workItem from="1601627869129" duration="605000" />
+      <workItem from="1601649886037" duration="10000" />
+      <workItem from="1601674446068" duration="2185000" />
     </task>
     <servers />
   </component>

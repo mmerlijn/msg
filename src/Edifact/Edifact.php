@@ -32,7 +32,7 @@ class Edifact
 {
     use getPatientTrait,getOrdersTrait,getHeaderTrait;
 
-    public static $structure = [
+    public $structure = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
@@ -56,7 +56,7 @@ class Edifact
 
     ];
     //will be overwritten by message source/type
-    public static $allowedSegments = [
+    public $allowedSegments = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
@@ -79,14 +79,14 @@ class Edifact
     ];
 
     //collection of al HL7 lines
-    protected static $segments = [];
-    protected static $messageType = 'MEDLAB';
-    protected static $version = '1';
-    protected static $sendingApplication = '';
-    protected static $receivingApplication = '';
+    protected $segments = [];
+    protected $messageType = 'MEDLAB';
+    protected $version = '1';
+    protected $sendingApplication = '';
+    protected $receivingApplication = '';
     protected $dateTimeFormat = "Y-m-d H:i:s";
 
-    protected static $tree = [];
+    protected $tree = [];
 
     public function __construct()
     {
@@ -100,31 +100,31 @@ class Edifact
         $this->buildSegments($edifact);
 
         //read first line (header UNB) and set header params
-        $this->readHeader(static::$segments[0]);
+        $this->readHeader($this->segments[0]);
 
-        $this->readMessageType(static::$segments[1]);
+        $this->readMessageType($this->segments[1]);
 
-        foreach (static::$segments as $i => $segment) {
+        foreach ($this->segments as $i => $segment) {
             $segmentName = substr($segment, 0, 3);
-            if (key_exists($segmentName, static::$allowedSegments)) {
-                $SEG = static::$allowedSegments[$segmentName];
+            if (key_exists($segmentName, $this->allowedSegments)) {
+                $SEG = $this->allowedSegments[$segmentName];
             } else {
-                throw new \Exception('ERROR segement ' . $segmentName . ' is not presented in allowed segments ' . implode(", ", array_keys(static::$allowedSegments)));
+                throw new \Exception('ERROR segement ' . $segmentName . ' is not presented in allowed segments ' . implode(", ", array_keys($this->allowedSegments)));
             }
-            static::$tree[] = $SEG::setFilled($segment);
+            $this->tree[] = $SEG::setFilled($segment);
         }
     }
     public function reset()
     {
-        static::$tree = [];
+        $this->tree = [];
     }
     protected function buildSegments(string $msg): void
     {
-        static::$segments = preg_split("/(?<!\?)'/", trim($msg));
-        foreach (static::$segments as $k => $segment) {
-            static::$segments[$k] = trim($segment);
-            if (!strlen(trim(static::$segments[$k]))) {
-                unset(static::$segments[$k]);
+        $this->segments = preg_split("/(?<!\?)'/", trim($msg));
+        foreach ($this->segments as $k => $segment) {
+            $this->segments[$k] = trim($segment);
+            if (!strlen(trim($this->segments[$k]))) {
+                unset($this->segments[$k]);
             }
         }
         //static::dumpSegments();
@@ -145,45 +145,47 @@ class Edifact
     public function readMessageType(string $string): void
     {
         $unh = UNH::setFilled($string);
-        static::$messageType = $unh[2][1][1];
-        static::$version = $unh[2][1][1];
-        switch (static::$messageType) {
+        $this->messageType = $unh[2][1][1];
+        $this->version = $unh[2][1][1];
+        switch ($this->messageType) {
             case "MEDLAB":
-                static::$allowedSegments = MEDLAB::$allowedSegments;
-                static::$structure = MEDLAB::$structure;
+                $medlab = new MEDLAB();
+                $this->allowedSegments = $medlab->allowedSegments;
+                $this->structure = $medlab->structure;
                 break;
             case "MEDVRI":
-                static::$allowedSegments = MEDVRI::$allowedSegments;
-                static::$structure = MEDVRI::$structure;
+                $medvri = new MEDVRI();
+                $this->allowedSegments = $medvri->allowedSegments;
+                $this->structure = $medvri->structure;
                 break;
             default:
-                throw new \Exception('Message type ' . static::$messageType . ' is not implemented');
+                throw new \Exception('Message type ' . $this->messageType . ' is not implemented');
 
         }
 
     }
 
-    public static function dumpTree()
+    public function dumpTree()
     {
-        var_dump(static::$tree);
+        var_dump($this->tree);
     }
 
-    public static function dumpSegments()
+    public function dumpSegments()
     {
-        var_dump(static::$segments);
+        var_dump($this->segments);
     }
 
     public function getValue(int $segmentNr, int $fieldNr, $componentNr = 0)
     {
         if ($componentNr) {
-            if (isset(static::$tree[$segmentNr][$fieldNr][$componentNr][1])) {
-                return static::$tree[$segmentNr][$fieldNr][$componentNr][1];
+            if (isset($this->tree[$segmentNr][$fieldNr][$componentNr][1])) {
+                return $this->tree[$segmentNr][$fieldNr][$componentNr][1];
             } else {
                 return null;
             }
         } else {
-            if (isset(static::$tree[$segmentNr][$fieldNr][1])) {
-                return static::$tree[$segmentNr][$fieldNr][1];
+            if (isset($this->tree[$segmentNr][$fieldNr][1])) {
+                return $this->tree[$segmentNr][$fieldNr][1];
             } else {
                 return null;
             }
@@ -193,7 +195,7 @@ class Edifact
     protected function getSegmentNrs(string $segment, $first = false, $createIfNotExist = false)
     {
         $segmentNrs = [];
-        foreach (static::$tree as $i => $leave) {
+        foreach ($this->tree as $i => $leave) {
             if ($leave[0]::name() == $segment) {
                 $segmentNrs[] = $i;
                 if ($first) {
@@ -215,8 +217,8 @@ class Edifact
     }
     protected function ifNextSegmentIs(int $currentNr, string $segment): bool
     {
-        if (isset(static::$tree[$currentNr + 1])) {
-            if ($segment == static::$tree[$currentNr + 1][0]::name()) {
+        if (isset($this->tree[$currentNr + 1])) {
+            if ($segment == $this->tree[$currentNr + 1][0]::name()) {
                 return true;
             }
         }

@@ -18,7 +18,7 @@ use mmerlijn\msg\src\Edifact\segments\UNZ;
 
 class MEDVRI extends Edifact
 {
-    public static $structure = [
+    public $structure = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
@@ -33,7 +33,7 @@ class MEDVRI extends Edifact
 
     ];
     //MUST be set by child
-    public static $allowedSegments = [
+    public $allowedSegments = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
