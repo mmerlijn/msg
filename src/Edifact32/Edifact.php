@@ -49,7 +49,7 @@ class Edifact
 {
     use SetPatientTrait,SetOrdersTrait,SetHeaderTrait;
 
-    public static $structure = [
+    public $structure = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
@@ -59,7 +59,7 @@ class Edifact
 
     ];
     //will be overwritten by message source/type
-    public static $allowedSegments = [
+    public $allowedSegments = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
         'UNH' => UNH::class,
@@ -92,14 +92,14 @@ class Edifact
     ];
 
     //collection of al HL7 lines
-    protected static $segments = [];
-    protected static $messageType = 'MEDLAB';
-    protected static $version = '1';
-    protected static $sendingApplication = '';
-    protected static $receivingApplication = '';
+    protected $segments = [];
+    protected $messageType = 'MEDLAB';
+    protected $version = '1';
+    protected $sendingApplication = '';
+    protected $receivingApplication = '';
     protected $dateTimeFormat = "Y-m-d H:i:s";
 
-    protected static $tree = [];
+    protected $tree = [];
 
     public function __construct()
     {
@@ -107,28 +107,28 @@ class Edifact
 
     public function reset()
     {
-        static::$tree = [];
+        $this->tree = [];
     }
     protected function buildSegments(string $msg): void
     {
-        static::$segments = preg_split("/(?<!\?)'/", trim($msg));
-        foreach (static::$segments as $k => $segment) {
-            static::$segments[$k] = trim($segment);
-            if (!strlen(trim(static::$segments[$k]))) {
-                unset(static::$segments[$k]);
+        $this->segments = preg_split("/(?<!\?)'/", trim($msg));
+        foreach ($this->segments as $k => $segment) {
+            $this->segments[$k] = trim($segment);
+            if (!strlen(trim($this->segments[$k]))) {
+                unset($this->segments[$k]);
             }
         }
         //static::dumpSegments();
     }
 
-    public static function dumpTree()
+    public function dumpTree()
     {
-        var_dump(static::$tree);
+        var_dump($this->tree);
     }
 
-    public static function dumpSegments()
+    public function dumpSegments()
     {
-        var_dump(static::$segments);
+        var_dump($this->segments);
     }
 
     /** Convert HL7tree to msg string
@@ -139,7 +139,7 @@ class Edifact
     {
 
         $msg = "";
-        foreach (static::$tree as $tree) {
+        foreach ($this->tree as $tree) {
             $msg .= $tree[0]::toEdifact($tree) . "'\n";
         }
         return $msg;
@@ -148,9 +148,9 @@ class Edifact
     protected function setValue(string $data, int $segmentNr, int $fieldNr, int $componentNr = 0): void
     {
         if ($componentNr) {
-            static::$tree[$segmentNr][$fieldNr][$componentNr][1] = $data;
+            $this->tree[$segmentNr][$fieldNr][$componentNr][1] = $data;
         } else {
-            static::$tree[$segmentNr][$fieldNr][1] = $data;
+            $this->tree[$segmentNr][$fieldNr][1] = $data;
         }
     }
 
@@ -158,14 +158,14 @@ class Edifact
     public function getValue(int $segmentNr, int $fieldNr, $componentNr = 0)
     {
         if ($componentNr) {
-            if (isset(static::$tree[$segmentNr][$fieldNr][$componentNr][1])) {
-                return static::$tree[$segmentNr][$fieldNr][$componentNr][1];
+            if (isset($this->tree[$segmentNr][$fieldNr][$componentNr][1])) {
+                return $this->tree[$segmentNr][$fieldNr][$componentNr][1];
             } else {
                 return null;
             }
         } else {
-            if (isset(static::$tree[$segmentNr][$fieldNr][1])) {
-                return static::$tree[$segmentNr][$fieldNr][1];
+            if (isset($this->tree[$segmentNr][$fieldNr][1])) {
+                return $this->tree[$segmentNr][$fieldNr][1];
             } else {
                 return null;
             }
@@ -175,7 +175,7 @@ class Edifact
     protected function getSegmentNrs(string $segment, $first = false, $createIfNotExist = false)
     {
         $segmentNrs = [];
-        foreach (static::$tree as $i => $leave) {
+        foreach ($this->tree as $i => $leave) {
             if ($leave[0]::name() == $segment) {
                 $segmentNrs[] = $i;
                 if ($first) {
@@ -197,8 +197,8 @@ class Edifact
     }
     protected function ifNextSegmentIs(int $currentNr, string $segment): bool
     {
-        if (isset(static::$tree[$currentNr + 1])) {
-            if ($segment == static::$tree[$currentNr + 1][0]::name()) {
+        if (isset($this->tree[$currentNr + 1])) {
+            if ($segment == $this->tree[$currentNr + 1][0]::name()) {
                 return true;
             }
         }
@@ -212,34 +212,34 @@ class Edifact
             do {
                 $newSegment = $this->getNextAllowedSegment($newSegment);
                 if ($newSegment === null) {
-                    $nr = count(static::$tree);
+                    $nr = count($this->tree);
                 } else {
                     $nr = $this->getSegmentNrs($newSegment, true);
                 }
             } while ($nr === false);
         } else {
             if($position=="last" or $position=="end"){
-                $nr = count(static::$tree);
+                $nr = count($this->tree);
             }else{
                 $nr = $position;
             }
         }
-        array_splice(static::$tree, $nr, 0, static::$allowedSegments[$segment]::setEmpty());
+        array_splice($this->tree, $nr, 0, $this->allowedSegments[$segment]::setEmpty());
         return $nr;
     }
 
     public function getNextAllowedSegment($segment)
     {
-        if (in_array($segment, array_keys(static::$allowedSegments))) {
+        if (in_array($segment, array_keys($this->allowedSegments))) {
             $nextSegment = null;
-            foreach (array_reverse(static::$allowedSegments) as $allowedSegment => $class) {
+            foreach (array_reverse($this->allowedSegments) as $allowedSegment => $class) {
                 if ($allowedSegment == $segment) {
                     return $nextSegment;
                 }
                 $nextSegment = $allowedSegment;
             }
         } else {
-            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys(static::$allowedSegments)));
+            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys($this->allowedSegments)));
         }
         return false;
     }
