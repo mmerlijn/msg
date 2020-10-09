@@ -40,6 +40,7 @@ trait GetPatientTrait
         $Patient->address_valid_start = $address['address_valid_start'];
 
         if ($address['second_address']) {
+            $Patient->second_address=true;
             $address2 = $this->getPatientAddress(1);
             $Patient->address2 = $address2['address'];
             $Patient->street2 = $address2['street'];
