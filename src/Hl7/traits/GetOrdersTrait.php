@@ -53,22 +53,22 @@ trait GetOrdersTrait
         $created_at = $this->getValue($nr, 9, 1);
         $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
         $Orders->entered_by = [
-            'agbcode' => $this->getValue($nr, 10, 1),
+            'agbcode' =>  preg_replace("/[^0-9]/", "", $this->getValue($nr, 10, 1)),
             'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3), ", "),
             'source' => $this->getValue($nr, 10, 9, 1),
         ];
         $Orders->verified_by = [
-            'agbcode' => $this->getValue($nr, 11, 1),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 11, 1)),
             'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3), ", "),
             'source' => $this->getValue($nr, 11, 9, 1),
         ];
         $Orders->requester = [
-            'agbcode' => $this->getValue($nr, 12, 1),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 12, 1)),
             'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3), ", "),
             'source' => $this->getValue($nr, 12, 9, 1)
         ];
         $Orders->entering_location = [
-            'agbcode' => $this->getValue($nr, 13, 4, 2),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 13, 4, 2)),
             'name' => $this->getValue($nr, 13, 4, 1),
             'location' => $this->getValue($nr, 13, 9)
         ];
@@ -89,18 +89,18 @@ trait GetOrdersTrait
         $Orders->update_time_request = $this->setDatetimeFormat($updateTime, 'ORC', 15);
         //orc17
         $Orders->entering_organisation = [
-            'agbcode' => $this->getValue($nr, 17, 1),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 17, 1)),
             'name' => $this->getValue($nr, 17, 2),
             'source' => $this->getValue($nr, 17, 3),
         ];
         $Orders->action_by = [
-            'agbcode' => $this->getValue($nr, 19, 1),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 19, 1)),
             'name' => $this->getValue($nr, 19, 2, 1) . ", " . $this->getValue($nr, 19, 3),
             'source' => $this->getValue($nr, 19, 9, 1),
         ];
         //orc21
         $Orders->ordering_facility = [
-            'agbcode' => $this->getValue($nr, 21, 3),
+            'agbcode' => preg_replace("/[^0-9]/", "",$this->getValue($nr, 21, 3)),
             'name' => $this->getValue($nr, 21, 1),
             'source' => $this->getValue($nr, 21, 6, 1),
         ];
@@ -174,7 +174,7 @@ trait GetOrdersTrait
             $Orders->collectors_comment = $this->getValue($nr, 39, 2);
 
             $Orders->copy_to = [
-                'agbcode' => $this->getValue($nr, 28, 1),
+                'agbcode' =>  preg_replace("/[^0-9]/", "", $this->getValue($nr, 28, 1)),
                 'name' => $this->getValue($nr, 28, 2, 1),
                 'source' => $this->getValue($nr, 28, 9, 1)
             ];
