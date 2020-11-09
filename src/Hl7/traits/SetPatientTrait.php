@@ -315,14 +315,14 @@ trait SetPatientTrait
                 $this->addRepeatField($nr, 11);
             }
             if($address['building_nr_full']) {
-                $st = $this->split_address("Straat " . $address['building_nr_full']);
-                $address['building_nr'] = $st['number'];
-                $address['building_nr_additive'] = $st['numberAddition'];
+                $b= $this->split_buildingnr($address['building_nr_full']);
+                $address['building_nr'] = $b['number'];
+                $address['building_nr_additive'] = $b['addition'];
             }elseif($address['building_nr']){
-                $st = $this->split_address("Straat " . $address['building_nr']);
-                $address['building_nr'] = $st['number'];
-                if($st['numberAddition'] and !$address['building_nr_additive']){
-                    $address['building_nr_additive'] = $st['numberAddition'];
+                $b = $this->split_buildingnr($address['building_nr']);
+                $address['building_nr'] = $b['number'];
+                if($b['addition'] and !$address['building_nr_additive']){
+                    $address['building_nr_additive'] = $b['addition'];
                 }
                 $address['building_nr_full'] = trim($address['building_nr'].' '.$address['building_nr_additive']);
             }else{
@@ -343,6 +343,7 @@ trait SetPatientTrait
             $this->setValue((string)$address['address_valid_start'] ?? "", $nr, 11, 12, 1, $addressnr);
         }
     }
+
 
     public function setPatientIdentityUnknown(string $value): void
     {

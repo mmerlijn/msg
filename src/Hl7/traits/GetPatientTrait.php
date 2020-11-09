@@ -40,7 +40,7 @@ trait GetPatientTrait
         $Patient->address_valid_start = $address['address_valid_start'];
 
         if ($address['second_address']) {
-            $Patient->second_address=true;
+            $Patient->second_address = true;
             $address2 = $this->getPatientAddress(1);
             $Patient->address2 = $address2['address'];
             $Patient->street2 = $address2['street'];
@@ -130,6 +130,7 @@ trait GetPatientTrait
         }
         return $ids;
     }
+
     public function getPatientAlternateIds()
     {
         $ids = [];
@@ -149,7 +150,7 @@ trait GetPatientTrait
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
             foreach ($this->tree[$nr][3] as $patIds) {
-                if ($patIds[4][1] ?? null == $authority AND $patIds[5] ?? null == $identifier) {
+                if ($patIds[4][1] ?? null == $authority and $patIds[5] ?? null == $identifier) {
                     return $patIds[1];
                 }
             }
@@ -178,7 +179,7 @@ trait GetPatientTrait
             $names['surname_prefix'] = $this->getValue($nr, 5, 1, 2);
             $names['name'] = $this->getValue($nr, 5, 1, 1);
             //$names['initials'] = str_replace([" ", "."], "", substr($this->getValue($nr, 5, 2), 0, 1) . $this->getValue($nr, 5, 3));
-            $names['initials'] =$this->initials($nr);
+            $names['initials'] = $this->initials($nr);
             $names['type_code'] = $this->getValue($nr, 5, 7);    //L = legal
             if (!strlen($names['surname'])) {
                 $names['surname'] = $names['name'];
@@ -187,25 +188,25 @@ trait GetPatientTrait
         return $names;
     }
 
-    private function initials(int $nr):string
+    private function initials(int $nr): string
     {
-        $first_name = str_replace(" ","",$this->getValue($nr, 5, 2));
-        $initials = str_replace(" ","",$this->getValue($nr, 5, 3));
+        $first_name = str_replace(" ", "", $this->getValue($nr, 5, 2));
+        $initials = str_replace(" ", "", $this->getValue($nr, 5, 3));
 
-        if(mb_strlen($first_name)>1){
+        if (mb_strlen($first_name) > 1) {
 
-            if(mb_strpos($initials, $first_name) !== false){
+            if (mb_strpos($initials, $first_name) !== false) {
                 $initials = trim(str_replace($first_name, "", $initials));
-                if($initials[0] == $first_name[0]){
+                if ($initials[0] == $first_name[0]) {
                     $initials = mb_substr($initials, 1);
                 }
             }
 
-            if(!ctype_upper($first_name[1])){
-                $first_name = mb_substr($first_name,0,1);
+            if (!ctype_upper($first_name[1])) {
+                $first_name = mb_substr($first_name, 0, 1);
             }
         }
-        return $first_name.$initials;
+        return $first_name . $initials;
     }
 
     public function getPatientDob()
@@ -230,28 +231,32 @@ trait GetPatientTrait
             $address['postcode'] = $this->getValue($nr, 11, 5, 0, $addressnr);
             $address['building_nr'] = $this->getValue($nr, 11, 1, 3, $addressnr);
             $address['building_nr_additive'] = $this->getValue($nr, 11, 2, 0, $addressnr);
-            $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
+
             $address['country'] = $this->getValue($nr, 11, 6, 0, $addressnr);
             $address['address_type'] = $this->getValue($nr, 11, 7, 0, $addressnr); //M=mailing, L=legal address BA=bad address
 
-            if(strlen($address['street']) > strlen($address['address'])){ //address should be larger
-                if(strpos($address['street'],$address['building_nr'])){
+            //HL7 is not always correct formated
+            //Parnassia street^buildingnr instead of address^street^buildingnr
+            if(!$address['street']){
+                $address['address'] = $address['address']." ".$address['building_nr_additive'];
+                $s = $this->split_address($address['address']);
+                $b = $this->split_buildingnr($address['building_nr_additive']);
+                $address['building_nr'] = $b['number'];
+                $address['building_nr_additive'] = $b['addition'];
+                $address['street'] = $s['street'];
+            }
+
+            if (strlen($address['street']) > strlen($address['address'])) { //address should be larger
+                if (strpos($address['street'], $address['building_nr'])) {
                     //street is an address
                     $st = $this->split_address($address['street']);
                     $address['street'] = $st['street'];
                 }
             }
-            if (!$address['street'] && $address['address']) {
-                $st = $this->split_address($address['address']);
-                $address['street'] = $st['street'];
-            }
+            $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
             $address['address'] = $address['street'] . " " . $address['building_nr_full'];
 
-            if (!$address['building_nr']) {
-                $st = $this->split_address($address['address']);
-                $address['building_nr'] = $st['number'];
-                $address['building_nr_additive'] = $st['numberAddition'];
-            }
+
             $address['address_valid_start'] = $this->getValue($nr, 11, 12, 1, $addressnr); //address valid from
             //more than one address
             $address['second_address'] = false;

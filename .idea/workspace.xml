@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/HL7.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/HL7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +178,17 @@
       <workItem from="1602169943213" duration="759000" />
       <workItem from="1602250220719" duration="2382000" />
       <workItem from="1602573233513" duration="1143000" />
-      <workItem from="1603141259543" duration="248000" />
+      <workItem from="1603141259543" duration="368000" />
+      <workItem from="1603713620680" duration="919000" />
+      <workItem from="1604769809933" duration="2189000" />
+      <workItem from="1604853729793" duration="594000" />
+      <workItem from="1604860906109" duration="611000" />
+      <workItem from="1604904682566" duration="780000" />
+      <workItem from="1604905919133" duration="2000" />
+      <workItem from="1604909179334" duration="717000" />
+      <workItem from="1604910830444" duration="595000" />
+      <workItem from="1604914326395" duration="1201000" />
+      <workItem from="1604955914704" duration="5865000" />
     </task>
     <servers />
   </component>
@@ -200,10 +212,14 @@
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
     <state x="1558" y="962" width="1744" height="660" key="dock-window-1/0.0.3840.2120@0.0.3840.2120" timestamp="1601302164195" />
-    <state x="930" y="527" width="1596" height="1028" key="find.popup" timestamp="1601302222593">
+    <state x="930" y="527" width="1596" height="1028" key="find.popup" timestamp="1604961193348">
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
-    <state x="930" y="527" width="1596" height="1028" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1601302222593" />
+    <state x="930" y="527" width="1596" height="1028" key="find.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1604961193348" />
+    <state x="1949" y="950" width="672" height="678" key="search.everywhere.popup" timestamp="1604959343114">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state x="1949" y="950" width="672" height="678" key="search.everywhere.popup/0.0.3840.2120@0.0.3840.2120" timestamp="1604959343114" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

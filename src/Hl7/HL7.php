@@ -349,10 +349,9 @@ class HL7
     protected function split_address($streetStr)
     {
 
-        $aMatch = array();
+        $aMatch = [];
         $pattern = '#^([\w[:punct:] ]+) ([0-9 ]{1,5})([\w[:punct:]\-/]*)$#';
         $matchResult = preg_match($pattern, $streetStr, $aMatch);
-
         $street = trim($aMatch[1] ?? false ? $aMatch[1] : '');
         $number = trim($aMatch[2] ?? false ? $aMatch[2] : '');
         $numberAddition = trim($aMatch[3] ?? false ? $aMatch[3] : '');
@@ -363,5 +362,18 @@ class HL7
         return array('street' => $street, 'number' => $number, 'numberAddition' => $numberAddition);
 
     }
+
+    protected function split_buildingnr(string $nr)
+    {
+        $aMatch = [];
+        $pattern = '#^([0-9]{1,5})(.*)$#';
+        $matchResult = preg_match($pattern, $nr, $aMatch);
+        return [
+            'number'=>trim($aMatch[1]," -/"),
+            'addition'=>trim($aMatch[2]," -"),
+            'full'=>$aMatch[0]
+        ];
+    }
+
 
 }
