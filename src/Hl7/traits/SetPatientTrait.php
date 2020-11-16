@@ -316,13 +316,20 @@ trait SetPatientTrait
             }
             if($address['building_nr_full']) {
                 $b= $this->split_buildingnr($address['building_nr_full']);
-                $address['building_nr'] = $b['number'];
-                $address['building_nr_additive'] = $b['addition'];
+                if($b){
+                    $address['building_nr'] = $b['number'];
+                    $address['building_nr_additive'] = $b['addition'];
+                }else{
+                    $address['building_nr'] = $address['building_nr_full'];
+                }
+
             }elseif($address['building_nr']){
                 $b = $this->split_buildingnr($address['building_nr']);
-                $address['building_nr'] = $b['number'];
-                if($b['addition'] and !$address['building_nr_additive']){
-                    $address['building_nr_additive'] = $b['addition'];
+                if($b){
+                    $address['building_nr'] = $b['number'];
+                    if($b['addition'] and !$address['building_nr_additive']){
+                        $address['building_nr_additive'] = $b['addition'];
+                    }
                 }
                 $address['building_nr_full'] = trim($address['building_nr'].' '.$address['building_nr_additive']);
             }else{

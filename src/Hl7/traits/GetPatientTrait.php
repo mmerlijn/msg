@@ -241,8 +241,12 @@ trait GetPatientTrait
                 $address['address'] = $address['address']." ".$address['building_nr_additive'];
                 $s = $this->split_address($address['address']);
                 $b = $this->split_buildingnr($address['building_nr_additive']);
-                $address['building_nr'] = $b['number'];
-                $address['building_nr_additive'] = $b['addition'];
+                if($b) {
+                    $address['building_nr'] = $b['number'];
+                    $address['building_nr_additive'] = $b['addition'];
+                }else{
+                    $address['building_nr'] = $address['building_nr_additive'];
+                }
                 $address['street'] = $s['street'];
             }
 
@@ -253,6 +257,17 @@ trait GetPatientTrait
                     $address['street'] = $st['street'];
                 }
             }
+            if(!$address['building_nr']){
+                $s = $this->split_address($address['address']);
+                $address['street'] = $s['street'];
+                if($s['number']){
+                    $address['building_nr']  =$s['number'];
+                }
+                if($s['addition']){
+                    $address['building_nr_additive'] =$s['addition'];
+                }
+            }
+
             $address['building_nr_full'] = trim($address['building_nr'] . " " . $address['building_nr_additive']);
             $address['address'] = $address['street'] . " " . $address['building_nr_full'];
 

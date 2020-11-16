@@ -368,11 +368,15 @@ class HL7
         $aMatch = [];
         $pattern = '#^([0-9]{1,5})(.*)$#';
         $matchResult = preg_match($pattern, $nr, $aMatch);
-        return [
-            'number'=>trim($aMatch[1]," -/"),
-            'addition'=>trim($aMatch[2]," -"),
-            'full'=>$aMatch[0]
-        ];
+        if($matchResult){
+            return [
+                'number'=>trim($aMatch[1]," -/"),
+                'addition'=>trim($aMatch[2]," -"),
+                'full'=>$aMatch[0]
+            ];
+        }
+        return false;
+
     }
 
 
