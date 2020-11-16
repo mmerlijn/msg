@@ -263,8 +263,8 @@ trait GetPatientTrait
                 if($s['number']){
                     $address['building_nr']  =$s['number'];
                 }
-                if($s['addition']){
-                    $address['building_nr_additive'] =$s['addition'];
+                if($s['numberAddition']){
+                    $address['building_nr_additive'] =$s['numberAddition'];
                 }
             }
 
