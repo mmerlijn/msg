@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetPatientTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +188,10 @@
       <workItem from="1604914326395" duration="1201000" />
       <workItem from="1604955914704" duration="6600000" />
       <workItem from="1605528750448" duration="2471000" />
-      <workItem from="1605533840613" duration="144000" />
+      <workItem from="1605533840613" duration="1333000" />
+      <workItem from="1605956932390" duration="152000" />
+      <workItem from="1606300550356" duration="4526000" />
+      <workItem from="1606466436405" duration="5216000" />
     </task>
     <servers />
   </component>

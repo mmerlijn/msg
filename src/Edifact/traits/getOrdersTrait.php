@@ -97,17 +97,22 @@ trait getOrdersTrait
             }
         }
         if($withNUB) {
+
             $segNrs = $this->getSegmentNrs('NUB');
             if ($segNrs) {
+                $o = new Order();
+                $o->diagnostic_test_code='NUB';
+                $o->diagnostic_test_name="Nog te bepalen";
                 foreach ($segNrs as $SegNr) {
                     $c = new OrderComment();
                     $c->type_of_value = "ST";
                     $c->identifier_label = $this->getValue($SegNr, 1);
-                    $c->identifier_code = "";
+                    $c->identifier_code = $c->identifier_label;
                     $c->identifier_source = "L";
                     $c->result_status = "I";
-                    $Order->addComment($c);
+                    $o->addOrderComment($c);
                 }
+                $Order->addOrder($o);
             }
         }
         return $Order;
