@@ -135,18 +135,25 @@ trait SetHeaderTrait
             $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->resultDateTime)->format("YmdHi"), $nr, 1, 2);
             $this->setValue("203", $nr, 1, 3);
         }
-        //S04   VOLGENS MIJ ZOU S04 HELEMAAL WEGGELATEN KUNNEN WORDEN
-        $nr = $this->createSegment("S02", 'end');
-        $this->setValue("1", $nr, 1, 1);
-        $this->setValue("N", $nr, 2, 1);
 
-        //RFF
-        if ($Orders->requester) {
+        //S04   VOLGENS MIJ ZOU S04 HELEMAAL WEGGELATEN KUNNEN WORDEN (alleen vullen indien gegevens aanwezig
+        if ($Orders->requester['agbcode'] and ($Orders->request_date or $Orders->created_at)) {
+
+            $nr = $this->createSegment("S04", 'end');
+            $this->setValue("1", $nr, 1, 1);
+            $this->setValue("N", $nr, 2, 1);
+
+            //RFF
             $nr = $this->createSegment("RFF", 'end');
             $this->setValue("ROI", $nr, 1, 1);
             $this->setValue($Orders->requester['agbcode'], $nr, 1, 2);
+            //DTM
+            $nr = $this->createSegment('DTM', 'end');
+            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date?$Orders->request_date:$Orders->created_at)->format("YmdHi"), $nr, 1, 2);
+            //DTM
+            $nr = $this->createSegment('DTM', 'end');
+            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date?$Orders->request_date:$Orders->created_at)->format("YmdHi"), $nr, 1, 2);
         }
-
         //S06
         $nr = $this->createSegment("S06", 'end');
         $this->setValue("1", $nr, 1, 1);
@@ -192,64 +199,50 @@ trait SetHeaderTrait
             $this->setValue(date_create_from_format("Y-m-d", $P->dob)->format("Ymd"), $nr, 1, 2);
             $this->setValue("102", $nr, 1, 3);
         }
-        $teller = 1;
-        foreach ($Orders->orders as $order) {
-            //S16
-            $nr = $this->createSegment("S16", 'end');
-            $this->setValue($teller, $nr, 1, 1);
-
-            //SPC
-            $nr = $this->createSegment("SPC", 'end');
-            $this->setValue("TCP", $nr, 1);
-            $this->setValue($order->diagnostic_test_code, $nr, 2, 1); //identification
-            foreach ($order->notes as $note){
-                $nr = $this->createSegment("FTX", 'end');
-                $this->setValue("UIT", $nr, 1);
-                $notes = str_split($note->comment,70);
-                foreach ($notes as $t=>$val) {
-                    $this->setValue($val, $nr, 4, $t + 1);
-                }
-            }
+        //S16
+        $nr = $this->createSegment("S16", 'end');
+        $this->setValue(1, $nr, 1, 1);
+        //SPC
+        $nr = $this->createSegment("SPC", 'end');
+        $this->setValue("TSP", $nr, 1);
+        if(isset($Orders->orders[0]->observation_end_time)){
             //DTM
             $nr = $this->createSegment("DTM", 'end');
             $this->setValue("SCO", $nr, 1, 1);
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $order->observation_end_time)->format("YmdHi"), $nr, 1, 2);
+            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->orders[0]->observation_end_time)->format("YmdHi"), $nr, 1, 2);
             $this->setValue("203", $nr, 1, 3);
+         }
 
-            $c_teller=1;
+        $teller = 1;
+        foreach ($Orders->orders as $order) {
+            $c_teller = 1;
             foreach ($order->order_comments as $comment) {
                 //S18
                 $nr = $this->createSegment("S18", 'end');
                 $this->setValue($c_teller, $nr, 1, 1);
+                $this->setValue("G", $nr, 1  ,2);
                 //INV
                 $nr = $this->createSegment("INV", 'end');
-                $this->setValue("MS", $nr, 1);
-                $this->setValue($comment->identifier_code, $nr, 2,1);
-                $this->setValue("AMB", $nr, 2,2);
-                $this->setValue("NHG", $nr, 2,3);
+                $this->setValue(1, $nr, 1);
+                $this->setValue($comment->identifier_code, $nr, 2, 1);
+                $this->setValue("AMB", $nr, 2, 2);
+                $this->setValue("NHG", $nr, 2, 3);
+                //$this->setValue($comment->identifier_code, $nr, 2, 4);
                 //RSL
-                if(is_numeric($comment->value)){
+                if (is_numeric($comment->value)) {
                     $type = "NV";
-                }else{
-                    $type = "AV";
+                } else {
+                    $type = "TV";
                 }
                 $nr = $this->createSegment("RSL", 'end');
                 $this->setValue($type, $nr, 1); //NV numerieke waarde // NR numerieke waarde interval  //AV korte alfanumerieke waarde
-                $this->setValue($comment->value, $nr, 2,1);
-                //$this->setValue(, $nr, 3,1);
-                $this->setValue($comment->units, $nr, 4,4);
+                $this->setValue($comment->value, $nr, 2, 1);
+                $this->setValue($comment->units, $nr, 4, 1);
                 //geen normale uitslag? dam
-                $this->setValue(($comment->abnormal_flags=="N")?"1":"0", $nr, 5);
-                foreach ($comment->notes as $note){
-                    $nr = $this->createSegment("FTX", 'end');
-                    $this->setValue("UIT", $nr, 1);
-                    $notes = str_split($note->comment,70);
-                    foreach ($notes as $t=>$val) {
-                        $this->setValue($val, $nr, 4, $t + 1);
-                    }
-                }
+                $this->setValue(($comment->abnormal_flags == "N") ? "1" : "0", $nr, 5);
+
                 $ref_range = explode("-", $comment->references_range);
-                if(count($ref_range)==2) {
+                if (count($ref_range) == 2) {
                     //S20   ONDERGRENS BOVENGRENS
                     $nr = $this->createSegment("S20", 'end');
                     $this->setValue(1, $nr, 1, 1);
@@ -258,12 +251,22 @@ trait SetHeaderTrait
                     $this->setValue($ref_range[0], $nr, 2);
                     $this->setValue($ref_range[1], $nr, 3);
                 }
+
+                foreach ($comment->notes as $note) {
+                    $nr = $this->createSegment("FTX", 'end');
+                    $this->setValue("UIT", $nr, 1);
+                    $notes = str_split($note->comment, 70);
+                    foreach ($notes as $t => $val) {
+                        $this->setValue($val, $nr, 4, $t + 1);
+                    }
+                }
+
                 $c_teller++;
             }
             $teller++;
         }
         $nr = $this->createSegment("UNT", 'end');
-        $this->setValue(count($this->tree)-1, $nr, 1);
+        $this->setValue(count($this->tree) - 1, $nr, 1);
         $this->setValue($H->message_control_id, $nr, 2);
 
         $nr = $this->createSegment("UNZ", 'end');

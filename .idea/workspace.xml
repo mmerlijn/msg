@@ -4,8 +4,6 @@
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Edifact32/traits/SetHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact32/traits/SetHeaderTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetOrdersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetPatientTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +194,7 @@
       <workItem from="1606466436405" duration="5981000" />
       <workItem from="1606721664060" duration="688000" />
       <workItem from="1606739116086" duration="872000" />
-      <workItem from="1606910135664" duration="1490000" />
+      <workItem from="1606910135664" duration="7735000" />
     </task>
     <servers />
   </component>
