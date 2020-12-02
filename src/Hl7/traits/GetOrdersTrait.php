@@ -25,89 +25,91 @@ trait GetOrdersTrait
         if (!is_array($nrsOBR)) {
             $nrsOBR = [];
         }
-        $nr = $nrsORC[0];
+        if(isset($nrsORC[0])) {
+            $nr = $nrsORC[0];
 
-        $value = $this->getValue($nr, 1); //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
-        $Orders->control = $value ? $value : "NW";
-        $Orders->phone = $this->getValue($nr, 23, 1);
+            $value = $this->getValue($nr, 1); //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
+            $Orders->control = $value ? $value : "NW";
+            $Orders->phone = $this->getValue($nr, 23, 1);
 
-        $Orders->order_status = $this->getValue($nr, 5);
-        //Requestnr
-        $value = $this->getValue($nr, 4, 1);
-        if (!$value) {
-            $value = $this->getValue($nr, 2, 1);
-        }
-        if ($value) {
-            $Orders->requestnr = $value;
-        }
+            $Orders->order_status = $this->getValue($nr, 5);
+            //Requestnr
+            $value = $this->getValue($nr, 4, 1);
+            if (!$value) {
+                $value = $this->getValue($nr, 2, 1);
+            }
+            if ($value) {
+                $Orders->requestnr = $value;
+            }
 
-        $value = $this->getValue($nr, 3, 1);;
-        $Orders->labnr = $value ? $value : '';
+            $value = $this->getValue($nr, 3, 1);;
+            $Orders->labnr = $value ? $value : '';
 
-        $requestDate = $this->getValue($nr, 7, 4, 1);
-        $Orders->request_date = $this->setDatetimeFormat($requestDate, 'ORC', "7.4.1");
+            $requestDate = $this->getValue($nr, 7, 4, 1);
+            $Orders->request_date = $this->setDatetimeFormat($requestDate, 'ORC', "7.4.1");
 
-        $Orders->priority = $this->getValue($nr, 7, 6);
+            $Orders->priority = $this->getValue($nr, 7, 6);
 
 
-        $created_at = $this->getValue($nr, 9, 1);
-        $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
-        $Orders->entered_by = [
-            'agbcode' =>   $this->getValue($nr, 10, 1),
-            'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3), ", "),
-            'source' => $this->getValue($nr, 10, 9, 1),
-        ];
-        $Orders->verified_by = [
-            'agbcode' => $this->getValue($nr, 11, 1),
-            'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3), ", "),
-            'source' => $this->getValue($nr, 11, 9, 1),
-        ];
-        $Orders->requester = [
-            'agbcode' => $this->getValue($nr, 12, 1),
-            'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3), ", "),
-            'source' => $this->getValue($nr, 12, 9, 1)
-        ];
-        $Orders->entering_location = [
-            'agbcode' => $this->getValue($nr, 13, 4, 2),
-            'name' => $this->getValue($nr, 13, 4, 1),
-            'location' => $this->getValue($nr, 13, 9)
-        ];
-        $value = $this->getValue($nr, 13, 1);
-        $Orders->pointOfCare = $value ? $value : '';
-        if (isset($this->tree[$nr][14])) {
-            foreach ($this->tree[$nr][14] as $order) {
-                if (($order[3] ?? null) == 'PH') {
+            $created_at = $this->getValue($nr, 9, 1);
+            $Orders->created_at = $this->setDatetimeFormat($created_at, 'ORC', 9);
+            $Orders->entered_by = [
+                'agbcode' => $this->getValue($nr, 10, 1),
+                'name' => trim($this->getValue($nr, 10, 2, 1) . ", " . $this->getValue($nr, 10, 3), ", "),
+                'source' => $this->getValue($nr, 10, 9, 1),
+            ];
+            $Orders->verified_by = [
+                'agbcode' => $this->getValue($nr, 11, 1),
+                'name' => trim($this->getValue($nr, 11, 2, 1) . ", " . $this->getValue($nr, 11, 3), ", "),
+                'source' => $this->getValue($nr, 11, 9, 1),
+            ];
+            $Orders->requester = [
+                'agbcode' => $this->getValue($nr, 12, 1),
+                'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3), ", "),
+                'source' => $this->getValue($nr, 12, 9, 1)
+            ];
+            $Orders->entering_location = [
+                'agbcode' => $this->getValue($nr, 13, 4, 2),
+                'name' => $this->getValue($nr, 13, 4, 1),
+                'location' => $this->getValue($nr, 13, 9)
+            ];
+            $value = $this->getValue($nr, 13, 1);
+            $Orders->pointOfCare = $value ? $value : '';
+            if (isset($this->tree[$nr][14])) {
+                foreach ($this->tree[$nr][14] as $order) {
+                    if (($order[3] ?? null) == 'PH') {
 
-                    $Orders->phone = $order[1];
-                }
-                if (($order[3] ?? null) == 'FX') {
-                    $Orders->fax = $order[1];
+                        $Orders->phone = $order[1];
+                    }
+                    if (($order[3] ?? null) == 'FX') {
+                        $Orders->fax = $order[1];
+                    }
                 }
             }
-        }
-        $updateTime = $this->getValue($nr, 15, 1);   //by codes  “CA”, “RO” or “XO”
-        $Orders->update_time_request = $this->setDatetimeFormat($updateTime, 'ORC', 15);
-        //orc17
-        $Orders->entering_organisation = [
-            'agbcode' => $this->getValue($nr, 17, 1),
-            'name' => $this->getValue($nr, 17, 2),
-            'source' => $this->getValue($nr, 17, 3),
-        ];
-        $Orders->action_by = [
-            'agbcode' => $this->getValue($nr, 19, 1),
-            'name' => $this->getValue($nr, 19, 2, 1) . ", " . $this->getValue($nr, 19, 3),
-            'source' => $this->getValue($nr, 19, 9, 1),
-        ];
-        //orc21
-        $Orders->ordering_facility = [
-            'agbcode' => $this->getValue($nr, 21, 3),
-            'name' => $this->getValue($nr, 21, 1),
-            'source' => $this->getValue($nr, 21, 6, 1),
-        ];
-        if ($Orders->control != "NW") {
-            $effDatetime = $this->getValue($nr, 15, 1);
+            $updateTime = $this->getValue($nr, 15, 1);   //by codes  “CA”, “RO” or “XO”
+            $Orders->update_time_request = $this->setDatetimeFormat($updateTime, 'ORC', 15);
+            //orc17
+            $Orders->entering_organisation = [
+                'agbcode' => $this->getValue($nr, 17, 1),
+                'name' => $this->getValue($nr, 17, 2),
+                'source' => $this->getValue($nr, 17, 3),
+            ];
+            $Orders->action_by = [
+                'agbcode' => $this->getValue($nr, 19, 1),
+                'name' => $this->getValue($nr, 19, 2, 1) . ", " . $this->getValue($nr, 19, 3),
+                'source' => $this->getValue($nr, 19, 9, 1),
+            ];
+            //orc21
+            $Orders->ordering_facility = [
+                'agbcode' => $this->getValue($nr, 21, 3),
+                'name' => $this->getValue($nr, 21, 1),
+                'source' => $this->getValue($nr, 21, 6, 1),
+            ];
+            if ($Orders->control != "NW") {
+                $effDatetime = $this->getValue($nr, 15, 1);
 
-            $Orders->order_effective_datetime = $this->setDatetimeFormat($effDatetime, 'ORC', 15);
+                $Orders->order_effective_datetime = $this->setDatetimeFormat($effDatetime, 'ORC', 15);
+            }
         }
         $nrPV1 = $this->getSegmentNrs('PV1', true);
         if ($nrPV1 !== false) {

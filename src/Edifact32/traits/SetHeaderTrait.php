@@ -263,7 +263,7 @@ trait SetHeaderTrait
             $teller++;
         }
         $nr = $this->createSegment("UNT", 'end');
-        $this->setValue(count(static::$tree)-1, $nr, 1);
+        $this->setValue(count($this->tree)-1, $nr, 1);
         $this->setValue($H->message_control_id, $nr, 2);
 
         $nr = $this->createSegment("UNZ", 'end');

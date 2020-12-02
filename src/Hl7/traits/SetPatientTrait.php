@@ -141,7 +141,7 @@ trait SetPatientTrait
     public function setPatientDob(string $value): void
     {
         $nr = $this->getSegmentNrs('PID', true, true);
-        if ($nr !== false) {
+        if ($nr !== false and $value) {
             $datetime = date_create_from_format("Y-m-d", $value)->format("Ymd");
             $this->setValue($datetime, $nr, 7, 1);
         }
