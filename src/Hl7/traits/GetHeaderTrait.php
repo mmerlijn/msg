@@ -17,6 +17,7 @@ Trait GetHeaderTrait
         $H->receiving_application = $this->getReceivingApplication();
         $H->receiving_facility = $this->getReceivingFacility();
         $H->datetime_of_message = $this->getDatetimeOfMessage();
+        $H->security = $this->getSecurity();
         $H->message_type_type = $this->getMessageTypeType();
         $H->message_type_trigger_event = $this->getMessageTypeTriggerEvent();
         $H->message_type_structure = $this->getMessageTypeStructure();
@@ -62,6 +63,9 @@ Trait GetHeaderTrait
         return $this->setDatetimeFormat($datetime, 'MSH', 7);
     }
 
+    public function getSecurity(){
+        return $this->getValue(0, 8);
+    }
     public function getMessageTypeType()
     {
         return $this->getValue(0, 9, 1);

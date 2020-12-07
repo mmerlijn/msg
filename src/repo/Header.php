@@ -16,6 +16,7 @@ class Header
     public $receiving_application = "";
     public $receiving_facility = "";
     public $datetime_of_message = null;
+    public $security="";
     public $message_type_type = "ORM";
     public $message_type_trigger_event = "O01";
     public $message_type_structure = "ORM_O01";

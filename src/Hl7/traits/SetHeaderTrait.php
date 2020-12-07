@@ -18,6 +18,7 @@ trait SetHeaderTrait
         $this->setReceivingApplication($H->receiving_application);
         $this->setReceivingFacility($H->receiving_facility);
         $this->setDatetimeOfMessage($H->datetime_of_message);
+        $this->setSecurity($H->security);
         $this->setMessageTypeType($H->message_type_type);
         $this->setMessageTypeTriggerEvent($H->message_type_trigger_event);
         $this->setMessageTypeStructure($H->message_type_structure);
@@ -56,7 +57,10 @@ trait SetHeaderTrait
     {
         $this->setValue($value, 0, 6, 1);
     }
-
+    public function setSecurity($value): void
+    {
+        $this->setValue($value, 0, 8);
+    }
     public function setDatetimeOfMessage(string $value = null): void
     {
         if ($value !== null) {

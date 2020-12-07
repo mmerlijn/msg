@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact32/traits/SetHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact32/traits/SetHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/GetHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/GetHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repo/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Header.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +196,10 @@
       <workItem from="1606466436405" duration="5981000" />
       <workItem from="1606721664060" duration="688000" />
       <workItem from="1606739116086" duration="872000" />
-      <workItem from="1606910135664" duration="7735000" />
+      <workItem from="1606910135664" duration="8517000" />
+      <workItem from="1607028625333" duration="135000" />
+      <workItem from="1607029229936" duration="8000" />
+      <workItem from="1607347921869" duration="1198000" />
     </task>
     <servers />
   </component>
