@@ -56,47 +56,14 @@ trait SetHeaderTrait
 
         //NAD
         $nr = $this->createSegment("NAD", 'end');
-        $this->setValue("MS", $nr, 1); //huisarts
-        //AGBCODE
-        $this->setValue($Orders->requester['agbcode'], $nr, 2, 1);
-        $this->setValue("AGB", $nr, 2, 2);
-        $this->setValue("VEK", $nr, 2, 3);
-        $this->setValue($Orders->requester['name'], $nr, 4, 1);
-
-        //ADR
-        //Adres gegevens verzender (hier hebben we waarschijnlijk geen data van)
-        //$nr = $this->getSegmentNrs('ADR',true,true);
-
-        //COM TELEFOON
-        if ($Orders->phone) {
-            $nr = $this->createSegment("COM", 'end');
-            $this->setValue($Orders->phone, $nr, 1, 1);
-            $this->setValue("TE", $nr, 1, 2);   //LET OP hier wordt ook wel "01" voor gebruikt
-        }
-        //COM FAX
-        if ($Orders->fax) {
-            $nr = $this->createSegment("COM", 'end');
-            $this->setValue($Orders->fax, $nr, 1, 1);
-            $this->setValue("FX", $nr, 1, 2);   //LET OP hier wordt ook wel "03" voor gebruikt
-        }
-        //CTA
-        if ($Orders->requester['name']) {
-            $nr = $this->createSegment("CTA", 'end');
-            $this->setValue("PRS", $nr, 1);
-            $this->setValue($Orders->requester['name'], $nr, 2, 2);
-        }
-        //S01 - Ontvanger
-        $nr = $this->createSegment("S01", 'end');
-        $this->setValue("2", $nr, 1, 1);
-        //NAD
-        $nr = $this->createSegment("NAD", 'end');
         $this->setValue("SLA", $nr, 1);
         //AGBCODE
         $this->setValue("530008", $nr, 2, 1);
         $this->setValue("AGB", $nr, 2, 2);
         $this->setValue("VEK", $nr, 2, 3);
-        $this->setValue("SALT", $nr, 4, 1);
-        //$this->setValue("01100602", $nr, 4, 5);
+        $this->setValue("KS", $nr, 4, 1);
+        $this->setValue("SALT", $nr, 4, 2);
+        $this->setValue($Orders->requester['agbcode'], $nr, 4, 5);
 
         //ADR
         $nr = $this->createSegment("ADR", 'end');
@@ -107,11 +74,29 @@ trait SetHeaderTrait
         $this->setValue("1541WR", $nr, 4);
         $this->setValue("NL", $nr, 5);
 
-        //CTA
-        $nr = $this->createSegment("CTA", 'end');
-        $this->setValue("AFD", $nr, 1);
-        $this->setValue("SALT", $nr, 2, 2);
+        //Telefoon
+        $nr = $this->createSegment("COM", 'end');
+        $this->setValue($Orders->phone, $nr, 1, 1);
+        $this->setValue("TE", $nr, 1, 2);   //LET OP hier wordt ook wel "01" voor gebruikt
 
+        $nr = $this->createSegment('CTA','end');
+        $this->setValue('AFD', $nr, 1);
+        $this->setValue('POCT', $nr,2,2);
+
+        //S01 - Ontvanger
+        $nr = $this->createSegment("S01", 'end');
+        $this->setValue("2", $nr, 1, 1);
+
+        //NAD
+        $nr = $this->createSegment("NAD", 'end');
+        $this->setValue("PO", $nr, 1); //huisarts
+        //AGBCODE
+        $this->setValue($Orders->requester['agbcode'], $nr, 2, 1);
+        $this->setValue("CGP", $nr, 2, 2);
+        $this->setValue("VEK", $nr, 2, 3);
+        $n = explode(",",$Orders->requester['name']);
+        $this->setValue(trim($n[0]), $nr, 4, 1);
+        $this->setValue(trim($n[1]??''), $nr, 4, 2);
 
         //S02
         $nr = $this->createSegment("S02", 'end');
@@ -129,12 +114,12 @@ trait SetHeaderTrait
         $this->setValue("G", $nr, 2);
 
         //DTM
-        if ($Orders->resultDateTime) {
-            $nr = $this->createSegment("DTM", 'end');
-            $this->setValue("ISR", $nr, 1, 1);
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->resultDateTime)->format("YmdHi"), $nr, 1, 2);
-            $this->setValue("203", $nr, 1, 3);
-        }
+//       if ($Orders->resultDateTime) {
+//           $nr = $this->createSegment("DTM", 'end');
+//           $this->setValue("ISR", $nr, 1, 1);
+//           $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->resultDateTime)->format("YmdHi"), $nr, 1, 2);
+//           $this->setValue("203", $nr, 1, 3);
+//       }
 
         //S04   VOLGENS MIJ ZOU S04 HELEMAAL WEGGELATEN KUNNEN WORDEN (alleen vullen indien gegevens aanwezig
         if ($Orders->requester['agbcode'] and ($Orders->request_date or $Orders->created_at)) {
@@ -146,13 +131,13 @@ trait SetHeaderTrait
             //RFF
             $nr = $this->createSegment("RFF", 'end');
             $this->setValue("ROI", $nr, 1, 1);
-            $this->setValue($Orders->requester['agbcode'], $nr, 1, 2);
+            $this->setValue($Orders->labnr, $nr, 1, 2);
             //DTM
             $nr = $this->createSegment('DTM', 'end');
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date?$Orders->request_date:$Orders->created_at)->format("YmdHi"), $nr, 1, 2);
+            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date ? $Orders->request_date : $Orders->created_at)->format("YmdHi"), $nr, 1, 2);
             //DTM
             $nr = $this->createSegment('DTM', 'end');
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date?$Orders->request_date:$Orders->created_at)->format("YmdHi"), $nr, 1, 2);
+            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date ? $Orders->request_date : $Orders->created_at)->format("YmdHi"), $nr, 1, 2);
         }
         //S06
         $nr = $this->createSegment("S06", 'end');
@@ -205,13 +190,13 @@ trait SetHeaderTrait
         //SPC
         $nr = $this->createSegment("SPC", 'end');
         $this->setValue("TSP", $nr, 1);
-        if(isset($Orders->orders[0]->observation_end_time)){
+        if (isset($Orders->orders[0]->observation_end_time)) {
             //DTM
             $nr = $this->createSegment("DTM", 'end');
             $this->setValue("SCO", $nr, 1, 1);
             $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->orders[0]->observation_end_time)->format("YmdHi"), $nr, 1, 2);
             $this->setValue("203", $nr, 1, 3);
-         }
+        }
 
         $teller = 1;
         foreach ($Orders->orders as $order) {
@@ -220,7 +205,7 @@ trait SetHeaderTrait
                 //S18
                 $nr = $this->createSegment("S18", 'end');
                 $this->setValue($c_teller, $nr, 1, 1);
-                $this->setValue("G", $nr, 1  ,2);
+                $this->setValue("G", $nr, 1, 2);
                 //INV
                 $nr = $this->createSegment("INV", 'end');
                 $this->setValue(1, $nr, 1);
