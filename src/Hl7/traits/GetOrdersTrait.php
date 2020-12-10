@@ -66,7 +66,10 @@ trait GetOrdersTrait
             $Orders->requester = [
                 'agbcode' => $this->getValue($nr, 12, 1),
                 'name' => trim($this->getValue($nr, 12, 2, 1) . ", " . $this->getValue($nr, 12, 3), ", "),
-                'source' => $this->getValue($nr, 12, 9, 1)
+                'source' => $this->getValue($nr, 12, 9, 1),
+                'street'=>'',
+                'buildingnr'=>'',
+                'city'=>'',
             ];
             $Orders->entering_location = [
                 'agbcode' => $this->getValue($nr, 13, 4, 2),
@@ -178,7 +181,10 @@ trait GetOrdersTrait
             $Orders->copy_to = [
                 'agbcode' =>  $this->getValue($nr, 28, 1),
                 'name' => $this->getValue($nr, 28, 2, 1),
-                'source' => $this->getValue($nr, 28, 9, 1)
+                'source' => $this->getValue($nr, 28, 9, 1),
+                'street'=>'',
+                'buildingnr'=>'',
+                'city'=>'',
             ];
             $Orders->collector_identifier = [
                 'id' => $this->getValue($nr, 10, 1),

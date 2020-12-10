@@ -58,31 +58,34 @@ trait SetHeaderTrait
         $nr = $this->createSegment("NAD", 'end');
         $this->setValue("SLA", $nr, 1);
         //AGBCODE
-        $this->setValue("530008", $nr, 2, 1);
+        $this->setValue($H->sender['agbcode'], $nr, 2, 1);
         $this->setValue("AGB", $nr, 2, 2);
         $this->setValue("VEK", $nr, 2, 3);
         $this->setValue("KS", $nr, 4, 1);
-        $this->setValue("SALT", $nr, 4, 2);
+        $this->setValue($H->sender['name'], $nr, 4, 2);
         $this->setValue($Orders->requester['agbcode'], $nr, 4, 5);
 
         //ADR
         $nr = $this->createSegment("ADR", 'end');
         $this->setValue("1", $nr, 2, 1);
-        $this->setValue("Molenwerf", $nr, 2, 2);
-        $this->setValue("11", $nr, 2, 3);
-        $this->setValue("Koog ad Zaan", $nr, 3);
-        $this->setValue("1541WR", $nr, 4);
-        $this->setValue("NL", $nr, 5);
+        $this->setValue($H->sender['street'], $nr, 2, 2);
+        $this->setValue($H->sender['buildingnr'], $nr, 2, 3);
+        $this->setValue($H->sender['city'], $nr, 3);
+        $this->setValue($H->sender['postcode'], $nr, 4);
+        $this->setValue($H->sender['country'], $nr, 5);
+
 
         //Telefoon
-        $nr = $this->createSegment("COM", 'end');
-        $this->setValue($Orders->phone, $nr, 1, 1);
-        $this->setValue("TE", $nr, 1, 2);   //LET OP hier wordt ook wel "01" voor gebruikt
-
-        $nr = $this->createSegment('CTA','end');
-        $this->setValue('AFD', $nr, 1);
-        $this->setValue('POCT', $nr,2,2);
-
+        if($H->sender['phone']) {
+            $nr = $this->createSegment("COM", 'end');
+            $this->setValue($H->sender['phone'], $nr, 1, 1);
+            $this->setValue("TE", $nr, 1, 2);   //LET OP hier wordt ook wel "01" voor gebruikt
+        }
+        if ($H->sender['department']) {
+            $nr = $this->createSegment('CTA', 'end');
+            $this->setValue('AFD', $nr, 1);
+            $this->setValue($H->sender['department'], $nr, 2, 2);
+        }
         //S01 - Ontvanger
         $nr = $this->createSegment("S01", 'end');
         $this->setValue("2", $nr, 1, 1);
@@ -94,9 +97,36 @@ trait SetHeaderTrait
         $this->setValue($Orders->requester['agbcode'], $nr, 2, 1);
         $this->setValue("CGP", $nr, 2, 2);
         $this->setValue("VEK", $nr, 2, 3);
-        $n = explode(",",$Orders->requester['name']);
+        $n = explode(",", $Orders->requester['name']);
         $this->setValue(trim($n[0]), $nr, 4, 1);
-        $this->setValue(trim($n[1]??''), $nr, 4, 2);
+        $this->setValue(trim($n[1] ?? ''), $nr, 4, 2);
+
+        //$this->setValue("NP",$nr,4,5); //Naam persoon
+        $this->setValue($Orders->requester['street'], $nr, 5, 1);
+        $this->setValue($Orders->requester['buildingnr'], $nr, 6);
+        $this->setValue($Orders->requester['city'], $nr, 7, 1);
+
+        //S01 - Copy to
+        if ($Orders->copy_to['agbcode']) {
+            $nr = $this->createSegment("S01", 'end');
+            $this->setValue("3", $nr, 1, 1);
+            //NAD
+            $nr = $this->createSegment("NAD", 'end');
+            $this->setValue("PO", $nr, 1); //huisarts
+            //AGBCODE
+            $this->setValue($Orders->copy_to['agbcode'], $nr, 2, 1);
+            $this->setValue("CGP", $nr, 2, 2);
+            $this->setValue("VEK", $nr, 2, 3);
+            $n = explode(",", $Orders->copy_to['name']);
+            $this->setValue(trim($n[0]), $nr, 4, 1);
+            $this->setValue(trim($n[1] ?? ''), $nr, 4, 2);
+
+            //$this->setValue("NP",$nr,4,5); //Naam persoon
+            $this->setValue($Orders->copy_to['street'], $nr, 5, 1);
+            $this->setValue($Orders->copy_to['buildingnr'], $nr, 6);
+            $this->setValue($Orders->copy_to['city'], $nr, 7, 1);
+        }
+
 
         //S02
         $nr = $this->createSegment("S02", 'end');
@@ -122,23 +152,25 @@ trait SetHeaderTrait
 //       }
 
         //S04   VOLGENS MIJ ZOU S04 HELEMAAL WEGGELATEN KUNNEN WORDEN (alleen vullen indien gegevens aanwezig
-        if ($Orders->requester['agbcode'] and ($Orders->request_date or $Orders->created_at)) {
+        // if ($Orders->requester['agbcode'] and ($Orders->request_date or $Orders->created_at)) {
 
-            $nr = $this->createSegment("S04", 'end');
-            $this->setValue("1", $nr, 1, 1);
-            $this->setValue("N", $nr, 2, 1);
+        $nr = $this->createSegment("S04", 'end');
+        $this->setValue("1", $nr, 1, 1);
+        $this->setValue("N", $nr, 2, 1);
 
-            //RFF
-            $nr = $this->createSegment("RFF", 'end');
-            $this->setValue("ROI", $nr, 1, 1);
-            $this->setValue($Orders->labnr, $nr, 1, 2);
-            //DTM
-            $nr = $this->createSegment('DTM', 'end');
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date ? $Orders->request_date : $Orders->created_at)->format("YmdHi"), $nr, 1, 2);
-            //DTM
-            $nr = $this->createSegment('DTM', 'end');
-            $this->setValue(date_create_from_format("Y-m-d H:i:s", $Orders->request_date ? $Orders->request_date : $Orders->created_at)->format("YmdHi"), $nr, 1, 2);
-        }
+        //RFF
+        $nr = $this->createSegment("RFF", 'end');
+        $this->setValue("ROI", $nr, 1, 1);
+        $this->setValue($Orders->labnr, $nr, 1, 2);
+        $start_time = date_create_from_format("Y-m-d H:i:s", $Orders->orders[0]->observation_start_time ?? ($Orders->request_date ? $Orders->request_date : $Orders->created_at))->format("YmdHi");
+        $end_time = date_create_from_format("Y-m-d H:i:s", $Orders->orders[0]->observation_end_time ?? ($Orders->request_date ? $Orders->request_date : $Orders->created_at))->format("YmdHi");
+        //DTM
+        $nr = $this->createSegment('DTM', 'end');
+        $this->setValue($start_time, $nr, 1, 2);
+        //DTM
+        $nr = $this->createSegment('DTM', 'end');
+        $this->setValue($end_time, $nr, 1, 2);
+        //}
         //S06
         $nr = $this->createSegment("S06", 'end');
         $this->setValue("1", $nr, 1, 1);
@@ -184,6 +216,17 @@ trait SetHeaderTrait
             $this->setValue(date_create_from_format("Y-m-d", $P->dob)->format("Ymd"), $nr, 1, 2);
             $this->setValue("102", $nr, 1, 3);
         }
+        //PDI (geslacht)
+        if (strtoupper($P->sex) == "F") {
+            $sex = "2";
+        } elseif (strtoupper($P->sex) == "M") {
+            $sex = "1";
+        } else {
+            $sex = "9";
+        }
+        $nr = $this->createSegment("PDI", 'end');
+        $this->setValue($sex, $nr, 1);
+
         //S16
         $nr = $this->createSegment("S16", 'end');
         $this->setValue(1, $nr, 1, 1);

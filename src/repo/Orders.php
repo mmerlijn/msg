@@ -30,7 +30,10 @@ class Orders
     public $requester = [ //ordering provider orc12
         'agbcode' => '',
         'name' => '',
-        'source' => ''
+        'source' => '',
+        'street' => '',
+        'buildingnr' => '',
+        'city' => ''
     ];
     public $entering_organisation = [ //orc17
         'agbcode' => '',
@@ -55,7 +58,10 @@ class Orders
     public $copy_to = [
         'agbcode' => '',
         'name' => '',
-        'source' => ''
+        'source' => '',
+        'street' => '',
+        'buildingnr' => '',
+        'city' => ''
     ];
     public $order_effective_datetime = ""; //Alleen bij CA, RO en XO (zie $control)
     //PV1
@@ -102,11 +108,11 @@ class Orders
     public function addOrder(Order $Order): void
     {
         $present = false;
-        $id=0;
-        foreach ($this->orders as $k=>$o) {
+        $id = 0;
+        foreach ($this->orders as $k => $o) {
             if ($o->diagnostic_test_code == $Order->diagnostic_test_code) {
                 $present = true;
-                $id=$k;
+                $id = $k;
             }
         }
         if (!$present) {
@@ -115,13 +121,13 @@ class Orders
 
         }
         //adding the order comments to the order (if they exist)
-        if(!empty($Order->order_comments)){
-            foreach ($Order->order_comments as $oc){
+        if (!empty($Order->order_comments)) {
+            foreach ($Order->order_comments as $oc) {
                 $this->orders[$id]->addOrderComment($oc);
             }
         }
         // update the position
-        if($Order->position!==null){
+        if ($Order->position !== null) {
             $this->orders[$id]->position = $Order->position;
         }
     }
@@ -147,7 +153,8 @@ class Orders
             }
         }
     }
-    public function deleteOrderCommentByIdentifierCode(string $identifier_code):void
+
+    public function deleteOrderCommentByIdentifierCode(string $identifier_code): void
     {
         foreach ($this->orders as $order) {
             $order->deleteOrderCommentByIdentifierCode($identifier_code);

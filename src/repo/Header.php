@@ -29,6 +29,18 @@ class Header
     public $acceptAcknowledgement = '';
     public $applicationAcknowledgement = '';
 
+    public $sender=[
+        'name'=>'',
+        'agbcode'=>'',
+        'source'=>'',
+        'buildingnr'=>'',
+        'street'=>'',
+        'city'=>'',
+        'postcode'=>'',
+        'country'=>'',
+        'phone'=>'',
+        'department'=>'',
+    ];
     public function __construct()
     {
         $this->field_separator = EncodingChars::getFieldSeparator();
