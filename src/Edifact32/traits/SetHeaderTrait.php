@@ -17,9 +17,9 @@ trait SetHeaderTrait
         $this->setValue('UNOA', $nr, 1, 1);
         $this->setValue('1', $nr, 1, 2);
         //edifact van
-        $this->setValue("50009046", $nr, 2, 1);
+        $this->setValue($H->sending_application, $nr, 2, 1);
         //edifact aan
-        $this->setValue("50009046", $nr, 3, 1);
+        $this->setValue($H->receiving_application, $nr, 3, 1);
         $this->setValue(date("ymd"), $nr, 4, 1);
         $this->setValue(date("Hi"), $nr, 4, 2);
         //identificatienr
@@ -59,7 +59,7 @@ trait SetHeaderTrait
         $this->setValue("SLA", $nr, 1);
         //AGBCODE
         $this->setValue($H->sender['agbcode'], $nr, 2, 1);
-        $this->setValue("AGB", $nr, 2, 2);
+        $this->setValue("CLB", $nr, 2, 2);
         $this->setValue("VEK", $nr, 2, 3);
         $this->setValue("KS", $nr, 4, 1);
         $this->setValue($H->sender['name'], $nr, 4, 2);

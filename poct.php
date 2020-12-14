@@ -43,7 +43,9 @@ $ph->sender['phone'] = "088 9100100";
 $ph->sender['name'] = "SALT";
 $ph->sender['agbcode'] = "530008";
 $ph->sender['department'] = "POCT";
-
+$ph->message_control_id=20;  //msg_id
+$ph->sending_application = "530008"; //agbcode salt
+$ph->receiving_application = $ao->requester['agbcode'];
 //var_dump($po);
 $po->request_date = $ao->request_date;
 
