@@ -148,9 +148,9 @@ class Edifact
     protected function setValue(string $data, int $segmentNr, int $fieldNr, int $componentNr = 0): void
     {
         if ($componentNr) {
-            $this->tree[$segmentNr][$fieldNr][$componentNr][1] = $data;
+            $this->tree[$segmentNr][$fieldNr][$componentNr][1] = str_replace( ["'","+",":","?"],["?'","?+","?:","??"], $data);
         } else {
-            $this->tree[$segmentNr][$fieldNr][1] = $data;
+            $this->tree[$segmentNr][$fieldNr][1] = str_replace( ["'","+",":","?"],["?'","?+","?:","??"], $data);
         }
     }
 
@@ -159,13 +159,13 @@ class Edifact
     {
         if ($componentNr) {
             if (isset($this->tree[$segmentNr][$fieldNr][$componentNr][1])) {
-                return $this->tree[$segmentNr][$fieldNr][$componentNr][1];
+                return str_replace(["?'","?+","?:","??"], ["'","+",":","?"], $this->tree[$segmentNr][$fieldNr][$componentNr][1]);
             } else {
                 return null;
             }
         } else {
             if (isset($this->tree[$segmentNr][$fieldNr][1])) {
-                return $this->tree[$segmentNr][$fieldNr][1];
+                return str_replace(["?'","?+","?:","??"], ["'","+",":","?"], $this->tree[$segmentNr][$fieldNr][1]);
             } else {
                 return null;
             }
