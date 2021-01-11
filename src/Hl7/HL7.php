@@ -181,9 +181,13 @@ class HL7
         }
     }
 
-    protected function setValue(string $data, int $segmentNr, int $fieldNr, int $componentNr = 0, int $subComponentNr = 0, int $repeat = 0): void
+    protected function setValue($data, int $segmentNr, int $fieldNr, int $componentNr = 0, int $subComponentNr = 0, int $repeat = 0): void
     {
-
+        try{
+            $data.="";
+        }catch(\Exception $e){
+            throw new \Exception("HL7::SetValue expects string/int ".gettype($data)." given");
+        }
         if ($subComponentNr) {
             $this->tree[$segmentNr][$fieldNr][$repeat][$componentNr][$subComponentNr] = $data;
         } elseif ($componentNr) {
