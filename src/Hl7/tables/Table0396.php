@@ -14,6 +14,7 @@ class Table0396 extends Table
     protected static $name="Coding system";
     protected static $table=[
         'L'=>'Local general code',
+        'LN'=>'Logical Observation Identifier Names and Codes (LOINC®)',
         /*
 
 ACR	American College of Radiology finding codes

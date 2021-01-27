@@ -12,6 +12,11 @@ class Order
     public $diagnostic_test_code = ''; //testcode
     public $diagnostic_test_name = '';
     public $diagnostic_test_source = '';//99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
+
+    public $alternate_diagnostic_test_code='';
+    public $alternate_diagnostic_test_name='';
+    public $alternate_diagnostic_test_source='';
+
     public $observation_start_time = '';
     public $observation_end_time = '';
     public $action_code = ""; //at home => L, else O

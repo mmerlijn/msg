@@ -140,6 +140,9 @@ trait GetOrdersTrait
             $Order->diagnostic_test_code = $this->getValue($nr, 4, 1); //testcode
             $Order->diagnostic_test_name = $this->getValue($nr, 4, 2);
             $Order->diagnostic_test_source = $this->getValue($nr, 4, 3); //99zda=Zorgdomein defined, 99zdl=user defined, else see Table0396
+            $Order->alternate_diagnostic_test_code = $this->getValue($nr, 4,4); //alternate testcode
+            $Order->alternate_diagnostic_test_name = $this->getValue($nr, 4,5);
+            $Order->alternate_diagnostic_test_source = $this->getValue($nr, 4,6);
 
             if (!$Orders->priority) {
                 $Orders->priority = $this->getValue($nr, 5);

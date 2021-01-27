@@ -689,6 +689,10 @@ trait SetOrdersTrait
         $this->setValue($Order->diagnostic_test_code, $new_nr, 4, 1);
         $this->setValue($Order->diagnostic_test_name, $new_nr, 4, 2);
         $this->setValue($Order->diagnostic_test_source, $new_nr, 4, 3);
+        $this->setValue($Order->alternate_diagnostic_test_code, $new_nr, 4, 4);
+        $this->setValue($Order->alternate_diagnostic_test_name, $new_nr, 4, 5);
+        $this->setValue($Order->alternate_diagnostic_test_source, $new_nr, 4, 6);
+
         $this->setValue($Order->observation_start_time ? date_create_from_format("Y-m-d H:i:s", $Order->observation_start_time)->format($this->dateTimeFormatOut) : '', $new_nr, 7, 1);
         $this->setValue($Order->observation_end_time ? date_create_from_format("Y-m-d H:i:s", $Order->observation_end_time)->format($this->dateTimeFormatOut) : '', $new_nr, 8, 1);
         $this->setValue($Order->action_code, $new_nr, 11);
