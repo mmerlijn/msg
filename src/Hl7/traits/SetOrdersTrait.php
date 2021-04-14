@@ -752,7 +752,7 @@ trait SetOrdersTrait
 
         if ($OrderComment->repeated) {
             foreach ($OrderComment->value as $t => $v) {
-                if (!isset($this->tree[$nr[5][$t]])) {
+                if (!isset($this->tree[$nr][5][$t])) {
                     $f = $this->addRepeatField($nr, 5);
                 } else {
                     $f = $t;
