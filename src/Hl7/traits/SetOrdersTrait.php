@@ -32,39 +32,15 @@ trait SetOrdersTrait
         }
 
 
-        //for obr position
-        $positions=[];
-        //TODO not totally correct but acceptable (best use for all last elements -1 for position (the last one at last)
-        foreach($Orders->orders as $k=>$v) {
-            if(!($v->position<0)) {
-                if (!$v->position || $v->position === -1) {
-                    $pos = count($Orders->orders);
-                } else {
-                    $pos = $v->position;
-                }
-                array_splice($positions, $pos, 0, $k);
-            }
-        }
-        foreach($Orders->orders as $k=>$v) {
-            if($v->position<0) {
-                if ($v->position === -1) {
-                    $pos = count($Orders->orders);
-                } else {
-                    $pos = $v->position + 1;
-                }
-                array_splice($positions, $pos, 0, $k);
-            }
-        }
-
         $orcIsSet = false;
         $teller=1;
-        foreach ($positions as $k=>$id){
+        foreach ($Orders->orders as $k=>$o){
             if ($repeatOrc or !$orcIsSet) {
                 $this->createSegment('ORC', count($this->tree));
                 $orcIsSet = true;
             }
             $nr = $this->createSegment('OBR', count($this->tree));
-            $this->setOrder($Orders->orders[$id], $nr, $teller++);
+            $this->setOrder($o, $nr, $teller++);
         }
         $this->setOrderControl($Orders->control);
         $this->setOrderUpdateTimeRequest($Orders->update_time_request);

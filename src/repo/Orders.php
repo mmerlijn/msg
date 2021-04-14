@@ -153,7 +153,30 @@ class Orders
             }
         }
     }
-
+    public function setOrderPositionByOrder(Order $order,$to){
+        switch($to){
+            case "last": $to=count($this->orders);break;
+            case "first": $to=0;break;
+        }
+        foreach ($this->orders as $k=>$o){
+            if($order->diagnostic_test_code == $o->diagnostic_test_code){
+                unset($this->orders[$k]);
+                array_splice($this->orders, $to,0,[$o]);
+            }
+        }
+    }
+    public function setOrderPositionByTestcode(string $testcode,$to){
+        switch($to){
+            case "last": $to=count($this->orders);break;
+            case "first": $to=0;break;
+        }
+        foreach ($this->orders as $k=>$o){
+            if($testcode == $o->diagnostic_test_code){
+                unset($this->orders[$k]);
+                array_splice($this->orders, $to,0,[$o]);
+            }
+        }
+    }
     public function deleteOrderCommentByIdentifierCode(string $identifier_code): void
     {
         foreach ($this->orders as $order) {
