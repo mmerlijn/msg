@@ -11,7 +11,7 @@ use mmerlijn\msg\src\Edifact\fields\S010;
 
 class UNH extends Segment
 {
-    protected static $name = 'UNB';
+    protected static $name = 'UNH';
     protected static $structure = [
         1 => ['class' => F0062::class,  'opt' => 'M', 'name' => 'MESSAGE REFERENCE NUMBER'],
         2 => ['class' => S009::class,  'opt' => 'M', 'name' => 'MESSAGE IDENTIFIER'],

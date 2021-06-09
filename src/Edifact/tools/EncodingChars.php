@@ -84,22 +84,22 @@ class EncodingChars
     public static function encode(string $string): string
     {
         $string = str_replace(static::$escapeChar, '\\E\\', $string);
-        //voor het opbouwen van een HL7 bericht
+        //voor het opbouwen van een Edifact bericht
         $string = str_replace(
             [
+                static::$releaseCharacter, // ?^
                 static::$componentDataElementSeparator, // :
                 static::$dataElementSeparator, // +
-                static::$releaseCharacter, // ?^
                 static::$segmentTerminator, //'
                 '\n\r',
-                '\n', //carriage retur
+                '\n', //carriage return
                 '\r',
             ]
             ,
             [
+                static::$releaseCharacter.static::$releaseCharacter, // ?^
                 static::$releaseCharacter.static::$componentDataElementSeparator, // :
                 static::$releaseCharacter.static::$dataElementSeparator, // +
-                static::$releaseCharacter.static::$releaseCharacter, // ?^
                 static::$releaseCharacter.static::$segmentTerminator, //'
                 '',
                 '',

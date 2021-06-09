@@ -53,4 +53,18 @@ trait ParentFieldTrait
         }
         return $empty;
     }
+
+    public static function toEdifact($tree, $depth = 2)
+    {
+        $edi = [];
+        if (is_array($tree)) {
+            foreach ($tree as $k => $item) {
+                if ($k == 0) {
+                    continue;
+                }
+                $edi[] = static::$structure[$k]['class']::toEdifact($item, $depth + 1);
+            }
+        }
+        return rtrim(implode(EncodingChars::getEncodingChar($depth), $edi), EncodingChars::getEncodingChar($depth));
+    }
 }

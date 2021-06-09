@@ -46,6 +46,10 @@ class Field
 
         }
     }
+    public static function toEdifact($tree,$depth)
+    {
+        return EncodingChars::encode($tree[1]);
+    }
 
     protected static function checkLength($data): bool
     {

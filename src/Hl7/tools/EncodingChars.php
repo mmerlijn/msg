@@ -165,7 +165,7 @@ class EncodingChars
         return trim($string);
     }
 
-    private static function encodeChars(string $string): string
+    public static function encodeChars(string $string): string
     {
         //https://stackoverflow.com/questions/14114411/remove-all-special-characters-from-a-string
         $utf8 = [

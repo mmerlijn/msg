@@ -41,6 +41,18 @@ class Header
         'phone'=>'',
         'department'=>'',
     ];
+    public $receiver=[
+        'name'=>'',
+        'agbcode'=>'',
+        'source'=>'',
+        'buildingnr'=>'',
+        'street'=>'',
+        'city'=>'',
+        'postcode'=>'',
+        'country'=>'',
+        'phone'=>'',
+        'department'=>'',
+    ];
     public function __construct()
     {
         $this->field_separator = EncodingChars::getFieldSeparator();

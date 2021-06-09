@@ -8,6 +8,7 @@ use mmerlijn\msg\src\Edifact\tools\EncodingChars;
 
 class Segment
 {
+    protected static $segmentCounter=['TXT'=>1,'BEP'=>1,'ARA'=>1,'OPB'=>1];
     protected static $name = "UNDEFINED";
     protected static $structure = [];
 
@@ -21,15 +22,18 @@ class Segment
         return static::$name;
     }
 
+    public function resetSegmentCounter(){
+        static::$segmentCounter=['TXT'=>1,'BEP'=>1,'ARA'=>1,'OPB'=>1];
+    }
     //maakt een lege HL7 tree
-    //public static function setEmpty()
-    //{
-    //    $empty = [0 => static::class];
-    //    foreach (static::$structure as $i => $element) {
-    //        $empty[$i] = [$element['class']::setEmpty($i)];
-    //    }
-    //    return [$empty];
-    //}
+    public static function setEmpty()
+    {
+        $empty = [0 => static::class];
+        foreach (static::$structure as $i => $element) {
+            $empty[$i] = $element['class']::setEmpty($i);
+        }
+        return [$empty];
+    }
 
     //maakt een gevulde HL7 tree
     public static function setFilled(string $data, bool $validate = false)
@@ -62,37 +66,33 @@ class Segment
             if ($fields[$i] ?? false) {
                 $filled[$i] = $element['class']::setFilled($fields[$i], $name, $validate);
             } else {
-                $filled[$i] = [$element['class']::setEmpty()];
+                $filled[$i] = $element['class']::setEmpty();
             }
         }
         return $filled;
     }
 
-    public static function toHl7($tree, $depth = 1)
+    public static function toEdifact($tree, $depth = 1)
     {
-        $hl7 = [static::getName()];
-        foreach ($tree as $k => $field) {
-            if ((static::name() == 'MSH' AND $k == 1) OR !$k) {    //exception for MSH.1
-                continue;
-            }
-            $_hl7 = [];
-            //static::runBeforeToHl7($k, $field);
-            if (is_array($field[0])) {
-                foreach ($field as $i => $rptField) {
-                    static::runBeforeToHl7($i, $rptField);
-                    //var_dump($rptField);
-                    //var_dump($field[0]);
-                    $_hl7[] = $rptField[0]::toHl7($rptField, $depth + 1);
-                }
-            } else {
-                //var_dump($tree[0]);
-                $_hl7[] = static::$structure[$k]['class']::toHl7($field[0], $depth + 1);
-            }
-            $hl7[] = implode(EncodingChars::getRepetitionSeparator(), $_hl7);
+        if(in_array(static::getName(),array_keys(static::$segmentCounter))){
+            $edi = [static::getName().":".static::$segmentCounter[static::getName()]];
+            static::$segmentCounter[static::getName()]++;
+        }else{
+            $edi = [static::getName()];
         }
 
-        return rtrim(implode(EncodingChars::getFieldSeparator(), $hl7), EncodingChars::getFieldSeparator());
+        foreach ($tree as $k => $field) {
+            if (!$k) {
+                continue;
+            }
+            //static::runBeforeToHl7($k, $field);
+            //var_dump($tree[0]);
+            $edi[] = static::$structure[$k]['class']::toEdifact($field, $depth + 1);
+        }
+
+        return rtrim(implode(EncodingChars::getDataElementSeparator(), $edi), EncodingChars::getDataElementSeparator());
     }
+
 
     public static function isRepeatable($field)
     {

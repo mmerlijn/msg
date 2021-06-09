@@ -54,46 +54,50 @@ trait getOrdersTrait
         //$o->placer_order_nr = //zdnr
         //$o->filler_order_nr = //labnr
         $SegNr = $this->getSegmentNrs('DET',true);
-        $o->observation_start_time = date_create_from_format("ymdHi"
-            , $this->getValue($SegNr, 1, 1)
-            .$this->getValue($SegNr, 1, 2)
-            .$this->getValue($SegNr, 1, 3)
-            .$this->getValue($SegNr, 2, 1)
-            .$this->getValue($SegNr, 2, 2))->format("Y-m-d H:i:s");
-        $Order->addOrder($o);
+        if($SegNr) {
+            $o->observation_start_time = date_create_from_format("ymdHi"
+                , $this->getValue($SegNr, 1, 1)
+                . $this->getValue($SegNr, 1, 2)
+                . $this->getValue($SegNr, 1, 3)
+                . $this->getValue($SegNr, 2, 1)
+                . $this->getValue($SegNr, 2, 2))->format("Y-m-d H:i:s");
+            $Order->addOrder($o);
+            $Order->resultDateTime = $o->observation_start_time;
+        }
         $segNrs = $this->getSegmentNrs('BEP');
-        foreach ($segNrs as $SegNr)
-        {
-            if($this->getValue($SegNr, 1)==0) {
-                $c = new OrderComment();
-                $c->type_of_value = "ST";
-                $c->identifier_code = $this->getValue($SegNr, 9);
-                $c->identifier_label = $this->getValue($SegNr, 2);
-                $c->identifier_source = "L";
-                $c->value = $this->getValue($SegNr, 3);
-                $c->units = $this->getValue($SegNr, 5);
-                $c->references_range = trim($this->getValue($SegNr, 7) . "-" . $this->getValue($SegNr, 8),"-");
+        if($segNrs) {
+            foreach ($segNrs as $SegNr) {
+                if ($this->getValue($SegNr, 1) == 0) {
+                    $c = new OrderComment();
+                    $c->type_of_value = "ST";
+                    $c->identifier_code = $this->getValue($SegNr, 9);
+                    $c->identifier_label = $this->getValue($SegNr, 2);
+                    $c->identifier_source = "L";
+                    $c->value = $this->getValue($SegNr, 3);
+                    $c->units = $this->getValue($SegNr, 5);
+                    $c->references_range = trim($this->getValue($SegNr, 7) . "-" . $this->getValue($SegNr, 8), "-");
 
-                if($this->getValue($SegNr, 6)=="<"){
-                    $c->abnormal_flags = "L";
-                }elseif($this->getValue($SegNr, 6)==">"){
-                    $c->abnormal_flags = "H";
-                }
+                    if ($this->getValue($SegNr, 6) == "<") {
+                        $c->abnormal_flags = "L";
+                    } elseif ($this->getValue($SegNr, 6) == ">") {
+                        $c->abnormal_flags = "H";
+                    }
 
 
-                if($this->getValue($SegNr, 4)){
-                    $c->result_status = "C";
-                    $Order->result_status = "C";
-                }else{
-                    $c->result_status = "F";
-                    $Order->result_status = "F";
+                    if ($this->getValue($SegNr, 4)) {
+                        $c->result_status = "C";
+                        $Order->result_status = "C";
+                    } else {
+                        $c->result_status = "F";
+                        $Order->result_status = "F";
+                    }
+                    if ($this->ifNextSegmentIs($SegNr, 'OPB')) {
+                        $note = new OrderNote();
+                        $note->comment = $this->getOPB($SegNr);
+                        $c->notes[] = $note;
+                    }
+                    $Order->addComment($c);
                 }
-                if($this->ifNextSegmentIs($SegNr, 'OPB')){
-                    $note = new OrderNote();
-                    $note->comment = $this->getOPB($SegNr);
-                    $c->notes[] = $note;
-                }
-                $Order->addComment($c);
             }
         }
         if($withNUB) {
@@ -113,6 +117,23 @@ trait getOrdersTrait
                     $o->addOrderComment($c);
                 }
                 $Order->addOrder($o);
+            }
+        }
+        if($this->messageType=="MEDVRI"){
+            $nrs = $this->getSegmentNrs('TXT');
+            if($nrs){
+                $txt="";
+                foreach ($nrs as $nr){
+                    $txt.=$this->getValue($nr, 1).PHP_EOL;
+
+                }
+                $txt = trim($txt);
+                $n = new OrderNote();
+                $n->comment = $txt;
+                if(isset($Order->orders[0]))
+                {
+                    $Order->orders[0]->addOrderNote($n);
+                }
             }
         }
         return $Order;

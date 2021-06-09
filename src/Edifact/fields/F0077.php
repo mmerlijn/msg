@@ -4,7 +4,7 @@
 namespace mmerlijn\msg\src\Edifact\fields;
 
 
-class F0077
+class F0077 extends Field
 {
     protected static $name = '0077';
     protected static $type = "an";

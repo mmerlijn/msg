@@ -16,6 +16,7 @@ use mmerlijn\msg\src\Edifact\segments\NUB;
 use mmerlijn\msg\src\Edifact\segments\OPB;
 use mmerlijn\msg\src\Edifact\segments\PAD;
 use mmerlijn\msg\src\Edifact\segments\PID;
+use mmerlijn\msg\src\Edifact\segments\Segment;
 use mmerlijn\msg\src\Edifact\segments\TXT;
 use mmerlijn\msg\src\Edifact\segments\UNA;
 use mmerlijn\msg\src\Edifact\segments\UNB;
@@ -27,10 +28,13 @@ use mmerlijn\msg\src\Edifact\tools\EncodingChars;
 use mmerlijn\msg\src\Edifact\traits\getHeaderTrait;
 use mmerlijn\msg\src\Edifact\traits\getOrdersTrait;
 use mmerlijn\msg\src\Edifact\traits\getPatientTrait;
+use mmerlijn\msg\src\Edifact\traits\setHeaderTrait;
+use mmerlijn\msg\src\Edifact\traits\setOrdersTrait;
+use mmerlijn\msg\src\Edifact\traits\setPatientTrait;
 
 class Edifact
 {
-    use getPatientTrait,getOrdersTrait,getHeaderTrait;
+    use getPatientTrait,getOrdersTrait,getHeaderTrait,setHeaderTrait,setPatientTrait,setOrdersTrait;
 
     public $structure = [
         'UNA' => UNA::class,
@@ -114,6 +118,21 @@ class Edifact
             $this->tree[] = $SEG::setFilled($segment);
         }
     }
+
+    public function write(): string
+    {
+        $this->setLineCount();
+        $this->resetSegmentCounter();
+        $msg = "";
+        foreach ($this->tree as $tree) {
+            $msg .= $tree[0]::toEdifact($tree) . EncodingChars::getSegmentTerminator().chr(13); //carriage return
+        }
+        return $msg;
+    }
+    private function resetSegmentCounter(){
+        $s = new Segment();
+        $s->resetSegmentCounter();
+    }
     public function reset()
     {
         $this->tree = [];
@@ -159,7 +178,7 @@ class Edifact
                 $this->structure = $medvri->structure;
                 break;
             default:
-                throw new \Exception('Message type ' . $this->messageType . ' is not implemented');
+                throw new \Exception('Message type ' . $this->messageType . ' is not implemented / UNH does not exists');
 
         }
 
@@ -179,19 +198,37 @@ class Edifact
     {
         if ($componentNr) {
             if (isset($this->tree[$segmentNr][$fieldNr][$componentNr][1])) {
-                return $this->tree[$segmentNr][$fieldNr][$componentNr][1];
+                return EncodingChars::decode($this->tree[$segmentNr][$fieldNr][$componentNr][1]);
             } else {
                 return null;
             }
         } else {
             if (isset($this->tree[$segmentNr][$fieldNr][1])) {
-                return $this->tree[$segmentNr][$fieldNr][1];
+                return EncodingChars::decode($this->tree[$segmentNr][$fieldNr][1]);
             } else {
                 return null;
             }
         }
     }
+    protected function setValue($data, int $segmentNr, int $fieldNr, int $componentNr = 0): void
+    {
+        try{
+            $data.="";
+        }catch(\Exception $e){
+            throw new \Exception("HL7::SetValue expects string/int ".gettype($data)." given");
+        }
+        if ($componentNr) {
 
+            if(is_array($this->tree[$segmentNr][$fieldNr][$componentNr])){
+                $this->tree[$segmentNr][$fieldNr][$componentNr][1] = $data; //EncodingChars::encode();
+            }else{
+                $this->tree[$segmentNr][$fieldNr][$componentNr] = $data; //EncodingChars::encode();
+            }
+
+        } else {
+            $this->tree[$segmentNr][$fieldNr][1] = $data; //EncodingChars::encode($data);
+        }
+    }
     protected function getSegmentNrs(string $segment, $first = false, $createIfNotExist = false)
     {
         $segmentNrs = [];
@@ -206,14 +243,83 @@ class Edifact
         if (is_array($segmentNrs) and count($segmentNrs)) {
             return $segmentNrs;
         } else {
-            return false;
-            //if ($createIfNotExist) {
-            //    return $this->createSegment($segment);
-            //} else {
-            //    return false;
-            //}
+            //return false;
+            if ($createIfNotExist) {
+                return $this->createSegment($segment);
+            } else {
+                return false;
+            }
 
         }
+    }
+    public function createSegment($segment, $position = false): int
+    {
+        if (!$position) {
+            $newSegment = $segment;
+            $nr = $this->getNewSegmentPosition($newSegment);
+                if ($nr === false) {
+                    $nr = -1;
+                }
+        } else {
+            $nr = $position;
+        }
+        //echo $nr."-".$segment.PHP_EOL;
+        array_splice($this->tree, $nr+1, 0, $this->allowedSegments[$segment]::setEmpty());
+        return $nr+1;
+    }
+    public function getNewSegmentPosition($segment)
+    {
+        if (in_array($segment, array_keys($this->allowedSegments))) {
+            $position = $this->segmentExists($segment);
+            if($position!==false){
+                return $position;
+            }else{
+                $try=false;
+                foreach (array_reverse($this->structure) as $segName=>$segClass){
+                    if(!$try and $segName == $segment){
+                        $try=true;
+                        continue;
+                    }
+                    if($try){
+                        $position = $this->segmentExists($segName);
+                        if($position!==false){
+                            return $position;
+                        }
+                    }
+                }
+                return false;
+                //get position off segment of allowed segments
+            }
+        } else {
+            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys($this->allowedSegments)));
+        }
+    }
+    //return key off last existing segment, else false
+    public function segmentExists($segment)
+    {
+        $found=false;
+        foreach ($this->tree as $k=>$treeItem){
+            if($treeItem[0]::getName() == $segment){
+                $found= $k;
+            }
+        }
+        return $found;
+    }
+    public function getNextAllowedSegment($segment)
+    {
+        if (in_array($segment, array_keys($this->allowedSegments))) {
+            $nextSegment = null;
+            foreach (array_reverse($this->allowedSegments) as $allowedSegment => $class) {
+                //var_dump($allowedSegment,$class);
+                if ($allowedSegment == $segment) {
+                    return $nextSegment;
+                }
+                $nextSegment = $allowedSegment;
+            }
+        } else {
+            throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys($this->allowedSegments)));
+        }
+        return false;
     }
     protected function ifNextSegmentIs(int $currentNr, string $segment): bool
     {
@@ -223,5 +329,13 @@ class Edifact
             }
         }
         return false;
+    }
+    private function setLineCount()
+    {
+        $nr = $this->getSegmentNrs('UNT',true);
+        if($nr){
+            $this->setValue(count($this->tree)-2, $nr, 1,1);
+        }
+
     }
 }

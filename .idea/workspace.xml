@@ -2,10 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/position.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setPatientTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/EdifactOrdersTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/EdifactPatientTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/traits/SetOrdersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repo/Orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Orders.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/Edifact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/Edifact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/F0077.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/F0077.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/Field.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/ParentFieldTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/ParentFieldTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/TXT.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/TXT.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/UNH.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/UNH.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getPatientTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repo/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Header.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +58,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../php-7.3.22/php.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -59,6 +81,37 @@
       <recent name="K:\php_projects\mmerlijn\msg\src\Edifact\fields" />
       <recent name="K:\php_projects\mmerlijn\msg\src\Edifact32" />
     </key>
+  </component>
+  <component name="RunManager" selected="PHPUnit.tests">
+    <configuration name="EdifactHeaderTest.test_set_medvri_header" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactHeaderTest" file="$PROJECT_DIR$/tests/EdifactHeaderTest.php" method="test_set_medvri_header" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EdifactMedvriTest.test_read_write" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_read_write" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EdifactMedvriTest.test_write_edifact" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_write_edifact" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="HL7Test.test_write_HL7" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\HL7Test" file="$PROJECT_DIR$/tests/HL7Test.php" method="test_write_HL7" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.tests" />
+        <item itemvalue="PHPUnit.HL7Test.test_write_HL7" />
+        <item itemvalue="PHPUnit.EdifactHeaderTest.test_set_medvri_header" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_write" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_write_edifact" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">

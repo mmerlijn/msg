@@ -30,6 +30,7 @@ use mmerlijn\msg\src\Edifact\segments\ZKH;
 
 class MEDLAB extends Edifact
 {
+    protected $messageType="MEDLAB";
     public $structure = [
         'UNA' => UNA::class,
         'UNB' => UNB::class,
