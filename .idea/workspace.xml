@@ -2,31 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Edifact/traits/setPatientTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/EdifactOrdersTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/EdifactPatientTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tools/StringSplitter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/Edifact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/Edifact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDLAB.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/MEDVRI.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/F0077.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/F0077.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/Field.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/fields/ParentFieldTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/fields/ParentFieldTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/TXT.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/TXT.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/UNH.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/UNH.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/tools/EncodingChars.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getHeaderTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getOrdersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/getPatientTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/getPatientTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hl7/tools/EncodingChars.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repo/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/repo/Header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +22,36 @@
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4.10">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1bYIWa0eOO4175unDra05lWBKIm" />
@@ -63,7 +72,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.emmet.xml" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -82,21 +91,21 @@
       <recent name="K:\php_projects\mmerlijn\msg\src\Edifact32" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.tests">
-    <configuration name="EdifactHeaderTest.test_set_medvri_header" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\EdifactHeaderTest" file="$PROJECT_DIR$/tests/EdifactHeaderTest.php" method="test_set_medvri_header" scope="Method" />
+  <component name="RunManager" selected="PHPUnit.ToolTest.test_split">
+    <configuration name="FunctionTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\FunctionTest" file="$PROJECT_DIR$/tests/ToolTest.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="EdifactMedvriTest.test_read_write" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_read_write" scope="Method" />
-      <method v="2" />
-    </configuration>
-    <configuration name="EdifactMedvriTest.test_write_edifact" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_write_edifact" scope="Method" />
+    <configuration name="FunctionTest.test_split" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\FunctionTest" file="$PROJECT_DIR$/tests/ToolTest.php" method="test_split" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="HL7Test.test_write_HL7" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="mmerlijn\msg\tests\HL7Test" file="$PROJECT_DIR$/tests/HL7Test.php" method="test_write_HL7" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ToolTest.test_split" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\ToolTest" file="$PROJECT_DIR$/tests/ToolTest.php" method="test_split" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
@@ -105,11 +114,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.ToolTest.test_split" />
+        <item itemvalue="PHPUnit.FunctionTest.test_split" />
+        <item itemvalue="PHPUnit.FunctionTest" />
         <item itemvalue="PHPUnit.tests" />
         <item itemvalue="PHPUnit.HL7Test.test_write_HL7" />
-        <item itemvalue="PHPUnit.EdifactHeaderTest.test_set_medvri_header" />
-        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_write" />
-        <item itemvalue="PHPUnit.EdifactMedvriTest.test_write_edifact" />
       </list>
     </recent_temporary>
   </component>
@@ -281,6 +290,7 @@
       <workItem from="1617283641612" duration="20000" />
       <workItem from="1617702273332" duration="661000" />
       <workItem from="1618390572942" duration="16069000" />
+      <workItem from="1623659319984" duration="4575000" />
     </task>
     <servers />
   </component>

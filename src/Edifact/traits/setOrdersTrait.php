@@ -5,6 +5,7 @@ namespace mmerlijn\msg\src\Edifact\traits;
 
 
 use mmerlijn\msg\src\repo\Orders;
+use mmerlijn\msg\src\Tools\StringSplitter;
 
 trait setOrdersTrait
 {
@@ -26,10 +27,19 @@ trait setOrdersTrait
 
         if($this->messageType=="MEDVRI"){
             foreach (explode(PHP_EOL, $o->orders[0]->notes[0]->comment) as $line){
-                $nr = $this->createSegment('TXT');
-                $this->setValue($line, $nr, 1,1);
+                if(strlen($line)>70){
+                    $parts = (new StringSplitter())->of($line)->splitString(70);
+                    foreach ($parts as $part){
+                        $nr = $this->createSegment('TXT');
+                        $this->setValue($part, $nr, 1,1);
+                    }
+                }else{
+                    $nr = $this->createSegment('TXT');
+                    $this->setValue($line, $nr, 1,1);
+                }
             }
 
         }
     }
+
 }
