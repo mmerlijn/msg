@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Tools/StringSplitter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/setOrdersTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tools/StringSplitter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tools/StringSplitter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/EdifactPatientTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactPatientTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ToolTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ToolTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,33 +96,33 @@
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.ToolTest.test_split">
-    <configuration name="FunctionTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\FunctionTest" file="$PROJECT_DIR$/tests/ToolTest.php" scope="Class" />
+    <configuration name="EdifactMedvriTest.test_read_edifact" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_read_edifact" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="FunctionTest.test_split" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\FunctionTest" file="$PROJECT_DIR$/tests/ToolTest.php" method="test_split" scope="Method" />
+    <configuration name="EdifactMedvriTest.test_read_write" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_read_write" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="HL7Test.test_write_HL7" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="mmerlijn\msg\tests\HL7Test" file="$PROJECT_DIR$/tests/HL7Test.php" method="test_write_HL7" scope="Method" />
+    <configuration name="EdifactMedvriTest.test_write_edifact" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_write_edifact" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EdifactPatientTest.test_set_patient" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="mmerlijn\msg\tests\EdifactPatientTest" file="$PROJECT_DIR$/tests/EdifactPatientTest.php" method="test_set_patient" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="ToolTest.test_split" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="mmerlijn\msg\tests\ToolTest" file="$PROJECT_DIR$/tests/ToolTest.php" method="test_split" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner directory="$PROJECT_DIR$/tests" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="PHPUnit.ToolTest.test_split" />
-        <item itemvalue="PHPUnit.FunctionTest.test_split" />
-        <item itemvalue="PHPUnit.FunctionTest" />
-        <item itemvalue="PHPUnit.tests" />
-        <item itemvalue="PHPUnit.HL7Test.test_write_HL7" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_edifact" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_write_edifact" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_write" />
+        <item itemvalue="PHPUnit.EdifactPatientTest.test_set_patient" />
       </list>
     </recent_temporary>
   </component>
@@ -290,7 +294,7 @@
       <workItem from="1617283641612" duration="20000" />
       <workItem from="1617702273332" duration="661000" />
       <workItem from="1618390572942" duration="16069000" />
-      <workItem from="1623659319984" duration="4575000" />
+      <workItem from="1623659319984" duration="7355000" />
     </task>
     <servers />
   </component>

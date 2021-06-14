@@ -17,7 +17,7 @@ trait setHeaderTrait
         $this->setValue($h->receiving_facility, $nr, 3,1);
         $this->setValue(date_create($h->datetime_of_message)->format('ymd'), $nr,4, 1);
         $this->setValue(date_create($h->datetime_of_message)->format('Hi'), $nr,4, 2);
-        $this->setValue( $h->message_control_id, $nr, 5,1);
+        $this->setValue( "SNM".$h->message_control_id, $nr, 5,1);
 
         $nr = $this->getSegmentNrs('UNH',true,true);
         $this->setValue($h->message_control_id, $nr, 1,1);

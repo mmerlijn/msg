@@ -51,6 +51,7 @@ UNZ+1+1020'
     }
     public function test_set_patient()
     {
+        //Female
         $p = new Patient();
         $p->initials="K.M.";
         $p->surname_prefix="de";
@@ -70,6 +71,27 @@ UNZ+1+1020'
         //$this->edi->dumpTree();
         $this->assertSame(
             "PID+1999:09:13+V+Hek:van ?'t:Groot:de::KM++BSN123456782'".chr(13).
+            "PAD+Blue street:43b::Amsterdam:1040BB+?+31612345678'".chr(13),
+            $this->edi->write()
+        );
+        //Male
+        $p = new Patient();
+        $p->initials="K.M.";
+        $p->surname_prefix="de";
+        $p->surname = "Groot";
+        $p->sex="M";
+        $p->bsn="123456782";
+        $p->dob = "1999-09-13";
+
+        $p->city="Amsterdam";
+        $p->street="Blue street";
+        $p->building_nr_full = "43b";
+        $p->postcode="1040BB";
+        $p->phones[] = "+31612345678";
+        $this->edi->setPatient($p);
+        //$this->edi->dumpTree();
+        $this->assertSame(
+            "PID+1999:09:13+M+::Groot:de::KM++BSN123456782'".chr(13).
             "PAD+Blue street:43b::Amsterdam:1040BB+?+31612345678'".chr(13),
             $this->edi->write()
         );

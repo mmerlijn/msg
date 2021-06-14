@@ -22,7 +22,7 @@ class EdifactMedvriTest extends TestCase
 
     public function test_read_edifact()
     {
-        $edifact= "UNB+UNOA:1+50001111+50002222+201201:1401+1020'
+        $edifact= "UNB+UNOA:1+50001111+50002222+201201:1401+SNM1020'
 UNH+1020+MEDVRI:1'
 GGA+Organisation name+Fill work+Organisation name+New Street:12::Amsterdam:1000AA+?+31612341234'
 DET+21:06:08+15:32'
@@ -103,7 +103,7 @@ greetings";
         $this->edi->setPatient($patient);
 
         //$this->edi->dumpTree();
-        $this->assertSame("UNB+UNOA:1+50001111+50002222+201201:1401+1020'".chr(13).
+        $this->assertSame("UNB+UNOA:1+50001111+50002222+201201:1401+SNM1020'".chr(13).
 "UNH+1020+MEDVRI:1'".chr(13).
 "GGA+Organisation name+Fill work+Organisation name+New Street:12::Amsterdam:1000AA+?+31612341234'".chr(13).
 "DET+21:06:07+12:12'".chr(13).
@@ -121,7 +121,7 @@ greetings";
 
     public function test_read_write()
     {
-        $edifact= "UNB+UNOA:1+50001111+50002222+201201:1401+1020'".chr(13).
+        $edifact= "UNB+UNOA:1+50001111+50002222+201201:1401+SNM1020'".chr(13).
 "UNH+1020+MEDVRI:1'".chr(13).
 "GGA+Organisation name+Fill work+Organisation name+New Street:12::Amsterdam:1000AA+?+31612341234'".chr(13).
 "PID+1999:09:13+V+Hek:van ?'t:Groot:de::KM++BSN123456782'".chr(13).

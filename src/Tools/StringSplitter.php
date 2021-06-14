@@ -31,6 +31,7 @@ class StringSplitter
                 $sentence=$word;
             }
         }
+        $part[] = trim($sentence);
         return $part;
     }
 }

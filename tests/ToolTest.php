@@ -26,7 +26,17 @@ class ToolTest extends TestCase
                 'laboriosam, maxime minima',
                 'mollitia perferendis placeat',
                 'praesentium qui sint suscipit',
+                'tempore.'
+            ],
+            $parts);
+
+        $string = "Lorem ipsum dolor";
+        $parts = (new StringSplitter())->of($string)->splitString(30);
+        $this->assertSame(
+            [
+                'Lorem ipsum dolor',
             ],
             $parts);
     }
+
 }
