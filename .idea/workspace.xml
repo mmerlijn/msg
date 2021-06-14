@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tools/StringSplitter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tools/StringSplitter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactHeaderTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/EdifactPatientTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactPatientTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ToolTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ToolTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +288,7 @@
       <workItem from="1617283641612" duration="20000" />
       <workItem from="1617702273332" duration="661000" />
       <workItem from="1618390572942" duration="16069000" />
-      <workItem from="1623659319984" duration="7355000" />
+      <workItem from="1623659319984" duration="8052000" />
     </task>
     <servers />
   </component>

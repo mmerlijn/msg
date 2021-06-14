@@ -58,6 +58,6 @@ trait setHeaderTrait
         $this->setValue($h->message_control_id, $nr, 2, 1);
         $nr = $this->getSegmentNrs('UNZ',true,true);
         $this->setValue(1, $nr, 1, 1);
-        $this->setValue($h->message_control_id, $nr, 2, 1);
+        $this->setValue("SNM".$h->message_control_id, $nr, 2, 1);
     }
 }
