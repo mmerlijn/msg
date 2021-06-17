@@ -81,6 +81,7 @@ class Edifact
         'UNT' => UNT::class,
         'UNZ' => UNZ::class,
     ];
+    public static $useEdifactSegmentCounter=false; //example TXT:1+...
 
     //collection of al HL7 lines
     protected $segments = [];
@@ -337,5 +338,8 @@ class Edifact
             $this->setValue(count($this->tree)-2, $nr, 1,1);
         }
 
+    }
+    public function setUseEdifactSegmentCounter(){
+        static::$useEdifactSegmentCounter=true;
     }
 }

@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1c38b1b4-f4cd-4975-aa09-b58c4691911c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/traits/setHeaderTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/Edifact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/Edifact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edifact/segments/Segment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/EdifactMedvriTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +92,7 @@
       <recent name="K:\php_projects\mmerlijn\msg\src\Edifact32" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.ToolTest.test_split">
+  <component name="RunManager" selected="PHPUnit.EdifactMedvriTest.test_read_write">
     <configuration name="EdifactMedvriTest.test_read_edifact" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="mmerlijn\msg\tests\EdifactMedvriTest" file="$PROJECT_DIR$/tests/EdifactMedvriTest.php" method="test_read_edifact" scope="Method" />
       <method v="2" />
@@ -112,10 +115,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.ToolTest.test_split" />
-        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_edifact" />
-        <item itemvalue="PHPUnit.EdifactMedvriTest.test_write_edifact" />
         <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_write" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_write_edifact" />
+        <item itemvalue="PHPUnit.EdifactMedvriTest.test_read_edifact" />
+        <item itemvalue="PHPUnit.ToolTest.test_split" />
         <item itemvalue="PHPUnit.EdifactPatientTest.test_set_patient" />
       </list>
     </recent_temporary>
@@ -288,7 +291,9 @@
       <workItem from="1617283641612" duration="20000" />
       <workItem from="1617702273332" duration="661000" />
       <workItem from="1618390572942" duration="16069000" />
-      <workItem from="1623659319984" duration="8052000" />
+      <workItem from="1623659319984" duration="8695000" />
+      <workItem from="1623831931223" duration="991000" />
+      <workItem from="1623938051671" duration="2415000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,7 @@
 namespace mmerlijn\msg\src\Edifact\segments;
 
 
+use mmerlijn\msg\src\Edifact\Edifact;
 use mmerlijn\msg\src\Edifact\tools\EncodingChars;
 
 class Segment
@@ -74,7 +75,7 @@ class Segment
 
     public static function toEdifact($tree, $depth = 1)
     {
-        if(in_array(static::getName(),array_keys(static::$segmentCounter))){
+        if(in_array(static::getName(),array_keys(static::$segmentCounter)) && Edifact::$useEdifactSegmentCounter){
             $edi = [static::getName().":".static::$segmentCounter[static::getName()]];
             static::$segmentCounter[static::getName()]++;
         }else{
