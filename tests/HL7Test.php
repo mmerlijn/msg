@@ -2,7 +2,7 @@
 
 namespace mmerlijn\msg\tests;
 
-use mmerlijn\msg\src\Hl7\HL7;
+use mmerlijn\msg\src\Hl7\HL7_DFT_P03;
 use mmerlijn\msg\src\Hl7\tools\EncodingChars;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,7 @@ class HL7Test extends TestCase
     private $msg;
     protected function setUp(): void
     {
-        $this->hl7 = new HL7();
+        $this->hl7 = new HL7_DFT_P03();
         $this->msg = "MSH|^~\&|ZorgDomein||OrderManager||20180327143358+0200||ORM^O01^ORM_O01|69a0f2c151134430ad18|P|2.4|||||NLD|8859/1".chr(13).
 "PID|1||900073962^^^NLMINBIZA^NNNLD~ZP10007446^^^ZorgDomein^VN||Testpatiënt - van ZorgDomein&van&ZorgDomein&&Testpatiënt^Z^D^^^^L||19901231|F|||2e Antonie Heinsiusstraat 3456 b&2e Antonie Heinsiusstraat&3456^b^'s-Gravenhage^^9999ZZ^NL^M||+31-612345678^ORN^CP~00-1-345-7654321^PRN^PH||||||||||||||||||Y|NNNLD
 ";
