@@ -69,6 +69,7 @@ trait GetPatientTrait
         $Patient->identities_alternate = $this->getPatientAlternateIds(); //set BSN and other id's
         $Patient->identity_unknown_indicator = $this->getIdentityUnknownIndicator();
         $Patient->identity_reliability_code = $this->getIdentityReliability();
+        $Patient->bsn = $this->getBsn();
         return $Patient;
     }
 
