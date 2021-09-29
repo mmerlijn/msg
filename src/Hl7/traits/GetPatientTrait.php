@@ -146,13 +146,17 @@ trait GetPatientTrait
         return $ids;
     }
 
-    public function getPatientId($authority, $identifier)
+    public function getPatientId($authority, $identifier="")
     {
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
             foreach ($this->tree[$nr][3] as $patIds) {
-                if ($patIds[4][1] ?? null == $authority and $patIds[5] ?? null == $identifier) {
-                    return $patIds[1];
+                if ($patIds[4][1] ?? null == $authority) {
+                    if($identifier  and $patIds[5] ?? null == $identifier)
+                        return $patIds[1];
+                    else {
+                        return $patIds[1];
+                    }
                 }
             }
         }
@@ -161,7 +165,7 @@ trait GetPatientTrait
 
     public function getBsn(): string
     {
-        return $this->getPatientId('NLMINBIZA', 'NNNLD');
+        return $this->getPatientId('NLMINBIZA'); //, 'NNNLD'
     }
 
     public function getZorgdomeinNr()
