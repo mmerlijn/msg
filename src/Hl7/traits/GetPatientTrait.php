@@ -146,14 +146,18 @@ trait GetPatientTrait
         return $ids;
     }
 
-    public function getPatientId($authority, $identifier="")
+    public function getPatientId($authority, $typeCode="")
     {
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
             foreach ($this->tree[$nr][3] as $patIds) {
-                if ($patIds[4][1] ?? null == $authority) {
-                    if($identifier  and $patIds[5] ?? null == $identifier)
-                        return $patIds[1];
+                if (($patIds[4][1] ?? null) == $authority) {
+                    if($typeCode)
+                        if($patIds[5] ?? null == $typeCode)
+                            return $patIds[1];
+                        else {
+                            return "";
+                        }
                     else {
                         return $patIds[1];
                     }
