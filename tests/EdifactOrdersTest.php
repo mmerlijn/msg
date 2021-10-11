@@ -64,4 +64,37 @@ greetings";
 "TXT:3'".chr(13).
 "TXT:4+greetings'".chr(13), $this->edi->write());
     }
+    public function test_get_orders_medlab()
+    {
+        $edifact = "UNB+UNOA:1+50001111+50002222+201201:1401+1020'
+UNH+1020+MEDLAB:1'
+ZKH+ORGANISATIE+Straat:11::Plaats:1001AB+020-1234567'
+PID+1980:10:25+V+Berg:van de:Jansen:van::P.++BSN123456782'
+PAD+Blue street:43b::Amsterdam:1040BB+?+31612345678'
+ART+S+123123+Aanvraag organisatie+Naar straat:90::?Amsterdam:2002AB'
+AFD+ORANISATIE NAAM+020-1234567'
+ARA:1+Belangrijk persoon+020-2345678'
+DET:1+21:08:14+08:50'
+IDE:1+J+112233+'
+BEP:1:1:1+1+MEDICIJNEN'
+BEP:1:1:2+0+Valproinezuur+75++mg/l++60+80+VALPB SI'
+OPB:1:1:2:1+*'
+OPB:1:1:2:2+-----OPM-----'
+OPB:1:1:2:3+Epilepsie 50-100 mg/l, Stemmingsstabilisator acute episode 80-120'
+OPB:1:1:2:4+mg/l, Onderhoud 60-80 mg/l, vrije concentratie 4-12 mg/l, Toxisch >'
+OPB:1:1:2:5+120 mg/l'
+BEP:1:1:3+1+DIVERSEN'
+BEP:1:1:4+0+Datum inname+130921++++++DINN10'
+BEP:1:1:5+0+Tijd inname+21.30++uur++++TINN10'
+BEP:1:1:6+0+Afname tijd+08.50++uur++++TAFN10'
+BEP:1:1:7+0+Haloperidol+Zie onder++ug/l++++HALPB'
+OPB:1:1:7:1+*'
+OPB:1:1:7:2+niet betrouwbaar te bepalen'
+UNT+24+66001298496'
+UNZ+1+1020'";
+        $this->edi->read($edifact);
+        $orders = $this->edi->getOrders();
+        $this->assertSame("112233", $orders->labnr);
+    }
+
 }

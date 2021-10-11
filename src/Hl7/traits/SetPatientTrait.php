@@ -183,8 +183,10 @@ trait SetPatientTrait
             $this->tree[$nr][3][$new_nr][5] = $id['typeCode'];
         }
     }
+
     public function setPatientAlternateIds($ids): void
     {
+
         $nr = $this->getSegmentNrs('PID', true, true);
         foreach ($ids as $t => $id) {
             if (!isset($this->tree[$nr][4][$t])) {
@@ -222,10 +224,13 @@ trait SetPatientTrait
                 if (!($patIds[1] ?? null)) {
                     $empty = false;
                 }
-                if (($patIds[4][1] ?? null) == $authority AND ($patIds[5] ?? null) == $identifier) {
+                if (($patIds[4][1] ?? null) == $authority AND ($patIds[1] ?? null) == $id) {
                     //already exist
                     $this->tree[$nr][3][$i][1] = $id;
                     $found = true;
+                    if($authority== "NLMINBIZA"){
+                        $this->tree[$nr][3][$i][5] = "NNNLD";
+                    }
                 }
             }
             if (!$found) {
