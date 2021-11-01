@@ -43,6 +43,7 @@ trait SetOrdersTrait
             $this->setOrder($o, $nr, $teller++);
         }
         $this->setOrderControl($Orders->control);
+        $this->setOrderControlReason($Orders->order_control_reason);
         $this->setOrderUpdateTimeRequest($Orders->update_time_request);
 
         $this->setOrderFax($Orders->fax);
@@ -245,7 +246,16 @@ trait SetOrdersTrait
             $this->setValue($value, $nr, 1);
         }
     }
-
+    private function setOrderControlReason(string $value): void
+    {
+        $nrs = $this->getSegmentNrs('ORC', false, true);
+        if (!is_array($nrs)) {
+            $nrs = [$nrs];
+        }
+        foreach ($nrs as $nr) {
+            $this->setValue($value, $nr, 16,1);
+        }
+    }
     private function setOrderRequestnr(string $value): void
     {
 

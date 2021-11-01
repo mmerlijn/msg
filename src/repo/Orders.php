@@ -10,6 +10,7 @@ class Orders
     public $fax = '';
     public $phone = '';
     public $control = 'NW'; //NW=new order, CA=cancel request, RO=replacement order, XO=change order request
+    public $order_control_reason;
     public $requestnr = ''; //zdnr / parnassia nr (placer ordernr / placer groupnr)
     public $labnr = '';
     public $complete = "Y"; //Wordt nog niets mee gedaan wel uitgelezen uit edifact
