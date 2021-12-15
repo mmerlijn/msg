@@ -67,7 +67,7 @@ trait getOrdersTrait
         $segNrs = $this->getSegmentNrs('BEP');
         if($segNrs) {
             foreach ($segNrs as $SegNr) {
-                if ($this->getValue($SegNr, 1) == 0) {
+                if (!$this->getValue($SegNr, 1)) {
                     $c = new OrderComment();
                     $c->type_of_value = "ST";
                     $c->identifier_code = $this->getValue($SegNr, 9);

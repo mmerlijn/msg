@@ -94,4 +94,59 @@ class Patient
         }
 
     }
+
+    public function toArray(){
+        $response = [
+            "sex"=>$this->sex,
+          "last_name"=>$this->last_name,
+          "surname"=>$this->surname,
+          "last_name_prefix"  =>$this->last_name_prefix,
+            "surname_prefix"=>$this->surname_prefix,
+            "name"=>$this->name,
+            "initials"=>$this->initials,
+            "type_code"=>$this->type_code,
+            "dob"=>$this->dob,
+            "bsn"=>$this->bsn,
+            "identities"=>$this->identities,
+            "identities_alternate"=>$this->identities_alternate,
+            "adres"=>[
+                "address"=>$this->address,
+                "street"=>$this->street,
+                "city"=>$this->city,
+                "postcode"=>$this->postcode,
+                "building_nr"=>$this->building_nr,
+                "building_nr_additive"=>$this->building_nr_additive,
+                "building_nr_full"=>$this->building_nr_full,
+                "country"=>$this->country,
+                "address_type"=>$this->address_type,
+                "address_valid_start"=>$this->address_valid_start,
+                "address_valid_end"=>$this->address_valid_end,
+            ],
+            "phones"=>$this->phones,
+            "insurance"=>[
+                "policy_nr"=>$this->policy_nr,
+                "uzovi"=>$this->uzovi,
+                "insurance_company_name"=>$this->insurance_company_name,
+                "insurance_company_resource"=>$this->insurance_company_resource,
+            ]
+
+        ];
+        if($this->second_address){
+            $response['adres2'] =
+                [
+                    "address"=>$this->address2,
+                    "street"=>$this->street2,
+                    "city"=>$this->city2,
+                    "postcode"=>$this->postcode2,
+                    "building_nr"=>$this->building_nr2,
+                    "building_nr_additive"=>$this->building_nr_additive2,
+                    "building_nr_full"=>$this->building_nr_full2,
+                    "country"=>$this->country2,
+                    "address_type"=>$this->address_type2,
+                    "address_valid_start"=>$this->address_valid_start2,
+                    "address_valid_end"=>$this->address_valid_end2,
+                ];
+        }
+        return $response;
+    }
 }

@@ -16,7 +16,7 @@ class Header
     public $receiving_application = "";
     public $receiving_facility = "";
     public $datetime_of_message = null;
-    public $security="";
+    public $security = "";
     public $message_type_type = "ORM";
     public $message_type_trigger_event = "O01";
     public $message_type_structure = "ORM_O01";
@@ -29,30 +29,31 @@ class Header
     public $acceptAcknowledgement = '';
     public $applicationAcknowledgement = '';
 
-    public $sender=[
-        'name'=>'',
-        'agbcode'=>'',
-        'source'=>'',
-        'buildingnr'=>'',
-        'street'=>'',
-        'city'=>'',
-        'postcode'=>'',
-        'country'=>'',
-        'phone'=>'',
-        'department'=>'',
+    public $sender = [
+        'name' => '',
+        'agbcode' => '',
+        'source' => '',
+        'buildingnr' => '',
+        'street' => '',
+        'city' => '',
+        'postcode' => '',
+        'country' => '',
+        'phone' => '',
+        'department' => '',
     ];
-    public $receiver=[
-        'name'=>'',
-        'agbcode'=>'',
-        'source'=>'',
-        'buildingnr'=>'',
-        'street'=>'',
-        'city'=>'',
-        'postcode'=>'',
-        'country'=>'',
-        'phone'=>'',
-        'department'=>'',
+    public $receiver = [
+        'name' => '',
+        'agbcode' => '',
+        'source' => '',
+        'buildingnr' => '',
+        'street' => '',
+        'city' => '',
+        'postcode' => '',
+        'country' => '',
+        'phone' => '',
+        'department' => '',
     ];
+
     public function __construct()
     {
         $this->field_separator = EncodingChars::getFieldSeparator();
@@ -89,5 +90,32 @@ class Header
         if ($value) {
             $this->character_set = $value;
         }
+    }
+
+    public function toArray(): array
+    {
+        return [
+            "sending_application" => $this->sending_application,
+            "sending_device" => $this->sending_device,
+            "sending_facility" => $this->sending_facility,
+            "receiving_application" => $this->receiving_application,
+            "receiving_facility" => $this->receiving_facility,
+            "datetime_of_message" => $this->datetime_of_message,
+            "security" => $this->security,
+            "message_type_type" => $this->message_type_type,
+            "message_type_trigger_event" => $this->message_type_trigger_event,
+            "message_type_structure" => $this->message_type_structure,
+            "message_control_id" => $this->message_control_id,
+            "processing_id" => $this->processing_id,
+            "version_id" => $this->version_id,
+            "country_code" => $this->country_code,
+            "character_set" => $this->character_set,
+            "sequence_nr" => $this->sequence_nr,
+            "acceptAcknowledgement" => $this->acceptAcknowledgement,
+            "applicationAcknowledgement" => $this->applicationAcknowledgement,
+            "sender" => $this->sender,
+            "receiver" => $this->receiver,
+
+        ];
     }
 }

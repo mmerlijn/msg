@@ -81,4 +81,11 @@ class HL7Test extends TestCase
         $this->assertSame('Naam',$this->hl7->getField('PID', 5,1,3));
 
     }
+    public function test_to_array(){
+        $header = $this->hl7->getHeader()->toArray();
+        $this->assertIsArray($header);
+        //var_dump($header);
+        $patient = $this->hl7->getPatient()->toArray();
+        $this->assertIsArray($patient);
+    }
 }

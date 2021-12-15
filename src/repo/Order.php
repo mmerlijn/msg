@@ -76,4 +76,36 @@ class Order
         }
         //sort($this->order_comments);
     }
+    public function toArray():array
+    {
+        $response =  [
+            "id"=>$this->id,
+            "placer_order_nr"=>$this->placer_order_nr,
+            "filler_order_nr"=>$this->filler_order_nr,
+            "diagnostic_test_code"=>$this->diagnostic_test_code,
+            "diagnostic_test_name"=>$this->diagnostic_test_name,
+            "diagnostic_test_source"=>$this->diagnostic_test_source,
+            "alternate_diagnostic_test_code"=>$this->alternate_diagnostic_test_code,
+            "alternate_diagnostic_test_name"=>$this->alternate_diagnostic_test_name,
+            "alternate_diagnostic_test_source"=>$this->alternate_diagnostic_test_source,
+            "observation_start_time"=>$this->observation_start_time,
+            "observation_end_time"=>$this->observation_end_time,
+            "action_code"=>$this->action_code,
+            "clinical_information"=>$this->clinical_information,
+            "request_date"=>$this->request_date,
+            "collection_volume_units"=>$this->collection_volume_units,
+            "collection_volume_quantity"=>$this->collection_volume_quantity,
+            "specimen_received_datetime"=>$this->specimen_received_datetime,
+            "specimen_source"=>$this->specimen_source,
+            "comments"=>[],
+            "notes"=>[],
+        ];
+        foreach ($this->notes as $note){
+            $response['notes'][] = $note->toArray();
+        }
+        foreach ($this->order_comments as $comment){
+            $response['comments'][] = $comment->toArray();
+        }
+        return $response;
+    }
 }

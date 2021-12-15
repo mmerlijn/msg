@@ -42,11 +42,11 @@ class EdifactPatientTest extends TestCase
     {
         $this->hl7->read($this->msg);
         $patient = $this->hl7->getPatient();
-        $patient->setIdentity('AAA12345678', 'SALT', 'PI',true);
-         $this->hl7->setPatient($patient);
-        $expected_out = "MSH|^~\&|ZorgDomein||OrderManager||20180327143358+0200||ORM^O01^ORM_O01|69a0f2c151134430ad18|P|2.4|||||NLD|8859/1".chr(13).
+        $patient->setIdentity('AAA12345678', 'SALT', 'PI', true);
+        $this->hl7->setPatient($patient);
+        $expected_out = "MSH|^~\&|ZorgDomein||OrderManager||20180327143358+0200||ORM^O01^ORM_O01|69a0f2c151134430ad18|P|2.4|||||NLD|8859/1" . chr(13) .
             "PID|1||ZP10007446^^^ZorgDomein^VN~900073962^^^NLMINBIZA^NNNLD|AAA12345678^^^SALT^PI|Testpatient - van ZorgDomein&van&ZorgDomein&&Testpatient^Z^D^^^^L||19901231|F|||2e Antonie Heinsiusstraat 3456 b&2e Antonie Heinsiusstraat&3456^b^'s-Gravenhage^^9999ZZ^NL^M||+31612345678^PNR^PH~0013457654321^PNR^PH||||||||||||||||||Y|NNNLD
 ";
-        $this->assertSame(trim($this->hl7->write()),trim($expected_out));
+        $this->assertSame(trim($this->hl7->write()), trim($expected_out));
     }
 }

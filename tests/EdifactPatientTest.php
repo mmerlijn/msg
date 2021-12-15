@@ -97,4 +97,25 @@ UNZ+1+1020'
         );
 
     }
+    public function test_to_array(){
+        $edifact= "UNB+UNOA:1+50001111+50002222+201201:1401+1020'
+UNH+1020+MEDVRI:1'
+GGA+Organisation name+Fill work+Organisation name+New Street:12::Amsterdam:1000AA+?+31612341234'
+DET+21:06:08+15:32'
+PID+1980:10:25+V+Berg:van de:Jansen:van::P.++BSN123456782'
+PAD+Blue street:43b::Amsterdam:1040BB+?+31612345678'
+TXT:1+Hello World'
+TXT:2+This is a message'
+GGO+Arts Lastname+++Old street:3b::Amsterdam:'
+UNT+9+1020'
+UNZ+1+1020'
+";
+        $this->edi->read($edifact);
+        $header = $this->edi->getHeader()->toArray();
+        $this->assertIsArray($header);
+        $patient = $this->edi->getPatient()->toArray();
+        $this->assertIsArray($patient);
+        $orders = $this->edi->getOrders()->toArray();
+        $this->assertIsArray($orders);
+    }
 }

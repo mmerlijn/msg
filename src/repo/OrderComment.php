@@ -36,4 +36,31 @@ class OrderComment
     {
         $this->notes[] = $note;
     }
+    public function toArray():array
+    {
+        $response = [
+            "id"=>$this->id,
+            "type_of_value"=>$this->type_of_value,
+            "identifier_code"=>$this->identifier_code,
+            "identifier_label"=>$this->identifier_label,
+            "identifier_source"=>$this->identifier_source,
+            "identifier_alternate_code"=>$this->identifier_alternate_label,
+            "identifier_alternate_source"=>$this->identifier_alternate_source,
+            "value"=>$this->value,
+            "value_code"=>$this->value_code,
+            "value_source"=>$this->value_source,
+            "units"=>$this->units,
+            "references_range"=>$this->references_range,
+            "abnormal_flags"=>$this->abnormal_flags,
+            "result_status"=>$this->result_status,
+            "datetime_of_the_observation"=>$this->datetime_of_the_observation,
+            "equipment_instance_identifier"=>$this->equipment_instance_identifier,
+            "datetime_of_analysis"=>$this->datetime_of_analysis,
+            "notes"=>[]
+        ];
+            foreach ($this->notes as $note){
+                $response['notes'][] = $note->toArray();
+            }
+        return $response;
+    }
 }

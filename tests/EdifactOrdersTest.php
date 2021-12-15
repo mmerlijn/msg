@@ -95,6 +95,7 @@ UNZ+1+1020'";
         $this->edi->read($edifact);
         $orders = $this->edi->getOrders();
         $this->assertSame("112233", $orders->labnr);
+        $this->assertIsArray($orders->toArray());
     }
 
 }
