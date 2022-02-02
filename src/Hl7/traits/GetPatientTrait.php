@@ -18,13 +18,13 @@ trait GetPatientTrait
         $Patient->sex = $this->getPatientSex();
         $Patient->dob = $this->getPatientDob();
         $name = $this->getPatientName();
-        $Patient->last_name = $name['last_name'];
-        $Patient->surname = $name['surname'];
-        $Patient->last_name_prefix = $name['last_name_prefix'];
-        $Patient->surname_prefix = $name['surname_prefix'];
-        $Patient->name = $name['name'];
-        $Patient->initials = $name['initials'];
-        $Patient->type_code = $name['type_code'];
+        $Patient->last_name = $name['last_name'] ?? "";
+        $Patient->surname = $name['surname'] ?? "";
+        $Patient->last_name_prefix = $name['last_name_prefix'] ?? "";
+        $Patient->surname_prefix = $name['surname_prefix'] ?? "";
+        $Patient->name = $name['name'] ?? "";
+        $Patient->initials = $name['initials'] ?? "";
+        $Patient->type_code = $name['type_code'] ?? "";
 
         //address
         $address = $this->getPatientAddress();
@@ -146,14 +146,14 @@ trait GetPatientTrait
         return $ids;
     }
 
-    public function getPatientId($authority, $typeCode="")
+    public function getPatientId($authority, $typeCode = "")
     {
         $nr = $this->getSegmentNrs('PID', true);
         if ($nr !== false) {
             foreach ($this->tree[$nr][3] as $patIds) {
                 if (($patIds[4][1] ?? null) == $authority) {
-                    if($typeCode)
-                        if($patIds[5] ?? null == $typeCode)
+                    if ($typeCode)
+                        if ($patIds[5] ?? null == $typeCode)
                             return $patIds[1];
                         else {
                             return "";
@@ -246,14 +246,14 @@ trait GetPatientTrait
 
             //HL7 is not always correct formated
             //Parnassia street^buildingnr instead of address^street^buildingnr
-            if(!$address['street']){
-                $address['address'] = $address['address']." ".$address['building_nr_additive'];
+            if (!$address['street']) {
+                $address['address'] = $address['address'] . " " . $address['building_nr_additive'];
                 $s = $this->split_address($address['address']);
                 $b = $this->split_buildingnr($address['building_nr_additive']);
-                if($b) {
+                if ($b) {
                     $address['building_nr'] = $b['number'];
                     $address['building_nr_additive'] = $b['addition'];
-                }else{
+                } else {
                     $address['building_nr'] = $address['building_nr_additive'];
                 }
                 $address['street'] = $s['street'];
@@ -266,14 +266,14 @@ trait GetPatientTrait
                     $address['street'] = $st['street'];
                 }
             }
-            if(!$address['building_nr']){
+            if (!$address['building_nr']) {
                 $s = $this->split_address($address['address']);
                 $address['street'] = $s['street'];
-                if($s['number']){
-                    $address['building_nr']  =$s['number'];
+                if ($s['number']) {
+                    $address['building_nr'] = $s['number'];
                 }
-                if($s['numberAddition']){
-                    $address['building_nr_additive'] =$s['numberAddition'];
+                if ($s['numberAddition']) {
+                    $address['building_nr_additive'] = $s['numberAddition'];
                 }
             }
 

@@ -21,6 +21,7 @@ use mmerlijn\msg\src\Hl7\tables\Table0465;
 class XCN extends Field
 {
     use parentFieldTrait;
+
     protected static $name = 'XCN';
     private static $structure = [
         1 => ['class' => ST::class, 'length' => 15, 'opt' => 'O', 'name' => 'Id Number'],
@@ -36,7 +37,7 @@ class XCN extends Field
         11 => ['class' => ST::class, 'length' => 4, 'opt' => 'O', 'name' => 'Identifier Check Digit'],
         12 => ['class' => ID::class, 'length' => 3, 'opt' => 'C', 'name' => 'Check Digit Scheme', 'table' => Table0061::class],
         13 => ['class' => ID::class, 'length' => 5, 'opt' => 'O', 'name' => 'Identifier Type Code', 'table' => Table0203::class],
-        14 => ['class' => HD::class, 'length' => 227, 'opt' => 'O', 'name' => 'Assigning Facilit'],
+        14 => ['class' => HD::class, 'length' => 227, 'opt' => 'O', 'name' => 'Assigning Facility'],
         15 => ['class' => ID::class, 'length' => 1, 'opt' => 'O', 'name' => 'Name Representation Code', 'table' => Table0465::class],
         16 => ['class' => CE::class, 'length' => 483, 'opt' => 'O', 'name' => 'Name Context', 'table' => Table0448::class],
         17 => ['class' => DR::class, 'length' => 53, 'opt' => 'B', 'name' => 'Name Validity Range'],

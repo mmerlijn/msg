@@ -36,7 +36,7 @@ class Patient
     public $street2 = '';
     public $city2 = '';
     public $postcode2 = '';
-    public $building_nr2='';
+    public $building_nr2 = '';
     public $building_nr_additive2 = '';
     public $building_nr_full2 = '';
     public $country2 = 'NL';
@@ -62,9 +62,9 @@ class Patient
     public $identity_unknown_indicator = "Y"; //If the referrer’s verification of the BSN is unknown: “Y”. Else: “N”.
     public $identity_reliability_code = "NNNLD";
 
-    public function setIdentity($identifier, $assigningAuthority, $typeCode,$alternate=false)
+    public function setIdentity($identifier, $assigningAuthority, $typeCode, $alternate = false)
     {
-        if(!$alternate){
+        if (!$alternate) {
             $exist = false;
             foreach ($this->identities as $identity) {
                 if ($assigningAuthority == $identity['assigningAuthority']) {
@@ -74,10 +74,10 @@ class Patient
             if (!$exist) {
                 $this->identities[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
             }
-            if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
+            if ($assigningAuthority == "NLMINBIZA" and $typeCode == "NNNLD") {
                 $this->bsn = $identifier;
             }
-        }else{
+        } else {
             $exist = false;
             foreach ($this->identities_alternate as $identity) {
                 if ($assigningAuthority == $identity['assigningAuthority']) {
@@ -87,64 +87,65 @@ class Patient
             if (!$exist) {
                 $this->identities_alternate[] = ['identifier' => $identifier, 'assigningAuthority' => $assigningAuthority, 'typeCode' => $typeCode];
             }
-            if ($assigningAuthority == "NLMINBIZA" AND $typeCode == "NNNLD") {
+            if ($assigningAuthority == "NLMINBIZA" and $typeCode == "NNNLD") {
                 $this->bsn = $identifier;
-                $this->setIdentity($identifier,  $assigningAuthority, $typeCode,false);
+                $this->setIdentity($identifier, $assigningAuthority, $typeCode, false);
             }
         }
 
     }
 
-    public function toArray(){
+    public function toArray()
+    {
         $response = [
-            "sex"=>$this->sex,
-          "last_name"=>$this->last_name,
-          "surname"=>$this->surname,
-          "last_name_prefix"  =>$this->last_name_prefix,
-            "surname_prefix"=>$this->surname_prefix,
-            "name"=>$this->name,
-            "initials"=>$this->initials,
-            "type_code"=>$this->type_code,
-            "dob"=>$this->dob,
-            "bsn"=>$this->bsn,
-            "identities"=>$this->identities,
-            "identities_alternate"=>$this->identities_alternate,
-            "adres"=>[
-                "address"=>$this->address,
-                "street"=>$this->street,
-                "city"=>$this->city,
-                "postcode"=>$this->postcode,
-                "building_nr"=>$this->building_nr,
-                "building_nr_additive"=>$this->building_nr_additive,
-                "building_nr_full"=>$this->building_nr_full,
-                "country"=>$this->country,
-                "address_type"=>$this->address_type,
-                "address_valid_start"=>$this->address_valid_start,
-                "address_valid_end"=>$this->address_valid_end,
+            "sex" => $this->sex,
+            "last_name" => $this->last_name,
+            "surname" => $this->surname,
+            "last_name_prefix" => $this->last_name_prefix,
+            "surname_prefix" => $this->surname_prefix,
+            "name" => $this->name,
+            "initials" => $this->initials,
+            "type_code" => $this->type_code,
+            "dob" => $this->dob,
+            "bsn" => $this->bsn,
+            "identities" => $this->identities,
+            "identities_alternate" => $this->identities_alternate,
+            "adres" => [
+                "address" => $this->address,
+                "street" => $this->street,
+                "city" => $this->city,
+                "postcode" => $this->postcode,
+                "building_nr" => $this->building_nr,
+                "building_nr_additive" => $this->building_nr_additive,
+                "building_nr_full" => $this->building_nr_full,
+                "country" => $this->country,
+                "address_type" => $this->address_type,
+                "address_valid_start" => $this->address_valid_start,
+                "address_valid_end" => $this->address_valid_end,
             ],
-            "phones"=>$this->phones,
-            "insurance"=>[
-                "policy_nr"=>$this->policy_nr,
-                "uzovi"=>$this->uzovi,
-                "insurance_company_name"=>$this->insurance_company_name,
-                "insurance_company_resource"=>$this->insurance_company_resource,
+            "phones" => $this->phones,
+            "insurance" => [
+                "policy_nr" => $this->policy_nr,
+                "uzovi" => $this->uzovi,
+                "insurance_company_name" => $this->insurance_company_name,
+                "insurance_company_resource" => $this->insurance_company_resource,
             ]
 
         ];
-        if($this->second_address){
+        if ($this->second_address) {
             $response['adres2'] =
                 [
-                    "address"=>$this->address2,
-                    "street"=>$this->street2,
-                    "city"=>$this->city2,
-                    "postcode"=>$this->postcode2,
-                    "building_nr"=>$this->building_nr2,
-                    "building_nr_additive"=>$this->building_nr_additive2,
-                    "building_nr_full"=>$this->building_nr_full2,
-                    "country"=>$this->country2,
-                    "address_type"=>$this->address_type2,
-                    "address_valid_start"=>$this->address_valid_start2,
-                    "address_valid_end"=>$this->address_valid_end2,
+                    "address" => $this->address2,
+                    "street" => $this->street2,
+                    "city" => $this->city2,
+                    "postcode" => $this->postcode2,
+                    "building_nr" => $this->building_nr2,
+                    "building_nr_additive" => $this->building_nr_additive2,
+                    "building_nr_full" => $this->building_nr_full2,
+                    "country" => $this->country2,
+                    "address_type" => $this->address_type2,
+                    "address_valid_start" => $this->address_valid_start2,
+                    "address_valid_end" => $this->address_valid_end2,
                 ];
         }
         return $response;
