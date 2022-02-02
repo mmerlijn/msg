@@ -15,61 +15,64 @@ trait GetPatientTrait
     public function getPatient()
     {
         $Patient = new Patient();
-        $Patient->sex = $this->getPatientSex();
-        $Patient->dob = $this->getPatientDob();
-        $name = $this->getPatientName();
-        $Patient->last_name = $name['last_name'] ?? "";
-        $Patient->surname = $name['surname'] ?? "";
-        $Patient->last_name_prefix = $name['last_name_prefix'] ?? "";
-        $Patient->surname_prefix = $name['surname_prefix'] ?? "";
-        $Patient->name = $name['name'] ?? "";
-        $Patient->initials = $name['initials'] ?? "";
-        $Patient->type_code = $name['type_code'] ?? "";
+        $nr = $this->getSegmentNrs('PID', true);
+        if ($nr !== false) {
+            $Patient->sex = $this->getPatientSex();
+            $Patient->dob = $this->getPatientDob();
+            $name = $this->getPatientName();
+            $Patient->last_name = $name['last_name'];
+            $Patient->surname = $name['surname'];
+            $Patient->last_name_prefix = $name['last_name_prefix'];
+            $Patient->surname_prefix = $name['surname_prefix'];
+            $Patient->name = $name['name'];
+            $Patient->initials = $name['initials'];
+            $Patient->type_code = $name['type_code'];
 
-        //address
-        $address = $this->getPatientAddress();
-        $Patient->address = $address['address'];
-        $Patient->street = $address['street'];
-        $Patient->city = $address['city'];
-        $Patient->postcode = str_replace(" ", "", $address['postcode']);
-        $Patient->building_nr = $address['building_nr'];
-        $Patient->building_nr_additive = $address['building_nr_additive'];
-        $Patient->building_nr_full = $address['building_nr_full'];
-        $Patient->country = $address['country'];
-        $Patient->address_type = $address['address_type'];
-        $Patient->address_valid_start = $address['address_valid_start'];
+            //address
+            $address = $this->getPatientAddress();
+            $Patient->address = $address['address'];
+            $Patient->street = $address['street'];
+            $Patient->city = $address['city'];
+            $Patient->postcode = str_replace(" ", "", $address['postcode']);
+            $Patient->building_nr = $address['building_nr'];
+            $Patient->building_nr_additive = $address['building_nr_additive'];
+            $Patient->building_nr_full = $address['building_nr_full'];
+            $Patient->country = $address['country'];
+            $Patient->address_type = $address['address_type'];
+            $Patient->address_valid_start = $address['address_valid_start'];
 
-        if ($address['second_address']) {
-            $Patient->second_address = true;
-            $address2 = $this->getPatientAddress(1);
-            $Patient->address2 = $address2['address'];
-            $Patient->street2 = $address2['street'];
-            $Patient->city2 = $address2['city'];
-            $Patient->postcode2 = str_replace(" ", "", $address2['postcode']);
-            $Patient->building_nr2 = $address2['building_nr'];
-            $Patient->building_nr_additive2 = $address2['building_nr_additive'];
-            $Patient->building_nr_full2 = $address2['building_nr_full'];
-            $Patient->country2 = $address2['country'];
-            $Patient->address_type2 = $address2['address_type'];
-            $Patient->address_valid_start2 = $address2['address_valid_start'];
+            if ($address['second_address']) {
+                $Patient->second_address = true;
+                $address2 = $this->getPatientAddress(1);
+                $Patient->address2 = $address2['address'];
+                $Patient->street2 = $address2['street'];
+                $Patient->city2 = $address2['city'];
+                $Patient->postcode2 = str_replace(" ", "", $address2['postcode']);
+                $Patient->building_nr2 = $address2['building_nr'];
+                $Patient->building_nr_additive2 = $address2['building_nr_additive'];
+                $Patient->building_nr_full2 = $address2['building_nr_full'];
+                $Patient->country2 = $address2['country'];
+                $Patient->address_type2 = $address2['address_type'];
+                $Patient->address_valid_start2 = $address2['address_valid_start'];
+            }
+
+
+            $Patient->phones = $this->getPatientPhone();
+
+            $insurance = $this->getPatientInsurance();
+            $Patient->policy_nr = $insurance['policy_nr'];
+            $Patient->uzovi = $insurance['uzovi'];
+            $Patient->insurance_company_name = $insurance['insurance_company_name'];
+            $Patient->insurance_company_resource = $insurance['insurance_company_resource'];
+            foreach ($this->getPatientIds() as $id) {
+                $Patient->setIdentity($id['identifier'], $id['assigningAuthority'], $id['typeCode']);
+            }
+            $Patient->identities = $this->getPatientIds(); //set BSN and other id's
+            $Patient->identities_alternate = $this->getPatientAlternateIds(); //set BSN and other id's
+            $Patient->identity_unknown_indicator = $this->getIdentityUnknownIndicator();
+            $Patient->identity_reliability_code = $this->getIdentityReliability();
+            $Patient->bsn = $this->getBsn();
         }
-
-
-        $Patient->phones = $this->getPatientPhone();
-
-        $insurance = $this->getPatientInsurance();
-        $Patient->policy_nr = $insurance['policy_nr'];
-        $Patient->uzovi = $insurance['uzovi'];
-        $Patient->insurance_company_name = $insurance['insurance_company_name'];
-        $Patient->insurance_company_resource = $insurance['insurance_company_resource'];
-        foreach ($this->getPatientIds() as $id) {
-            $Patient->setIdentity($id['identifier'], $id['assigningAuthority'], $id['typeCode']);
-        }
-        $Patient->identities = $this->getPatientIds(); //set BSN and other id's
-        $Patient->identities_alternate = $this->getPatientAlternateIds(); //set BSN and other id's
-        $Patient->identity_unknown_indicator = $this->getIdentityUnknownIndicator();
-        $Patient->identity_reliability_code = $this->getIdentityReliability();
-        $Patient->bsn = $this->getBsn();
         return $Patient;
     }
 

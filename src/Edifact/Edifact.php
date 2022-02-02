@@ -34,7 +34,7 @@ use mmerlijn\msg\src\Edifact\traits\setPatientTrait;
 
 class Edifact
 {
-    use getPatientTrait,getOrdersTrait,getHeaderTrait,setHeaderTrait,setPatientTrait,setOrdersTrait;
+    use getPatientTrait, getOrdersTrait, getHeaderTrait, setHeaderTrait, setPatientTrait, setOrdersTrait;
 
     public $structure = [
         'UNA' => UNA::class,
@@ -81,7 +81,7 @@ class Edifact
         'UNT' => UNT::class,
         'UNZ' => UNZ::class,
     ];
-    public static $useEdifactSegmentCounter=false; //example TXT:1+...
+    public static $useEdifactSegmentCounter = true; //example TXT:1+...
 
     //collection of al HL7 lines
     protected $segments = [];
@@ -126,18 +126,22 @@ class Edifact
         $this->resetSegmentCounter();
         $msg = "";
         foreach ($this->tree as $tree) {
-            $msg .= $tree[0]::toEdifact($tree) . EncodingChars::getSegmentTerminator().chr(13); //carriage return
+            $msg .= $tree[0]::toEdifact($tree) . EncodingChars::getSegmentTerminator() . chr(13); //carriage return
         }
         return $msg;
     }
-    private function resetSegmentCounter(){
+
+    private function resetSegmentCounter()
+    {
         $s = new Segment();
         $s->resetSegmentCounter();
     }
+
     public function reset()
     {
         $this->tree = [];
     }
+
     protected function buildSegments(string $msg): void
     {
         $this->segments = preg_split("/(?<!\?)'/", trim($msg));
@@ -211,18 +215,19 @@ class Edifact
             }
         }
     }
+
     protected function setValue($data, int $segmentNr, int $fieldNr, int $componentNr = 0): void
     {
-        try{
-            $data.="";
-        }catch(\Exception $e){
-            throw new \Exception("HL7::SetValue expects string/int ".gettype($data)." given");
+        try {
+            $data .= "";
+        } catch (\Exception $e) {
+            throw new \Exception("HL7::SetValue expects string/int " . gettype($data) . " given");
         }
         if ($componentNr) {
 
-            if(is_array($this->tree[$segmentNr][$fieldNr][$componentNr])){
+            if (is_array($this->tree[$segmentNr][$fieldNr][$componentNr])) {
                 $this->tree[$segmentNr][$fieldNr][$componentNr][1] = $data; //EncodingChars::encode();
-            }else{
+            } else {
                 $this->tree[$segmentNr][$fieldNr][$componentNr] = $data; //EncodingChars::encode();
             }
 
@@ -230,6 +235,7 @@ class Edifact
             $this->tree[$segmentNr][$fieldNr][1] = $data; //EncodingChars::encode($data);
         }
     }
+
     protected function getSegmentNrs(string $segment, $first = false, $createIfNotExist = false)
     {
         $segmentNrs = [];
@@ -253,37 +259,39 @@ class Edifact
 
         }
     }
+
     public function createSegment($segment, $position = false): int
     {
         if (!$position) {
             $newSegment = $segment;
             $nr = $this->getNewSegmentPosition($newSegment);
-                if ($nr === false) {
-                    $nr = -1;
-                }
+            if ($nr === false) {
+                $nr = -1;
+            }
         } else {
             $nr = $position;
         }
         //echo $nr."-".$segment.PHP_EOL;
-        array_splice($this->tree, $nr+1, 0, $this->allowedSegments[$segment]::setEmpty());
-        return $nr+1;
+        array_splice($this->tree, $nr + 1, 0, $this->allowedSegments[$segment]::setEmpty());
+        return $nr + 1;
     }
+
     public function getNewSegmentPosition($segment)
     {
         if (in_array($segment, array_keys($this->allowedSegments))) {
             $position = $this->segmentExists($segment);
-            if($position!==false){
+            if ($position !== false) {
                 return $position;
-            }else{
-                $try=false;
-                foreach (array_reverse($this->structure) as $segName=>$segClass){
-                    if(!$try and $segName == $segment){
-                        $try=true;
+            } else {
+                $try = false;
+                foreach (array_reverse($this->structure) as $segName => $segClass) {
+                    if (!$try and $segName == $segment) {
+                        $try = true;
                         continue;
                     }
-                    if($try){
+                    if ($try) {
                         $position = $this->segmentExists($segName);
-                        if($position!==false){
+                        if ($position !== false) {
                             return $position;
                         }
                     }
@@ -295,17 +303,19 @@ class Edifact
             throw new \Exception("Segment " . $segment . " is not present in allowed segments: " . implode(", ", array_keys($this->allowedSegments)));
         }
     }
+
     //return key off last existing segment, else false
     public function segmentExists($segment)
     {
-        $found=false;
-        foreach ($this->tree as $k=>$treeItem){
-            if($treeItem[0]::getName() == $segment){
-                $found= $k;
+        $found = false;
+        foreach ($this->tree as $k => $treeItem) {
+            if ($treeItem[0]::getName() == $segment) {
+                $found = $k;
             }
         }
         return $found;
     }
+
     public function getNextAllowedSegment($segment)
     {
         if (in_array($segment, array_keys($this->allowedSegments))) {
@@ -322,6 +332,7 @@ class Edifact
         }
         return false;
     }
+
     protected function ifNextSegmentIs(int $currentNr, string $segment): bool
     {
         if (isset($this->tree[$currentNr + 1])) {
@@ -331,15 +342,18 @@ class Edifact
         }
         return false;
     }
+
     private function setLineCount()
     {
-        $nr = $this->getSegmentNrs('UNT',true);
-        if($nr){
-            $this->setValue(count($this->tree)-2, $nr, 1,1);
+        $nr = $this->getSegmentNrs('UNT', true);
+        if ($nr) {
+            $this->setValue(count($this->tree) - 2, $nr, 1, 1);
         }
 
     }
-    public function setUseEdifactSegmentCounter(){
-        static::$useEdifactSegmentCounter=true;
+
+    public function setUseEdifactSegmentCounter()
+    {
+        static::$useEdifactSegmentCounter = true;
     }
 }

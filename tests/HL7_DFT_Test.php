@@ -1,4 +1,5 @@
 <?php
+
 namespace mmerlijn\msg\tests;
 
 use mmerlijn\msg\src\Hl7\HL7_DFT_P03;
@@ -14,10 +15,10 @@ class HL7_DFT_Test extends TestCase
     {
         $this->hl7 = new HL7_DFT_P03();
         $this->msg = "MSH|^~\&|glims|TestGLIMS_O_SALT_DFT|SALT_INS|TestGLIMS_O_SALT_DFT|20210922103316||DFT^P03|12345678|P|2.4|||NE|AL" . chr(13) .
-"EVN|P03|20210927101100" . chr(13) .
-"PID|1||900073962^^^NLMINBIZA^NNNLD~ZP10007446^^^ZorgDomein^VN||Testpatiënt - van ZorgDomein&van&ZorgDomein&&Testpatiënt^Z^D^^^^L||19901231|F|||2e Antonie Heinsiusstraat 3456 b&2e Antonie Heinsiusstraat&3456^b^'s-Gravenhage^^9999ZZ^NL^M||+31-612345678^ORN^CP~00-1-345-7654321^PRN^PH||||||||||||||||||Y|NNNLD" . chr(13) .
-"FT1||1234512345^ZD12345678||20210922103300|20210927101100|c|012345|||1|||KCL|||||||30000|01101010||1234512345" . chr(13) .
-"FT1||1234512345^ZD12345678||20210922103300|20210927101100|c|012346|||1|||KCL|||||||30000|01101010||1234512345" . chr(13);
+            "EVN|P03|20210927101100" . chr(13) .
+            "PID|1||900073962^^^NLMINBIZA^NNNLD~ZP10007446^^^ZorgDomein^VN||Testpatiënt - van ZorgDomein&van&ZorgDomein&&Testpatiënt^Z^D^^^^L||19901231|F|||2e Antonie Heinsiusstraat 3456 b&2e Antonie Heinsiusstraat&3456^b^'s-Gravenhage^^9999ZZ^NL^M||+31-612345678^ORN^CP~00-1-345-7654321^PRN^PH||||||||||||||||||Y|NNNLD" . chr(13) .
+            "FT1||1234512345^ZD12345678||20210922103300|20210927101100|c|012345|||1|||KCL|||||||30000|01101010||1234512345" . chr(13) .
+            "FT1||1234512345^ZD12345678||20210922103300|20210927101100|c|012346|||1|||KCL|||||||30000|01101010||1234512345" . chr(13);
         $this->hl7->read($this->msg);
     }
 
@@ -26,9 +27,9 @@ class HL7_DFT_Test extends TestCase
 
         //var_dump($hl7->getTree());
         $this->assertIsArray($this->hl7->getTree());
-        $this->assertCount(2, $this->hl7->getTree());
+        $this->assertCount(5, $this->hl7->getTree());
         $this->assertSame('mmerlijn\msg\src\Hl7\segments\MSH', $this->hl7->getTree()[0][0]);
-        $this->assertSame('mmerlijn\msg\src\Hl7\segments\PID', $this->hl7->getTree()[1][0]);
+        $this->assertSame('mmerlijn\msg\src\Hl7\segments\PID', $this->hl7->getTree()[2][0]);
 
         $this->assertSame("|", EncodingChars::getFieldSeparator());
         $this->assertSame("^", EncodingChars::getComponentSeparator());
@@ -46,6 +47,7 @@ class HL7_DFT_Test extends TestCase
     {
         $this->assertSame(trim(EncodingChars::encodeChars($this->msg)), trim($this->hl7->write()));
     }
+
     public function test_get_field()
     {
         $this->assertSame("glims", $this->hl7->getField('MSH', 3, 1));
@@ -77,8 +79,8 @@ class HL7_DFT_Test extends TestCase
 
         $financial = $this->hl7->getFinancial();
         $this->assertIsArray($financial->transactions);
-        $this->assertSame("20210927101100",$financial->date);
-        $this->assertSame("ZD12345678",$financial->requestnr);
+        $this->assertSame("20210927101100", $financial->date);
+        $this->assertSame("ZD12345678", $financial->requestnr);
         $this->assertSame("1234512345^ZD12345678", $financial->transactions[0]->id);
         $this->assertSame("KCL", $financial->transactions[0]->department_code);
     }
