@@ -15,7 +15,7 @@ class EdifactPatientTest extends TestCase
     protected function setUp(): void
     {
         $this->hl7 = new HL7ZorgdomeinAanvraag();
-        $this->msg = "MSH|^~\&|ZorgDomein||OrderManager||20180327143358+0200||ORM^O01^ORM_O01|69a0f2c151134430ad18|P|2.4|||||NLD|8859/1".chr(13).
+        $this->msg = "MSH|^~\&|ZorgDomein||OrderManager||20180327143358+0200||ORM^O01^ORM_O01|69a0f2c151134430ad18|P|2.4|||||NLD|8859/1" . chr(13) .
             "PID|1||ZP10007446^^^ZorgDomein^VN~900073962^^^NLMINBIZA||Testpatiënt - van ZorgDomein&van&ZorgDomein&&Testpatiënt^Z^D^^^^L||19901231|F|||2e Antonie Heinsiusstraat 3456 b&2e Antonie Heinsiusstraat&3456^b^'s-Gravenhage^^9999ZZ^NL^M||+31-612345678^ORN^CP~00-1-345-7654321^PRN^PH||||||||||||||||||Y|NNNLD
 ";
     }
@@ -26,18 +26,19 @@ class EdifactPatientTest extends TestCase
         $this->hl7->read($this->msg);
         $patient = $this->hl7->getPatient();
 
-        $this->assertSame('1990-12-31',$patient->dob);
-        $this->assertSame('F',$patient->sex);
-        $this->assertSame('900073962',$patient->bsn);
-        $this->assertSame('2e Antonie Heinsiusstraat',$patient->street);
-        $this->assertSame('3456 b',$patient->building_nr_full);
-        $this->assertSame('3456',$patient->building_nr);
-        $this->assertSame('b',$patient->building_nr_additive);
-        $this->assertSame('\'s-Gravenhage',$patient->city);
-        $this->assertSame('9999ZZ',$patient->postcode);
-        $this->assertSame('+31612345678',$patient->phones[0]);
+        $this->assertSame('1990-12-31', $patient->dob);
+        $this->assertSame('F', $patient->sex);
+        $this->assertSame('900073962', $patient->bsn);
+        $this->assertSame('2e Antonie Heinsiusstraat', $patient->street);
+        $this->assertSame('3456 b', $patient->building_nr_full);
+        $this->assertSame('3456', $patient->building_nr);
+        $this->assertSame('b', $patient->building_nr_additive);
+        $this->assertSame('\'s-Gravenhage', $patient->city);
+        $this->assertSame('9999ZZ', $patient->postcode);
+        $this->assertSame('+31612345678', $patient->phones[0]);
 
     }
+
     public function test_set_patient_alternate_identity()
     {
         $this->hl7->read($this->msg);

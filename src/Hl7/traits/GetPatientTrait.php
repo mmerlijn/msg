@@ -204,12 +204,11 @@ trait GetPatientTrait
     {
         $first_name = str_replace(" ", "", $this->getValue($nr, 5, 2));
         $initials = str_replace(" ", "", $this->getValue($nr, 5, 3));
-
         if (mb_strlen($first_name) > 1) {
 
             if (mb_strpos($initials, $first_name) !== false) {
                 $initials = trim(str_replace($first_name, "", $initials));
-                if ($initials[0] == $first_name[0]) {
+                if ($initials[0] ?? "" == $first_name[0]) {
                     $initials = mb_substr($initials, 1);
                 }
             }
