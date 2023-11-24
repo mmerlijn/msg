@@ -190,7 +190,7 @@ class EncodingChars
             '/[“”«»„]/u'    =>   ' ', // Double quote
             '/ /'           =>   ' ', // nonbreaking space (equiv. to 0x160)
         ];
-        return preg_replace(array_keys($utf8), array_values($utf8), $string);
+        return preg_replace(array_keys($utf8), array_values($utf8), $string)?:"";
         //return str_replace(array_keys(static::$charsEncoding), static::$charsEncoding, $string);
     }
 }
